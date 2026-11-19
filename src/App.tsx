@@ -6,6 +6,7 @@ import { StoryStepCard } from './components/StoryStepCard';
 import { MemoryLane } from './components/MemoryLane';
 import { CakeSection } from './components/CakeSection';
 import { LoveLetter } from './components/LoveLetter';
+import { LoveMeterGame } from './components/LoveMeterGame';
 import { AudioPlayer } from './components/AudioPlayer';
 import { STORY_STEPS } from './data/story';
 import { sounds } from './utils/audio';
@@ -76,7 +77,12 @@ export const App: React.FC = () => {
 
             {/* Stage 8: Surat Tulus dari Mas & Harapan ke Depan */}
             {currentPage === 8 && (
-              <LoveLetter onRestart={restartJourney} />
+              <LoveLetter onContinue={goToNext} onRestart={restartJourney} />
+            )}
+
+            {/* Stage 9: Love Meter Game (Paling Akhir) */}
+            {currentPage === 9 && (
+              <LoveMeterGame onRestart={restartJourney} />
             )}
           </AnimatePresence>
         </div>

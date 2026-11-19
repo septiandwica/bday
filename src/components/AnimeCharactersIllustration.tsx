@@ -114,9 +114,9 @@ export const AnimeCharactersIllustration: React.FC<IllustrationProps> = ({ step 
               animate={{ d: ['M178,76 Q165,62 152,66 Q165,72 178,80', 'M178,80 Q166,70 153,74 Q166,76 178,84', 'M178,76 Q165,62 152,66 Q165,72 178,80'] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
-            {/* Small music notes */}
-            <text x="196" y="68" fontSize="10" fill="#0284c7" fontFamily="serif">♪</text>
-            <text x="202" y="58" fontSize="8" fill="#38bdf8" fontFamily="serif">♫</text>
+            {/* Small chirp wave circles */}
+            <circle cx="198" cy="66" r="2" fill="#0284c7" />
+            <circle cx="206" cy="58" r="1.5" fill="#38bdf8" />
             <path d="M165,83 Q156,82 153,89 Q161,85 167,89" fill="#7dd3fc" />
           </motion.g>
         </motion.svg>

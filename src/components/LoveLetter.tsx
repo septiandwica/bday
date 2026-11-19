@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Send, RotateCcw, MapPin } from 'lucide-react';
+import { Heart, Send, RotateCcw, MapPin, ArrowRight } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { triggerHeartRain } from '../utils/confetti';
 
 interface LoveLetterProps {
+  onContinue: () => void;
   onRestart: () => void;
 }
 
-export const LoveLetter: React.FC<LoveLetterProps> = ({ onRestart }) => {
+export const LoveLetter: React.FC<LoveLetterProps> = ({ onContinue, onRestart }) => {
   const [supportCount, setSupportCount] = useState(0);
   const [floatingHearts, setFloatingHearts] = useState<{ id: number; x: number }[]>([]);
 
@@ -30,14 +31,14 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onRestart }) => {
   };
 
   return (
-    <section className="py-4 md:py-6 px-4 max-w-2xl mx-auto relative z-10">
+    <section className="py-2 sm:py-4 px-3 sm:px-4 max-w-2xl mx-auto relative z-10 select-none">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/95 border-4 border-[#bae6fd] rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden"
+        className="bg-white/95 border-4 border-[#bae6fd] rounded-3xl p-5 sm:p-9 shadow-xl relative overflow-hidden"
       >
         {/* Decorative LDR Stamp */}
-        <div className="absolute top-5 right-5 px-2.5 py-1.5 rounded-xl border-2 border-dashed border-[#38bdf8] flex items-center gap-1 text-center bg-[#f0f8ff]">
+        <div className="absolute top-4 right-4 sm:top-5 sm:right-5 px-2.5 py-1.5 rounded-xl border-2 border-dashed border-[#38bdf8] flex items-center gap-1 text-center bg-[#f0f8ff]">
           <MapPin className="w-3.5 h-3.5 text-[#0284c7]" />
           <span className="text-[10px] font-mono font-bold text-[#0369a1]">
             Cikarang &bull; Jakarta
@@ -45,7 +46,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onRestart }) => {
         </div>
 
         {/* Letter Header */}
-        <div className="mb-6 pr-24 sm:pr-32">
+        <div className="mb-5 pr-20 sm:pr-32">
           <span className="text-xs uppercase tracking-widest text-[#0284c7] font-bold flex items-center gap-1.5">
             <Heart className="w-3.5 h-3.5 fill-[#0284c7]" />
             <span>Surat Tulus dari Mas</span>
@@ -75,7 +76,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onRestart }) => {
         </div>
 
         {/* Signature & Interactive Support */}
-        <div className="mt-8 pt-5 border-t-2 border-[#bae6fd] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="mt-7 pt-5 border-t-2 border-[#bae6fd] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <p className="text-xs text-slate-400 font-medium">Dari yang selalu sayang kamu,</p>
             <p className="font-handwriting text-2xl text-[#0369a1] font-bold mt-0.5">Mas</p>
@@ -101,22 +102,30 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onRestart }) => {
 
             <button
               onClick={handleSendSupport}
-              className="px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm bg-[#0284c7] hover:bg-[#0369a1] text-white hover:scale-105 active:scale-95"
+              className="px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#0284c7] hover:bg-[#0369a1] text-white hover:scale-105 active:scale-95"
             >
               <Send className="w-3.5 h-3.5" />
-              <span>Kirim Semangat untuk Mas ({supportCount})</span>
+              <span>Kirim Semangat ({supportCount})</span>
             </button>
           </div>
         </div>
 
-        {/* Restart Button */}
-        <div className="mt-6 pt-4 border-t border-sky-100 flex justify-center">
+        {/* Forward to Grand Finale Love Meter & Restart Option */}
+        <div className="mt-6 pt-5 border-t border-sky-100 flex flex-col sm:flex-row items-center justify-between gap-3">
           <button
             onClick={onRestart}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-[11px] font-bold text-slate-500 hover:text-[#0284c7] hover:bg-sky-50 transition-all cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-400 hover:text-[#0284c7] transition-all cursor-pointer"
           >
             <RotateCcw className="w-3 h-3" />
-            <span>Mulai Baca dari Awal</span>
+            <span>Mulai dari Awal</span>
+          </button>
+
+          <button
+            onClick={onContinue}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
+          >
+            <span>Buka Love Meter Terakhir</span>
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </motion.div>
