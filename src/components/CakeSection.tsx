@@ -409,10 +409,10 @@ export const CakeSection: React.FC<CakeSectionProps> = ({ onContinue }) => {
               <Heart className="w-4 h-4 fill-[#0284c7]" />
             </div>
             <h3 className="text-base sm:text-lg font-bold font-display text-[#0369a1] mb-1">
-              Harapan Terbaik untuk Lala
+              Harapan Terbaik untuk Lala ke-21
             </h3>
             <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-normal mb-4">
-              Selamat bertambah usia ya, Lala. Semoga selalu sehat, tenang hatinya, dan setiap langkah serta impian yang kamu rancang selalu dimudahkan.
+              Selamat bertambah usia yang ke-21 ya, Lala (20 November 2005). Semoga selalu sehat, tenang hatinya, dan setiap langkah serta impian yang kamu rancang selalu dimudahkan.
             </p>
 
             <button

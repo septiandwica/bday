@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Camera, Upload, Download, RefreshCw, Heart, ArrowRight, RotateCcw, Cake, Crown, Bird, Sparkle, Stamp } from 'lucide-react';
+import { Camera, Upload, Download, RefreshCw, Heart, ArrowRight, RotateCcw, Sparkle, Sliders, Palette } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { triggerStarBurst } from '../utils/confetti';
 
@@ -9,48 +9,85 @@ interface PhotoStudioProps {
   onRestart: () => void;
 }
 
-interface FilterOption {
+interface CuratedTheme {
   id: string;
   name: string;
-  cssFilter: string;
+  tag: string;
+  frameBg: string;
+  frameBorder: string;
+  badgeBg: string;
+  badgeText: string;
+  defaultFilter: string;
+  accentIcon: string;
+  hexBg: string;
 }
 
-interface AestheticSticker {
-  id: string;
-  name: string;
-  icon: React.ComponentType<{ className?: string }>;
-  renderLabel: string;
-}
-
-const FILTERS: FilterOption[] = [
-  { id: 'normal', name: 'Original', cssFilter: 'none' },
-  { id: 'warm', name: 'Warm Sky', cssFilter: 'sepia(0.2) saturate(1.2) brightness(1.05)' },
-  { id: 'dreamy', name: 'Dreamy', cssFilter: 'brightness(1.1) contrast(0.95) saturate(1.2) hue-rotate(-5deg)' },
-  { id: 'vintage', name: 'Vintage', cssFilter: 'sepia(0.35) contrast(1.15) brightness(1.02)' },
-  { id: 'skyblue', name: 'Sky Glow', cssFilter: 'hue-rotate(20deg) brightness(1.08) saturate(1.1)' },
-  { id: 'bw', name: 'B&W', cssFilter: 'grayscale(1) contrast(1.15)' },
+const THEMES: CuratedTheme[] = [
+  {
+    id: 'classic21',
+    name: 'Classic 21st',
+    tag: 'Elegan & Bersih',
+    frameBg: 'bg-white',
+    frameBorder: 'border-white',
+    badgeBg: 'bg-sky-50 text-[#0284c7]',
+    badgeText: '21st BDAY',
+    defaultFilter: 'none',
+    accentIcon: '21',
+    hexBg: '#ffffff',
+  },
+  {
+    id: 'pastelsky',
+    name: 'Pastel Sky',
+    tag: 'Langit Lembut',
+    frameBg: 'bg-[#f0f9ff]',
+    frameBorder: 'border-[#bae6fd]',
+    badgeBg: 'bg-[#0284c7] text-white',
+    badgeText: 'LALA 21',
+    defaultFilter: 'brightness(1.08) contrast(0.96) saturate(1.15)',
+    accentIcon: '☁️',
+    hexBg: '#f0f9ff',
+  },
+  {
+    id: 'vintagefilm',
+    name: 'Warm Retro',
+    tag: 'Nostalgia Hangat',
+    frameBg: 'bg-[#fffbeb]',
+    frameBorder: 'border-[#fde68a]',
+    badgeBg: 'bg-amber-100 text-amber-800',
+    badgeText: 'NOV 2005',
+    defaultFilter: 'sepia(0.3) contrast(1.12) brightness(1.04)',
+    accentIcon: '✨',
+    hexBg: '#fffbeb',
+  },
+  {
+    id: 'noir',
+    name: 'Classic Film',
+    tag: 'Hitam Putih Sinematik',
+    frameBg: 'bg-white',
+    frameBorder: 'border-slate-200',
+    badgeBg: 'bg-slate-800 text-white',
+    badgeText: '21 YEARS',
+    defaultFilter: 'grayscale(1) contrast(1.18)',
+    accentIcon: '🎬',
+    hexBg: '#ffffff',
+  },
 ];
 
-const STICKERS: AestheticSticker[] = [
-  { id: 'none', name: 'Tanpa Stiker', icon: Sparkle, renderLabel: '' },
-  { id: 'cake', name: 'Kue Tart', icon: Cake, renderLabel: 'CAKE' },
-  { id: 'crown', name: 'Mahkota', icon: Crown, renderLabel: 'CROWN' },
-  { id: 'birds', name: 'Dua Burung', icon: Bird, renderLabel: 'BIRDS' },
-  { id: 'stamp', name: 'Stempel Pos', icon: Stamp, renderLabel: 'STAMP' },
-];
-
-const FRAME_THEMES = [
-  { id: 'classic', name: 'Classic White', borderClass: 'border-white bg-white', hex: '#ffffff' },
-  { id: 'skyblue', name: 'Pastel Sky', borderClass: 'border-[#bae6fd] bg-[#f0f9ff]', hex: '#f0f9ff' },
-  { id: 'warmcream', name: 'Sweet Cream', borderClass: 'border-[#fed7aa] bg-[#fffbeb]', hex: '#fffbeb' },
+const FILTERS = [
+  { id: 'original', name: 'Original', css: 'none' },
+  { id: 'warm', name: 'Warm', css: 'sepia(0.2) saturate(1.2) brightness(1.05)' },
+  { id: 'dreamy', name: 'Dreamy', css: 'brightness(1.1) contrast(0.95) saturate(1.2) hue-rotate(-5deg)' },
+  { id: 'vintage', name: 'Vintage', css: 'sepia(0.35) contrast(1.15) brightness(1.02)' },
+  { id: 'sky', name: 'Sky Tint', css: 'hue-rotate(20deg) brightness(1.08) saturate(1.1)' },
+  { id: 'bw', name: 'Monochrome', css: 'grayscale(1) contrast(1.15)' },
 ];
 
 export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRestart }) => {
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
-  const [selectedFilter, setSelectedFilter] = useState<FilterOption>(FILTERS[0]);
-  const [selectedSticker, setSelectedSticker] = useState<AestheticSticker>(STICKERS[1]); // Default Cake
-  const [selectedFrame, setSelectedFrame] = useState(FRAME_THEMES[0]);
-  const [caption, setCaption] = useState('Happy Birthday Lala');
+  const [selectedTheme, setSelectedTheme] = useState<CuratedTheme>(THEMES[0]);
+  const [customFilter, setCustomFilter] = useState<string>('none');
+  const [activeTab, setActiveTab] = useState<'theme' | 'filter'>('theme');
+  const [caption, setCaption] = useState('Happy 21st Birthday Lala');
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
   const [isFlashing, setIsFlashing] = useState(false);
@@ -58,16 +95,14 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
-  // Sync Video Element with Camera Stream
+  // Sync stream to video element
   const syncVideoStream = (videoElement: HTMLVideoElement | null) => {
     videoRef.current = videoElement;
     if (videoElement && streamRef.current) {
       if (videoElement.srcObject !== streamRef.current) {
         videoElement.srcObject = streamRef.current;
       }
-      videoElement.play().catch((err) => {
-        console.warn('Video auto-play interrupted:', err);
-      });
+      videoElement.play().catch(() => {});
     }
   };
 
@@ -75,15 +110,10 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
   const startCamera = async () => {
     try {
       setCameraError(null);
-      // Stop any existing stream first
       stopCamera();
 
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: {
-          facingMode: 'user',
-          width: { ideal: 720 },
-          height: { ideal: 720 },
-        },
+        video: { facingMode: 'user', width: { ideal: 720 }, height: { ideal: 720 } },
         audio: false,
       });
 
@@ -92,8 +122,8 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
       setPhotoUrl(null);
       sounds.playChime(1.1);
     } catch (err) {
-      console.error('Camera access error:', err);
-      setCameraError('Kamera tidak dapat diakses atau izin belum diberikan. Kamu bisa upload foto dari galeri HP/laptop.');
+      console.error('Camera error:', err);
+      setCameraError('Kamera tidak dapat diakses. Kamu bisa memilih foto langsung dari galeri HP/laptop.');
       setIsCameraActive(false);
     }
   };
@@ -110,7 +140,7 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
     setIsCameraActive(false);
   };
 
-  // Capture Snapshot from Camera
+  // Capture Snapshot
   const takeSnapshot = () => {
     if (!videoRef.current) return;
     setIsFlashing(true);
@@ -122,7 +152,6 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
     canvas.height = video.videoHeight || 640;
     const ctx = canvas.getContext('2d');
     if (ctx) {
-      // Mirror horizontal for natural selfie view
       ctx.translate(canvas.width, 0);
       ctx.scale(-1, 1);
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -137,7 +166,7 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
     }, 250);
   };
 
-  // File Upload Handler
+  // File Upload
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -152,7 +181,10 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
     }
   };
 
-  // Download Polaroid Canvas
+  // Compute active CSS filter
+  const activeCssFilter = customFilter !== 'none' ? customFilter : selectedTheme.defaultFilter;
+
+  // Download High-Resolution Birthday Polaroid
   const downloadPolaroid = () => {
     if (!photoUrl) return;
     sounds.playChime(1.2);
@@ -161,98 +193,91 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const polaroidWidth = 800;
-    const polaroidHeight = 1020;
-    const photoMargin = 50;
-    const photoSize = polaroidWidth - (photoMargin * 2);
+    const width = 800;
+    const height = 1040;
+    const margin = 50;
+    const photoSize = width - (margin * 2);
 
-    canvas.width = polaroidWidth;
-    canvas.height = polaroidHeight;
+    canvas.width = width;
+    canvas.height = height;
 
-    // Frame Theme Background
-    ctx.fillStyle = selectedFrame.hex;
-    ctx.fillRect(0, 0, polaroidWidth, polaroidHeight);
+    // Background Polaroid Chin
+    ctx.fillStyle = selectedTheme.hexBg;
+    ctx.fillRect(0, 0, width, height);
 
     // Frame Border Outline
     ctx.strokeStyle = '#bae6fd';
     ctx.lineWidth = 4;
-    ctx.strokeRect(4, 4, polaroidWidth - 8, polaroidHeight - 8);
+    ctx.strokeRect(4, 4, width - 8, height - 8);
 
-    // Draw photo with selected filter
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.onload = () => {
       // Photo square background
       ctx.fillStyle = '#f0f9ff';
-      ctx.fillRect(photoMargin, photoMargin, photoSize, photoSize);
+      ctx.fillRect(margin, margin, photoSize, photoSize);
 
       // Apply CSS Filter
       ctx.save();
-      if (selectedFilter.cssFilter !== 'none') {
-        ctx.filter = selectedFilter.cssFilter;
+      if (activeCssFilter !== 'none') {
+        ctx.filter = activeCssFilter;
       }
 
-      // Draw image cropped to square
+      // Draw cropped square
       const minDim = Math.min(img.width, img.height);
       const sx = (img.width - minDim) / 2;
       const sy = (img.height - minDim) / 2;
-      ctx.drawImage(img, sx, sy, minDim, minDim, photoMargin, photoMargin, photoSize, photoSize);
+      ctx.drawImage(img, sx, sy, minDim, minDim, margin, margin, photoSize, photoSize);
       ctx.restore();
 
-      // Inner Photo Border
+      // Photo inner border
       ctx.strokeStyle = '#e0f2fe';
       ctx.lineWidth = 2;
-      ctx.strokeRect(photoMargin, photoMargin, photoSize, photoSize);
+      ctx.strokeRect(margin, margin, photoSize, photoSize);
 
-      // Aesthetic Sticker Badge in Top Right of Photo
-      if (selectedSticker.id !== 'none') {
-        ctx.save();
-        const badgeX = photoMargin + photoSize - 60;
-        const badgeY = photoMargin + 20;
+      // 21st Birthday Stamp Badge (Top Right of Photo)
+      ctx.save();
+      const badgeX = margin + photoSize - 65;
+      const badgeY = margin + 30;
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = 'rgba(2, 132, 199, 0.2)';
+      ctx.shadowBlur = 8;
+      ctx.beginPath();
+      ctx.roundRect(badgeX - 45, badgeY - 16, 90, 32, 16);
+      ctx.fill();
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2;
+      ctx.stroke();
 
-        // Circular background for sticker badge
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowColor = 'rgba(2, 132, 199, 0.25)';
-        ctx.shadowBlur = 10;
-        ctx.beginPath();
-        ctx.arc(badgeX, badgeY, 32, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = '#38bdf8';
-        ctx.lineWidth = 3;
-        ctx.stroke();
-
-        ctx.fillStyle = '#0284c7';
-        ctx.font = 'bold 24px "Plus Jakarta Sans", sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        if (selectedSticker.id === 'cake') ctx.fillText('🎂', badgeX, badgeY + 2);
-        else if (selectedSticker.id === 'crown') ctx.fillText('👑', badgeX, badgeY + 2);
-        else if (selectedSticker.id === 'birds') ctx.fillText('🕊️', badgeX, badgeY + 2);
-        else if (selectedSticker.id === 'stamp') ctx.fillText('💌', badgeX, badgeY + 2);
-        ctx.restore();
-      }
-
-      // Header Tag on Polaroid Chin
       ctx.fillStyle = '#0284c7';
-      ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+      ctx.font = 'bold 14px "Plus Jakarta Sans", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('LALA BIRTHDAY EDITION', polaroidWidth / 2, photoMargin + photoSize + 50);
+      ctx.textBaseline = 'middle';
+      ctx.fillText(selectedTheme.badgeText, badgeX, badgeY);
+      ctx.restore();
 
-      // Handwritten style caption
+      // Top Tag on Chin
+      ctx.fillStyle = '#0284c7';
+      ctx.font = 'bold 20px "Plus Jakarta Sans", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText("LALA'S 21ST BIRTHDAY", width / 2, margin + photoSize + 48);
+
+      // Handwritten cursive caption
       ctx.fillStyle = '#0369a1';
       ctx.font = 'bold 44px "Dancing Script", cursive, serif';
-      ctx.fillText(caption, polaroidWidth / 2, photoMargin + photoSize + 115);
+      ctx.fillText(caption, width / 2, margin + photoSize + 115);
 
-      // Subtitle
+      // Subtitle with Birthdate
       ctx.fillStyle = '#64748b';
-      ctx.font = '500 20px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText('Momen Spesial Ulang Tahun • 2026', polaroidWidth / 2, photoMargin + photoSize + 160);
+      ctx.font = '500 19px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('20 November 2005 • Menapaki 21 Tahun Penuh Cahaya', width / 2, margin + photoSize + 162);
 
-      // Export to PNG and download
+      // Trigger download
       const link = document.createElement('a');
-      link.download = `polaroid-lala-birthday.png`;
+      link.download = `polaroid-lala-21st-birthday.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
+      triggerStarBurst();
     };
     img.src = photoUrl;
   };
@@ -264,7 +289,7 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
   }, []);
 
   return (
-    <section className="py-2 sm:py-4 px-3 sm:px-4 max-w-2xl mx-auto text-center relative z-10 select-none">
+    <section className="py-2 sm:py-4 px-3 sm:px-4 max-w-xl mx-auto text-center relative z-10 select-none">
       {/* Flash overlay */}
       {isFlashing && (
         <div className="fixed inset-0 bg-white z-50 pointer-events-none animate-pulse" />
@@ -278,26 +303,26 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
       >
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/95 border-2 border-sky-200 text-[#0284c7] text-xs font-bold mb-2 shadow-xs">
           <Camera className="w-3.5 h-3.5" />
-          <span>Mini Studio Foto</span>
+          <span>Spesial Ulang Tahun ke-21</span>
         </span>
         <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0369a1] font-display">
-          Polaroid Birthday Studio
+          Polaroid Studio Lala
         </h2>
-        <p className="text-slate-600 text-xs sm:text-sm mt-1 max-w-md mx-auto">
-          Ambil selfie atau upload foto favorit Lala, pilih komponen estetik & filter, lalu simpan polaroid ulang tahunmu!
+        <p className="text-slate-600 text-xs sm:text-sm mt-0.5 max-w-md mx-auto">
+          20 November 2005 &bull; 21 Tahun Spesial
         </p>
       </motion.div>
 
-      {/* POLAROID FRAME PREVIEW */}
+      {/* ELEGANT POLAROID FRAME (PROPER & COHESIVE) */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className={`relative mx-auto w-full max-w-[320px] sm:max-w-[360px] rounded-3xl p-4 sm:p-5 shadow-2xl border-4 transition-all duration-300 flex flex-col items-center ${selectedFrame.borderClass}`}
+        className={`relative mx-auto w-full max-w-[320px] sm:max-w-[350px] rounded-3xl p-4 sm:p-5 shadow-2xl border-4 transition-all duration-300 flex flex-col items-center ${selectedTheme.frameBg} ${selectedTheme.frameBorder}`}
       >
         {/* Photo Container */}
         <div className="w-full aspect-square bg-[#f0f9ff] rounded-2xl overflow-hidden relative border-2 border-sky-100 flex items-center justify-center">
           
-          {/* Active Camera View */}
+          {/* Active Camera Live View */}
           {isCameraActive && (
             <div className="w-full h-full relative">
               <video
@@ -317,33 +342,33 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
             </div>
           )}
 
-          {/* Captured / Uploaded Photo Preview with CSS Filter */}
+          {/* Captured / Uploaded Photo Preview with Theme / Filter */}
           {!isCameraActive && photoUrl && (
             <div className="w-full h-full relative">
               <img
                 src={photoUrl}
                 alt="Polaroid Preview"
-                style={{ filter: selectedFilter.cssFilter }}
+                style={{ filter: activeCssFilter }}
                 className="w-full h-full object-cover transition-all duration-300"
               />
 
-              {/* Aesthetic Sticker Overlay Preview */}
-              {selectedSticker.id !== 'none' && (
-                <div className="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/95 shadow-md border-2 border-[#38bdf8] flex items-center justify-center text-[#0284c7] animate-bounce">
-                  <selectedSticker.icon className="w-5 h-5" />
-                </div>
-              )}
+              {/* 21st Birthday Emblem Badge */}
+              <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/95 shadow-md border border-sky-200 flex items-center gap-1">
+                <span className="text-[10px] font-mono font-extrabold text-[#0284c7]">
+                  {selectedTheme.badgeText}
+                </span>
+              </div>
             </div>
           )}
 
-          {/* Prompt when no camera and no photo */}
+          {/* Prompt when empty */}
           {!isCameraActive && !photoUrl && (
             <div className="p-5 text-center flex flex-col items-center justify-center gap-3">
               <div className="w-12 h-12 rounded-full bg-sky-100 flex items-center justify-center text-[#0284c7]">
                 <Camera className="w-6 h-6" />
               </div>
               <p className="text-xs text-slate-600 font-medium max-w-[200px]">
-                Buka kamera untuk selfie atau pilih foto dari galeri
+                Buka kamera selfie atau pilih foto dari galeri
               </p>
               <div className="flex flex-col gap-2 w-full max-w-[200px]">
                 <button
@@ -370,103 +395,100 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
             className="w-full text-center font-handwriting text-2xl sm:text-3xl text-[#0284c7] font-bold bg-transparent border-b border-transparent hover:border-sky-200 focus:border-[#38bdf8] focus:outline-none transition-colors"
-            placeholder="Tulis catatan kecil..."
+            placeholder="Happy 21st Birthday Lala"
           />
           <p className="text-[10px] sm:text-[11px] font-mono text-slate-400 mt-1 uppercase tracking-wider">
-            Momen Spesial Ulang Tahun • 2026
+            20 November 2005 &bull; 21 Tahun Spesial
           </p>
         </div>
       </motion.div>
 
-      {/* CUSTOMIZABLE AESTHETIC CONTROLS (FILTERS, STICKERS, THEMES) */}
+      {/* STREAMLINED CONTROLS (PROPER, TIDY & UNIFIED) */}
       {photoUrl && (
-        <div className="mt-5 max-w-md mx-auto space-y-4">
+        <div className="mt-4 max-w-sm mx-auto">
           
-          {/* 1. Filter Picker */}
-          <div>
-            <span className="text-xs font-bold text-[#0369a1] mb-1.5 block">
-              1. Filter Aesthetic:
-            </span>
-            <div className="flex items-center justify-center flex-wrap gap-1.5">
-              {FILTERS.map((f) => (
-                <button
-                  key={f.id}
-                  onClick={() => {
-                    setSelectedFilter(f);
-                    sounds.playChime(1.05);
-                  }}
-                  className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all cursor-pointer ${
-                    selectedFilter.id === f.id
-                      ? 'bg-[#0284c7] text-white shadow-xs'
-                      : 'bg-white text-slate-600 border border-sky-200 hover:bg-sky-50'
-                  }`}
-                >
-                  {f.name}
-                </button>
-              ))}
-            </div>
+          {/* Segmented Tab Switcher (Gaya Polaroid vs Warna Filter) */}
+          <div className="flex rounded-xl bg-sky-100/70 p-1 mb-3">
+            <button
+              onClick={() => setActiveTab('theme')}
+              className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                activeTab === 'theme' ? 'bg-white text-[#0284c7] shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <Palette className="w-3.5 h-3.5" />
+              <span>Gaya Polaroid</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('filter')}
+              className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                activeTab === 'filter' ? 'bg-white text-[#0284c7] shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <Sliders className="w-3.5 h-3.5" />
+              <span>Filter Warna</span>
+            </button>
           </div>
 
-          {/* 2. Aesthetic Stickers */}
-          <div>
-            <span className="text-xs font-bold text-[#0369a1] mb-1.5 block">
-              2. Stiker / Aksesoris:
-            </span>
-            <div className="flex items-center justify-center flex-wrap gap-2">
-              {STICKERS.map((s) => {
-                const Icon = s.icon;
-                const isSelected = selectedSticker.id === s.id;
+          {/* Tab 1: Gaya Polaroid Curated */}
+          {activeTab === 'theme' && (
+            <div className="grid grid-cols-2 gap-2 mb-4">
+              {THEMES.map((theme) => {
+                const isSelected = selectedTheme.id === theme.id;
                 return (
                   <button
-                    key={s.id}
+                    key={theme.id}
                     onClick={() => {
-                      setSelectedSticker(s);
-                      sounds.playChime(1.1);
+                      setSelectedTheme(theme);
+                      setCustomFilter('none');
+                      sounds.playChime(1.05);
                     }}
-                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    className={`p-2.5 rounded-2xl text-left border-2 transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-[#0284c7] text-white shadow-xs scale-105'
-                        : 'bg-white text-slate-600 border border-sky-200 hover:bg-sky-50'
+                        ? 'border-[#0284c7] bg-white shadow-xs ring-2 ring-sky-200'
+                        : 'border-sky-100 bg-white/70 hover:bg-white'
                     }`}
                   >
-                    <Icon className="w-3.5 h-3.5" />
-                    <span>{s.name}</span>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs font-bold text-slate-800">{theme.name}</span>
+                      <span className="text-xs">{theme.accentIcon}</span>
+                    </div>
+                    <span className="text-[10px] text-slate-500 block leading-tight">{theme.tag}</span>
                   </button>
                 );
               })}
             </div>
-          </div>
+          )}
 
-          {/* 3. Frame Style Themes */}
-          <div>
-            <span className="text-xs font-bold text-[#0369a1] mb-1.5 block">
-              3. Tema Bingkai Polaroid:
-            </span>
-            <div className="flex items-center justify-center gap-2">
-              {FRAME_THEMES.map((theme) => (
-                <button
-                  key={theme.id}
-                  onClick={() => {
-                    setSelectedFrame(theme);
-                    sounds.playChime(1.05);
-                  }}
-                  className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                    selectedFrame.id === theme.id
-                      ? 'bg-[#0369a1] text-white shadow-xs'
-                      : 'bg-white text-slate-600 border border-sky-200 hover:bg-sky-50'
-                  }`}
-                >
-                  {theme.name}
-                </button>
-              ))}
+          {/* Tab 2: Filter Warna */}
+          {activeTab === 'filter' && (
+            <div className="flex items-center justify-center flex-wrap gap-1.5 mb-4">
+              {FILTERS.map((f) => {
+                const isSelected = customFilter === f.css;
+                return (
+                  <button
+                    key={f.id}
+                    onClick={() => {
+                      setCustomFilter(f.css);
+                      sounds.playChime(1.05);
+                    }}
+                    className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#0284c7] text-white shadow-xs'
+                        : 'bg-white text-slate-600 border border-sky-200 hover:bg-sky-50'
+                    }`}
+                  >
+                    {f.name}
+                  </button>
+                );
+              })}
             </div>
-          </div>
+          )}
 
-          {/* Action Buttons: Download & Retake */}
-          <div className="pt-2 flex items-center justify-center gap-2.5">
+          {/* Download & Retake Actions */}
+          <div className="flex items-center justify-center gap-2.5">
             <button
               onClick={downloadPolaroid}
-              className="px-5 py-2.5 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs shadow-md hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
+              className="flex-1 py-2.5 px-4 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs shadow-md hover:scale-102 active:scale-98 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <Download className="w-4 h-4" />
               <span>Simpan Foto Polaroid</span>
@@ -477,10 +499,11 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
                 setPhotoUrl(null);
                 startCamera();
               }}
-              className="px-4 py-2.5 rounded-xl bg-white text-slate-600 border-2 border-sky-200 hover:bg-sky-50 font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+              className="py-2.5 px-3.5 rounded-xl bg-white text-slate-600 border-2 border-sky-200 hover:bg-sky-50 font-bold text-xs shadow-xs transition-all flex items-center gap-1 cursor-pointer"
+              title="Ambil foto ulang"
             >
               <RefreshCw className="w-3.5 h-3.5" />
-              <span>Ganti Foto</span>
+              <span>Ulang</span>
             </button>
           </div>
         </div>

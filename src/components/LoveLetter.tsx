@@ -121,7 +121,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
 
     // Paragraphs
     const paragraphs = [
-      "Selamat ulang tahun ya, Lala. Hari ini Mas pengen ngucapin terima kasih banyak sekali buat kamu.",
+      "Selamat ulang tahun yang ke-21 ya, Lala (20 November 2005). Hari ini Mas pengen ngucapin terima kasih banyak sekali buat kamu.",
       "Sampai sekarang, Mas seneng banget bisa kenal dan belajar banyak hal dari kamu—soal kehidupan, soal sudut pandang, dan banyak hal lainnya. Kamu selalu jadi orang yang ga pernah menganggap remeh goal dan impian Mas. Kamu juga ga melulu bilang hal-hal negatif, selalu ngasih energi baik yang bikin Mas tenang.",
       "Mulai dari ragu di 2024, masa-masa makan hati di 2025 sampai kita rill bikin usaha bareng, keliling nyari jati diri di 2026, sampai jadian lewat chat dan kamu ngasih buku manis \"I Have a Crush on You\" pas ultah Mas 8 September lalu—semuanya bener-bener berharga buat Mas.",
       "Walaupun sekarang kita lagi LDR Cikarang - Jakarta, jarak itu sama sekali ga mengurangi komitmen Mas. Banyak banget harapan Mas ke depan bareng kamu. Dan yang paling utama: Mas pengen selalu ada buat men-support apa pun yang Lala pengen lakuin.",
@@ -228,7 +228,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
               {/* Letter Body Text */}
               <div className="space-y-3.5 text-slate-700 text-xs sm:text-sm leading-relaxed font-normal">
                 <p>
-                  Selamat ulang tahun ya, Lala. Hari ini Mas pengen ngucapin terima kasih banyak sekali buat kamu.
+                  Selamat ulang tahun yang ke-21 ya, Lala (20 November 2005). Hari ini Mas pengen ngucapin terima kasih banyak sekali buat kamu.
                 </p>
                 <p>
                   Sampai sekarang, Mas seneng banget bisa kenal dan belajar banyak hal dari kamu—soal kehidupan, soal sudut pandang, dan banyak hal lainnya. Kamu selalu jadi orang yang ga pernah menganggap remeh goal dan impian Mas. Kamu juga ga melulu bilang hal-hal negatif, selalu ngasih energi baik yang bikin Mas tenang.
