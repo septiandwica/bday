@@ -80,7 +80,7 @@ export const AudioPlayer: React.FC = () => {
           <button
             onClick={() => setShowUploader(!showUploader)}
             className="p-1.5 rounded-full hover:bg-sky-50 text-[#0284c7] transition-colors cursor-pointer"
-            title="Ganti lagu kesukaan Najla (MP3)"
+            title="Ganti lagu kesukaan Lala (MP3)"
           >
             <Upload className="w-3.5 h-3.5" />
           </button>
@@ -96,7 +96,7 @@ export const AudioPlayer: React.FC = () => {
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             className="fixed bottom-24 right-6 z-50 bg-white p-5 rounded-3xl max-w-xs shadow-2xl border-2 border-[#38bdf8]"
           >
-            <h4 className="text-xs font-bold text-[#0369a1] mb-1">Ganti Lagu Kesukaan Najla</h4>
+            <h4 className="text-xs font-bold text-[#0369a1] mb-1">Ganti Lagu Kesukaan Lala</h4>
             <p className="text-[11px] text-slate-500 mb-3">
               Pilih file musik (.mp3) dari perangkatmu untuk diputar di latar belakang.
             </p>

@@ -35,10 +35,10 @@ export const LoveMeterGame: React.FC = () => {
   };
 
   const getLoveStatusMessage = () => {
-    if (loveCount < 200) return 'Cinta yang tulus dan murni untuk Najla 💙';
-    if (loveCount < 500) return 'Makin cinta, makin sayang tanpa batas! 🥰';
-    if (loveCount < 1000) return 'Kapasitas cinta meluber ke seluruh langit biru! 🚀💙';
-    return 'Kadar cinta Infinity: Selamanya hanya untukmu! 💙♾️';
+    if (loveCount < 200) return 'Cinta yang tulus dan murni untuk Lala ';
+    if (loveCount < 500) return 'Makin cinta, makin sayang tanpa batas! ';
+    if (loveCount < 1000) return 'Kapasitas cinta meluber ke seluruh langit biru! ';
+    return 'Kadar cinta Infinity: Selamanya hanya untukmu! ️';
   };
 
   return (
@@ -54,7 +54,7 @@ export const LoveMeterGame: React.FC = () => {
           Mini Game Interaktif
         </span>
         <h2 className="text-2xl md:text-3xl font-extrabold text-[#0369a1] font-display">
-          Love Meter untuk Najla
+          Love Meter untuk Lala
         </h2>
         <p className="text-slate-600 text-xs md:text-sm mt-1 max-w-sm mx-auto">
           Klik tombol hati biru di bawah untuk mengisi energi cinta tanpa batas!
@@ -74,7 +74,7 @@ export const LoveMeterGame: React.FC = () => {
                 className="absolute pointer-events-none select-none"
                 style={{ fontSize: `${h.size}px` }}
               >
-                💙
+                
               </motion.div>
             ))}
           </AnimatePresence>

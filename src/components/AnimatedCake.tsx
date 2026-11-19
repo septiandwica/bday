@@ -55,7 +55,7 @@ export const AnimatedCake: React.FC<AnimatedCakeProps> = ({ onWishDone }) => {
                 transition={{ duration: 1.2 }}
                 className="text-xs text-slate-400 font-mono"
               >
-                💨
+                
               </motion.div>
             )}
           </AnimatePresence>
@@ -77,7 +77,7 @@ export const AnimatedCake: React.FC<AnimatedCakeProps> = ({ onWishDone }) => {
             <span className="w-5 h-4 bg-white rounded-full" />
           </div>
           <span className="text-xs font-handwriting text-2xl text-[#0369a1] font-bold tracking-wider relative z-10 mt-1">
-            Najla
+            Lala
           </span>
         </div>
 
@@ -106,7 +106,7 @@ export const AnimatedCake: React.FC<AnimatedCakeProps> = ({ onWishDone }) => {
             className="px-6 py-2.5 rounded-2xl bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
           >
             <span>Tiup Lilin Ulang Tahun</span>
-            <span>🎂</span>
+            <span></span>
           </button>
         ) : (
           <button
@@ -127,9 +127,9 @@ export const AnimatedCake: React.FC<AnimatedCakeProps> = ({ onWishDone }) => {
             exit={{ opacity: 0 }}
             className="mt-4 p-4 rounded-2xl bg-white border-2 border-[#38bdf8] shadow-md text-center max-w-xs"
           >
-            <p className="text-xs font-bold text-[#0369a1] mb-1">Permohonanmu Telah Terkabul 💙</p>
+            <p className="text-xs font-bold text-[#0369a1] mb-1">Permohonanmu Telah Terkabul </p>
             <p className="text-[11px] text-slate-600 leading-relaxed font-normal">
-              Semoga Najla panjang umur, sehat selalu, dan semua impian yang kamu rancang tercapai dengan indah.
+              Semoga Lala panjang umur, sehat selalu, dan semua impian yang kamu rancang tercapai dengan indah.
             </p>
           </motion.div>
         )}

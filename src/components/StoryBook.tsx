@@ -20,7 +20,7 @@ const STORY_SLIDES: StorySlide[] = [
     title: "Pertemuan Pertama yang Mengubah Segalanya",
     story: "Tahun 2023 adalah awal mula takdir mempertemukan kita. Aku langsung jatuh hati saat melihat karaktermu: kamu orang yang begitu aktif, periang, dan pekerja keras. Bagi aku yang pada awalnya pendiam dan kurang banyak bicara, energimu menjadi oase—melengkapi setiap kekuranganku dengan penuh warna.",
     illustrationIndex: 1,
-    highlight: "Karaktermu yang aktif & pekerja keras melengkapi sifatku yang pendiam 💙",
+    highlight: "Karaktermu yang aktif & pekerja keras melengkapi sifatku yang pendiam ",
   },
   {
     id: 1,
@@ -44,23 +44,23 @@ const STORY_SLIDES: StorySlide[] = [
     title: "Resmi Jadian Setelah Sidang Capstone Defense",
     story: "Setelah semua perjuangan panjang dan akhirnya sukses melewati sidang Capstone Defense bersama, momen yang selama ini kunantikan akhirnya tiba di bulan Agustus 2025. Kita resmi jadian! Rasanya seperti adegan di Kimi no Na wa—dua insan yang saling mencari dan berjuang bersama, akhirnya bersatu di bawah langit biru.",
     illustrationIndex: 4,
-    highlight: "Resmi jadian setelah sukses sidang Capstone Defense bersama 💙",
+    highlight: "Resmi jadian setelah sukses sidang Capstone Defense bersama ",
   },
   {
     id: 4,
     badge: "8 SEPTEMBER 2026",
     title: "Buku 'I Have a Crush on You' di Hari Ulang Tahunku",
-    story: "Ketika kita sudah jadian dan tepat di hari ulang tahunku tanggal 8 September 2026, kamu memberikanku kado yang sangat manis: sebuah buku berjudul 'I Have a Crush on You'. Buku itu adalah salah satu hadiah paling berharga dan menyentuh hati yang pernah kuterima. Di dalam hatiku berbisik: 'dan ternyata... aku juga (gw juga!) naksir dan sayang banget sama kamu dari dulu sampai selamanya!'.",
+    story: "Ketika kita sudah jadian dan tepat di hari ulang tahun Mas tanggal 8 September 2026, kamu memberikanku kado yang sangat manis: sebuah buku berjudul 'I Have a Crush on You'. Buku itu adalah salah satu hadiah paling berharga dan menyentuh hati yang pernah Mas terima. Di dalam hati Mas berbisik: 'dan ternyata... Mas juga naksir dan sayang banget sama kamu dari dulu sampai selamanya!'.",
     illustrationIndex: 0,
-    highlight: "Kado terindah saat ultahku: 'I Have a Crush on You' & jawabanku: 'Aku juga!' 💙",
+    highlight: "Kado terindah saat ultahku: 'I Have a Crush on You' & jawabanku: 'Aku juga!' ",
   },
   {
     id: 5,
     badge: "NOVEMBER 2026 (HARI INI)",
-    title: "Ulang Tahun Najla & Janji Selalu Men-Support Impianmu",
+    title: "Ulang Tahun Lala & Janji Selalu Men-Support Impianmu",
     story: "Dan hari ini, di hari ulang tahunmu, giliran aku yang ingin berterima kasih sebanyak-banyaknya atas hadirnya kamu di hidupku. Harapanku untukmu banyak sekali, tapi yang paling utama: aku berjanji akan selalu ada di sampingmu untuk men-support apa pun yang ingin kamu lakukan, mengejar semua impian dan langkah masa depanmu.",
     illustrationIndex: 5,
-    highlight: "Aku akan selalu ada men-support apa pun yang kamu impikan selamanya 💙",
+    highlight: "Aku akan selalu ada men-support apa pun yang kamu impikan selamanya ",
   },
 ];
 
@@ -130,7 +130,7 @@ export const StoryBook: React.FC = () => {
 
             {/* Anime Illustration Scene */}
             <div className="my-2 py-1 flex items-center justify-center">
-              <AnimeCharactersIllustration chapter={slide.illustrationIndex} />
+              <AnimeCharactersIllustration step={slide.illustrationIndex} />
             </div>
 
             {/* Story Paragraph */}

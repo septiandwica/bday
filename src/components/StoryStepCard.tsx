@@ -1,0 +1,72 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Heart, ArrowRight, Bookmark } from 'lucide-react';
+import { AnimeCharactersIllustration } from './AnimeCharactersIllustration';
+import { StoryChapter } from '../data/story';
+
+interface StoryStepCardProps {
+  stepData: StoryChapter;
+  onNext: () => void;
+}
+
+export const StoryStepCard: React.FC<StoryStepCardProps> = ({ stepData, onNext }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.45, ease: 'easeOut' }}
+      className="w-full max-w-xl mx-auto flex flex-col items-center"
+    >
+      {/* Main Story Card */}
+      <div className="w-full bg-white/95 border-4 border-[#bae6fd] rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden backdrop-blur-xs">
+        {/* Ribbon in corner */}
+        <div className="absolute top-0 right-6 w-8 h-10 bg-[#0284c7] text-white flex items-end justify-center pb-1 rounded-b-md shadow-xs">
+          <Bookmark className="w-3.5 h-3.5 fill-white" />
+        </div>
+
+        {/* Year & Badge */}
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-[11px] font-mono font-bold text-white bg-[#0284c7] px-2.5 py-0.5 rounded-md">
+            {stepData.year}
+          </span>
+          <span className="text-[11px] font-mono font-bold text-[#0369a1] bg-sky-100 px-2.5 py-0.5 rounded-md">
+            {stepData.badge}
+          </span>
+        </div>
+
+        {/* Title */}
+        <h2 className="text-xl sm:text-2xl font-bold font-display text-[#0369a1] mb-2 leading-tight">
+          {stepData.title}
+        </h2>
+
+        {/* Anime Illustration Artwork */}
+        <AnimeCharactersIllustration step={stepData.id} />
+
+        {/* Story Text */}
+        <div className="mt-3 bg-[#f0f8ff] p-4 sm:p-5 rounded-2xl border border-sky-200">
+          <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-normal">
+            {stepData.story}
+          </p>
+        </div>
+
+        {/* Highlight Note */}
+        <div className="mt-3 flex items-center gap-2 text-xs font-bold text-[#0284c7]">
+          <Heart className="w-4 h-4 fill-[#0284c7] shrink-0" />
+          <span>{stepData.highlight}</span>
+        </div>
+
+        {/* Forward Next Action */}
+        <div className="mt-6 pt-4 border-t border-sky-100 flex justify-end">
+          <button
+            onClick={onNext}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs sm:text-sm shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
+          >
+            <span>{stepData.nextButtonText}</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};

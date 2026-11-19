@@ -1,88 +1,121 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Heart, Send } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Heart, Send, RotateCcw } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { triggerHeartRain } from '../utils/confetti';
 
-export const LoveLetter: React.FC = () => {
-  const [hugSent, setHugSent] = useState(false);
+interface LoveLetterProps {
+  onRestart: () => void;
+}
 
-  const handleSendHug = () => {
+export const LoveLetter: React.FC<LoveLetterProps> = ({ onRestart }) => {
+  const [hugCount, setHugCount] = useState(0);
+  const [floatingHearts, setFloatingHearts] = useState<{ id: number; x: number }[]>([]);
+
+  const handleSendHug = (e: React.MouseEvent<HTMLButtonElement>) => {
     sounds.playHeartPop();
-    sounds.playFanfare();
-    triggerHeartRain();
-    setHugSent(true);
-    setTimeout(() => setHugSent(false), 4000);
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+
+    setFloatingHearts((prev) => [
+      ...prev.slice(-10),
+      { id: Date.now() + Math.random(), x: x + (Math.random() * 40 - 20) },
+    ]);
+    setHugCount((prev) => prev + 1);
+
+    if ((hugCount + 1) % 3 === 0) {
+      sounds.playFanfare();
+      triggerHeartRain();
+    }
   };
 
   return (
-    <section className="py-4 md:py-6 px-4 max-w-3xl mx-auto relative z-10">
+    <section className="py-4 md:py-6 px-4 max-w-2xl mx-auto relative z-10">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="bg-white border-4 border-[#bae6fd] rounded-3xl p-6 md:p-12 shadow-xl relative overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-white/95 border-4 border-[#bae6fd] rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden"
       >
         {/* Subtle decorative stamp in corner */}
-        <div className="absolute top-6 right-6 w-16 h-20 rounded-xl border-2 border-dashed border-[#38bdf8] p-1 flex flex-col items-center justify-center text-center bg-[#f0f8ff]">
-          <Heart className="w-5 h-5 text-[#0284c7] fill-[#0284c7]" />
-          <span className="text-[9px] font-mono font-bold text-[#0369a1] mt-1">NAJLA</span>
-          <span className="text-[8px] font-mono text-slate-400">BDAY 2026</span>
+        <div className="absolute top-5 right-5 w-14 h-16 rounded-xl border-2 border-dashed border-[#38bdf8] p-1 flex flex-col items-center justify-center text-center bg-[#f0f8ff]">
+          <Heart className="w-4 h-4 text-[#0284c7] fill-[#0284c7]" />
+          <span className="text-[9px] font-mono font-bold text-[#0369a1] mt-0.5">LALA</span>
+          <span className="text-[8px] font-mono text-slate-400">BDAY</span>
         </div>
 
         {/* Letter Header */}
-        <div className="mb-8">
+        <div className="mb-6">
           <span className="text-xs uppercase tracking-widest text-[#0284c7] font-bold flex items-center gap-1.5">
             <Heart className="w-3.5 h-3.5 fill-[#0284c7]" />
-            Sebuah Surat Tulus
+            <span>Surat Tulus dari Mas</span>
           </span>
-          <h2 className="text-2xl md:text-4xl font-extrabold text-[#0369a1] font-display mt-1">
-            Untuk Najla, Sayangku 💙
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0369a1] font-display mt-1">
+            Untuk Lala Tersayang
           </h2>
         </div>
 
-        {/* Letter Body (Dark Slate Text on Clean White Background) */}
-        <div className="space-y-4 text-slate-700 text-sm md:text-base leading-relaxed font-normal">
+        {/* Letter Body: Simple, Direct, Natural */}
+        <div className="space-y-3.5 text-slate-700 text-xs sm:text-sm leading-relaxed font-normal">
           <p>
-            Hari ini adalah hari yang sangat spesial. Aku ingin berterima kasih banyak sekali ke kamu, Najla. Terima kasih sudah hadir dalam hidupku sejak pertemuan kita di 2023. Terima kasih sudah melengkapi sifatku yang awalnya pendiam dengan energimu yang aktif dan hangat.
+            Selamat ulang tahun ya, Lala. Hari ini Mas pengen ngucapin terima kasih banyak sekali buat kamu.
           </p>
           <p>
-            Mulai dari momen confess yang sempat digantung di ultahmu November 2024, perjuangan merintis usaha bersama, begadang menyelesaikan satu kelompok Tugas Akhir S1, hingga kita resmi jadian setelah Capstone Defense di Agustus 2025. Terlebih saat kamu memberikanku kado buku <span className="font-semibold text-[#0284c7]">"I Have a Crush on You"</span> saat ulang tahunku 8 September 2026—di mana hatiku berbisik: <em>"aku juga (gw juga!) naksir dan sayang banget sama kamu"</em>.
+            Sampai sekarang, Mas seneng banget bisa kenal dan belajar banyak hal dari kamu—soal kehidupan, soal sudut pandang, dan banyak hal lainnya. Kamu selalu jadi orang yang ga pernah menganggap remeh goal dan impian Mas. Kamu juga ga melulu bilang hal-hal negatif, selalu ngasih energi baik yang bikin Mas tenang.
           </p>
           <p>
-            Harapanku banyak banget untuk kamu di usia yang baru ini. Tapi yang paling utama: <span className="font-bold text-[#0369a1]">aku pengen selalu men-support apa pun yang pengen kamu lakukan, mengejar semua impian dan cita-citamu</span>. Kamu tidak perlu khawatir melangkah, karena aku akan selalu ada di sampingmu untuk mendukung dan memegang tanganmu.
+            Mulai dari ragu di 2024, masa-masa makan hati di 2025 sampai kita rill bikin usaha bareng, keliling nyari jati diri di 2026, sampai jadian lewat chat dan kamu ngasih buku manis <span className="font-semibold text-[#0284c7]">"I Have a Crush on You"</span> pas ultah Mas 8 September lalu—semuanya bener-bener berharga buat Mas.
           </p>
-          <p className="pt-2 font-bold text-[#0284c7]">
-            Selamat ulang tahun, Najla tersayang. Terima kasih banyak ya sudah ada untukku. Aku sayang banget sama kamu! 💙
+          <p>
+            Banyak banget harapan Mas ke depan bareng kamu. Tapi yang paling utama: <span className="font-bold text-[#0369a1]">Mas pengen selalu ada di samping kamu buat men-support apa pun yang Lala pengen lakuin</span>.
+          </p>
+          <p className="pt-1 font-bold text-[#0284c7]">
+            Terima kasih banyak ya sudah ada untuk Mas. Mas sayang banget sama Lala.
           </p>
         </div>
 
-        {/* Signature */}
-        <div className="mt-8 pt-6 border-t-2 border-[#bae6fd] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        {/* Signature & Interactive Peluk */}
+        <div className="mt-8 pt-5 border-t-2 border-[#bae6fd] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <p className="text-xs text-slate-400 font-medium">Dengan segenap cintaku,</p>
-            <p className="font-handwriting text-3xl text-[#0369a1] font-bold mt-1">Yang Selalu Sayang Kamu</p>
+            <p className="text-xs text-slate-400 font-medium">Dari yang selalu sayang kamu,</p>
+            <p className="font-handwriting text-2xl text-[#0369a1] font-bold mt-0.5">Mas</p>
           </div>
 
+          <div className="relative">
+            {/* Floating rising hearts */}
+            <AnimatePresence>
+              {floatingHearts.map((h) => (
+                <motion.div
+                  key={h.id}
+                  initial={{ opacity: 1, y: 0, scale: 0.8 }}
+                  animate={{ opacity: 0, y: -70, scale: 1.3 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1.2, ease: 'easeOut' }}
+                  className="absolute pointer-events-none text-[#0284c7]"
+                  style={{ left: h.x }}
+                >
+                  <Heart className="w-4 h-4 fill-[#0284c7]" />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+
+            <button
+              onClick={handleSendHug}
+              className="px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm bg-[#0284c7] hover:bg-[#0369a1] text-white hover:scale-105 active:scale-95"
+            >
+              <Send className="w-3.5 h-3.5" />
+              <span>Kirim Peluk untuk Mas ({hugCount})</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Restart Button */}
+        <div className="mt-6 pt-4 border-t border-sky-100 flex justify-center">
           <button
-            onClick={handleSendHug}
-            className={`px-5 py-3 rounded-2xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-sm ${
-              hugSent
-                ? 'bg-emerald-600 text-white'
-                : 'bg-[#0284c7] hover:bg-[#0369a1] text-white hover:scale-105 active:scale-95'
-            }`}
+            onClick={onRestart}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-[11px] font-bold text-slate-500 hover:text-[#0284c7] hover:bg-sky-50 transition-all cursor-pointer"
           >
-            {hugSent ? (
-              <>
-                <Heart className="w-4 h-4 fill-white" />
-                <span>Peluk Hangat Terkirim! 💙</span>
-              </>
-            ) : (
-              <>
-                <Send className="w-3.5 h-3.5" />
-                <span>Kirim Peluk Hangat &amp; Doa</span>
-              </>
-            )}
+            <RotateCcw className="w-3 h-3" />
+            <span>Mulai Baca dari Awal</span>
           </button>
         </div>
       </motion.div>

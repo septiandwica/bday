@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
           <Heart className="w-4 h-4 fill-[#0284c7] text-[#0284c7]" />
         </div>
         <p className="text-xs font-normal text-slate-700">
-          Dibuat khusus dengan segenap hati untuk merayakan hari kelahiran <span className="font-bold text-[#0284c7]">Najla</span> 💙
+          Dibuat khusus dengan segenap hati untuk merayakan hari kelahiran <span className="font-bold text-[#0284c7]">Lala</span> 
         </p>
       </div>
     </footer>

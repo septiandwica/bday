@@ -75,7 +75,7 @@ export const CosmicBackground: React.FC = () => {
           animate={{ scale: [0.8, 1.2, 0.8], rotate: [0, 90, 0], opacity: [0.6, 1, 0.6] }}
           transition={{ duration: 3, repeat: Infinity, delay: pos.delay, ease: 'easeInOut' }}
         >
-          <span className="text-xl">💙</span>
+          <span className="text-xl"></span>
         </motion.div>
       ))}
     </div>

@@ -1,4 +1,4 @@
-// Web Audio API Sound Synthesizer for Najla's Birthday
+// Web Audio API Sound Synthesizer for Lala's Birthday
 // Provides instantaneous, beautiful sound effects with 0 external asset dependencies
 
 class SoundEffectsManager {

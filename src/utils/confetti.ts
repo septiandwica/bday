@@ -1,6 +1,6 @@
 import confetti from 'canvas-confetti';
 
-// Celebratory Blue & Silver Confetti Palette for Najla
+// Celebratory Blue & Silver Confetti Palette for Lala
 const BLUE_PALETTE = ['#0284c7', '#38bdf8', '#7dd3fc', '#bae6fd', '#3b82f6', '#93c5fd', '#ffffff', '#e0f2fe'];
 
 export function triggerStarBurst() {

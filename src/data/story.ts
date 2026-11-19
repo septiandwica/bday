@@ -1,90 +1,57 @@
 export interface StoryChapter {
   id: number;
-  chapterNumber: string;
   year: string;
+  badge: string;
   title: string;
-  subtitle: string;
-  paragraphs: string[];
-  quote?: string;
+  story: string;
+  highlight: string;
+  nextButtonText: string;
 }
 
-export const STORY_CHAPTERS: StoryChapter[] = [
-  {
-    id: 0,
-    chapterNumber: "01",
-    year: "2023",
-    title: "Pertemuan Pertama",
-    subtitle: "Karaktermu yang Aktif Melengkapi Sifat Pendiamku",
-    paragraphs: [
-      "Tahun 2023 adalah awal mula takdir mempertemukan kita.",
-      "Sejak awal, aku sangat kagum melihat karaktermu: seorang perempuan yang aktif, gigih, dan pekerja keras. Kamu selalu penuh semangat dalam menjalani hari-harimu.",
-      "Bagi diriku yang pada awalnya cenderung pendiam dan jarang banyak bicara, energimu terasa begitu hidup—melengkapi setiap kekuranganku dengan sempurna.",
-    ],
-    quote: "Karaktermu yang aktif & pekerja keras melengkapi sifatku yang pendiam.",
-  },
+export const STORY_STEPS: StoryChapter[] = [
   {
     id: 1,
-    chapterNumber: "02",
-    year: "NOVEMBER 2024",
-    title: "Langkah Berani di Hari Ultahmu",
-    subtitle: "Sebuah Ungkapan Rasa yang Sempat Digantung",
-    paragraphs: [
-      "November 2024, tepat di momen ulang tahunmu, aku memberanikan diri untuk mengungkapkan perasaanku secara jujur padamu.",
-      "Walaupun saat itu statusnya masih digantung dan belum ada kepastian, di dalam hati aku sudah bertekad kuat.",
-      "Aku tidak akan pernah menyerah untuk memperjuangkan seseorang yang begitu tulus dan istimewa sepertimu.",
-    ],
-    quote: "Walau sempat digantung, aku memilih untuk tetap berjuang.",
+    year: "2024",
+    badge: "HARI ULANG TAHUN LALA",
+    title: "Langkah Berani yang Mas Suruh Lupain",
+    story: "Waktu kamu ulang tahun di 2024, Mas beraniin diri buat confess perasaan Mas ke kamu. Tapi setelah itu Mas malah suruh kamu lupain aja... Waktu itu Mas masih bingung banget sama diri sendiri, terus kepikiran: 'Emang Mas pantas ya buat Lala?'.",
+    highlight: "Rasa ragu dan bingung yang bikin Mas sempat suruh kamu lupain.",
+    nextButtonText: "Masuk ke Awal 2025",
   },
   {
     id: 2,
-    chapterNumber: "03",
     year: "AWAL 2025",
-    title: "Partner Usaha & Satu Tim Skripsi",
-    subtitle: "Berjuang Bersama Menuju Masa Depan",
-    paragraphs: [
-      "Memasuki tahun 2025, aku mengajakmu menjadi partner untuk membangun usaha bersama.",
-      "Bukan hanya dalam urusan usaha, kita juga berjuang di kelompok yang sama dalam menyelesaikan Tugas Akhir S1.",
-      "Melihat ketangguhanmu saat begadang, berdiskusi, dan memecahkan setiap tantangan membuat rasa kagum dan sayangku semakin berakar dalam.",
-    ],
-    quote: "Partner terbaik dalam membangun usaha dan menuntaskan Tugas Akhir S1.",
+    badge: "UJIAN HATI",
+    title: "Makan Hati & Lala yang Selalu Bikin Ceria",
+    story: "Masuk awal 2025, Mas tiba-tiba ngikutin kata orang yang baru Mas kenal dan Mas iyain aja. Ternyata isinya malah makan hati banget. Tapi di tengah kacaunya hari-hari Mas waktu itu, kamu tetap stay dan selalu berhasil bikin Mas ceria lagi.",
+    highlight: "Kamu yang selalu ada nemenin dan bikin Mas tersenyum lagi.",
+    nextButtonText: "Lanjut ke Pertengahan 2025",
   },
   {
     id: 3,
-    chapterNumber: "04",
-    year: "AGUSTUS 2025",
-    title: "Resmi Jadian Setelah Capstone Defense",
-    subtitle: "Dua Insan yang Bersatu di Bawah Langit Biru",
-    paragraphs: [
-      "Setelah perjuangan panjang dan akhirnya lulus sidang Capstone Defense bersama, momen yang selama ini kunantikan pun tiba.",
-      "Di bulan Agustus 2025, akhirnya kita resmi jadian!",
-      "Rasanya seperti kisah di Kimi no Na wa—dua insan yang saling mencari dan berproses di jalannya masing-masing, hingga akhirnya langit mempertemukan dan menyatukan tangan kita berdua.",
-    ],
-    quote: "Setelah semua ujian terlewati, tanganmu akhirnya ada di dalam genggamanku.",
+    year: "PERTENGAHAN & AKHIR 2025",
+    badge: "MERINTIS MIMPI",
+    title: "Dari Ragu Sampai Rill Usaha Bareng",
+    story: "Pertengahan 2025 Mas mutusin buat bikin usaha. Awalnya Mas ga mau libatin kamu karena jujur masih ada rasa suka gitu dan takut canggung. Tapi Mas tau betul potensi luar biasa yang ada di diri kamu. Pas akhir 2025 lagi puncak-puncaknya stres Mas, kamu yang paling bisa ngertiin Mas. Akhirnya di situ Mas mantap mutusin buat rill usaha bareng kamu.",
+    highlight: "Partner terbaik karena Mas tau potensi hebatmu dan kamu selalu ngertiin Mas.",
+    nextButtonText: "Lanjut ke Perjalanan 2026",
   },
   {
     id: 4,
-    chapterNumber: "05",
-    year: "8 SEPTEMBER 2026",
-    title: "Kado Buku 'I Have a Crush on You'",
-    subtitle: "Hadiah Manis di Hari Ulang Tahunku (Kita Sudah Jadian)",
-    paragraphs: [
-      "Ketika kita sudah resmi jadian dan tepat di hari ulang tahunku tanggal 8 September 2026, kamu memberikan hadiah yang luar biasa manis: sebuah buku berjudul 'I Have a Crush on You'.",
-      "Buku itu tersimpan rapi dan menjadi salah satu hal paling berharga bagiku.",
-      "Dan saat itu hatiku berbisik penuh haru: 'dan ternyata... aku juga (gw juga!) naksir dan sayang banget sama kamu!'",
-    ],
-    quote: "Kado terindah saat ultahku: 'I Have a Crush on You' & jawabanku: 'Aku juga!' 💙",
+    year: "AWAL SAMPAI JULI 2026",
+    badge: "MENCARI JATI DIRI",
+    title: "Keliling Indo & Chat yang Mas Takutkan Ganggu",
+    story: "Awal 2026 Mas bener-bener mencari jati diri sampai keliling Indonesia, tapi Mas tetep sering kontak kamu. Maaf ya kalau waktu itu Mas ganggu banget hehe. Sampai di Juli 2026 Mas ngerasa udah mulai nemu arah Mas, tapi Mas masih malu-malu dan takut ga sesuai ekspektasi kamu. Dan lagi-lagi kepikiran: emang Mas pantas buat kamu?",
+    highlight: "Di setiap sudut kota yang Mas datangi, Mas selalu ingat kamu.",
+    nextButtonText: "Lalu di Agustus 2026...",
   },
   {
     id: 5,
-    chapterNumber: "06",
-    year: "NOVEMBER 2026 (HARI INI)",
-    title: "Selamat Ulang Tahun, Najla",
-    subtitle: "Komitmenku: Selalu Men-Support Apapun Impianmu",
-    paragraphs: [
-      "Hari ini adalah hari ulang tahunmu, Najla. Giliran aku yang ingin mengucapkan terima kasih sebesar-besarnya atas semua yang telah kita lalui bersama.",
-      "Harapanku untukmu banyak sekali. Tapi yang paling utama: aku berjanji akan selalu ada di sampingmu untuk men-support apa pun yang ingin kamu lakukan.",
-      "Terima kasih sudah hadir di hidupku. Selamat bertambah usia, cintaku! 💙",
-    ],
-    quote: "Aku akan selalu ada men-support apa pun yang ingin kamu lakukan selamanya. 💙",
+    year: "AGUSTUS & SEPTEMBER 2026",
+    badge: "RESMI BERSAMA",
+    title: "Confess di Chat & Kado Buku 'I Have a Crush on You'",
+    story: "Bulan Agustus 2026, kok kamu makin sering ngode ya. Yaudah di situ Mas beraniin diri buat maju dan akhirnya confess. Kata kamu ga seru sih karena confess-nya di chat doang wkwk. Tapi akhirnya kita resmi jadian! Terus pas Mas ulang tahun 8 September 2026, kamu ngasih buku manis 'I Have a Crush on You'. Buku itu bikin Mas tersentuh banget. Di hati Mas berbisik: Mas juga naksir dan sayang banget sama Lala.",
+    highlight: "Resmi jadian dan kado buku terindah: Mas juga naksir kamu sejak lama.",
+    nextButtonText: "Hal yang Mas Syukuri dari Lala",
   },
 ];
