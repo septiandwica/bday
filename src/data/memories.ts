@@ -28,7 +28,7 @@ export const MEMORIES_DATA: MemoryItem[] = [
     title: "Ga Pernah Bahas Negatif",
     category: "Energi Positif",
     image: "/3.JPG",
-    objectPosition: "15% center",
+    objectPosition: "80% center",
     note: "Kamu ga melulu bilang hal-hal negatif. Ngobrol sama kamu selalu bikin hati Mas adem dan tenang.",
   },
   {
