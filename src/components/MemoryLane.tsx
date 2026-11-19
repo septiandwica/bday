@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Camera, RotateCw, Heart, ArrowRight } from 'lucide-react';
+import { Camera, RotateCw, ArrowRight } from 'lucide-react';
 import { MEMORIES_DATA } from '../data/memories';
 import { sounds } from '../utils/audio';
 
@@ -29,17 +29,17 @@ export const MemoryLane: React.FC<MemoryLaneProps> = ({ onContinue }) => {
       >
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/90 border-2 border-sky-200 text-[#0284c7] text-xs font-bold mb-2 shadow-xs">
           <Camera className="w-3.5 h-3.5" />
-          <span>Hal yang Mas Syukuri</span>
+          <span>Momen Bersama</span>
         </span>
         <h2 className="text-2xl sm:text-4xl font-extrabold text-[#0369a1] font-display">
-          Yang Mas Kagumi dari Lala
+          Galeri Foto Kita
         </h2>
         <p className="text-slate-600 text-xs sm:text-sm mt-1 max-w-md mx-auto">
-          Sentuh atau klik kartu foto di bawah untuk membalik dan membaca catatan kecil di baliknya.
+          Sentuh kartu untuk lihat catatannya.
         </p>
       </motion.div>
 
-      {/* Spacious Polaroid Grid (Wide & Roomy) */}
+      {/* Photo Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-10 text-left">
         {MEMORIES_DATA.map((item, index) => {
           const isFlipped = !!flippedCards[item.id];
@@ -51,7 +51,8 @@ export const MemoryLane: React.FC<MemoryLaneProps> = ({ onContinue }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.08 }}
               whileHover={{ y: -5 }}
-              className="relative cursor-pointer select-none perspective-1000 w-full"
+              className="relative cursor-pointer select-none w-full"
+              style={{ perspective: '1000px' }}
               onClick={() => toggleFlip(item.id)}
             >
               {/* Cute Blue Pin */}
@@ -59,15 +60,28 @@ export const MemoryLane: React.FC<MemoryLaneProps> = ({ onContinue }) => {
                 <div className="w-2 h-2 rounded-full bg-white" />
               </div>
 
-              {/* Card Container with generous height & width */}
+              {/* Card Container */}
               <div
-                className={`relative w-full h-[370px] sm:h-[390px] transition-transform duration-500 transform-style-3d ${
-                  isFlipped ? 'rotate-y-180' : ''
-                }`}
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  height: '370px',
+                  transformStyle: 'preserve-3d',
+                  transition: 'transform 0.55s cubic-bezier(0.4,0.2,0.2,1)',
+                  transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                }}
               >
                 {/* Front Side: Photo View */}
-                <div className="absolute inset-0 w-full h-full bg-white rounded-3xl p-4 sm:p-5 shadow-lg border-2 border-sky-100 flex flex-col justify-between backface-hidden">
-                  {/* Photo with rounded container */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                  }}
+                  className="w-full h-full bg-white rounded-3xl p-4 sm:p-5 shadow-lg border-2 border-sky-100 flex flex-col justify-between"
+                >
+                  {/* Photo */}
                   <div className="w-full h-52 sm:h-56 rounded-2xl overflow-hidden bg-sky-50 relative shrink-0">
                     <img
                       src={item.image}
@@ -80,14 +94,14 @@ export const MemoryLane: React.FC<MemoryLaneProps> = ({ onContinue }) => {
                     </div>
                   </div>
 
-                  {/* Title & Action */}
+                  {/* Title & Flip hint */}
                   <div className="pt-3 flex items-center justify-between gap-3">
                     <div className="flex-1">
                       <h4 className="font-bold text-sm sm:text-base text-slate-800 leading-snug">
                         {item.title}
                       </h4>
                       <p className="text-[11px] text-slate-400 mt-0.5">
-                        Klik untuk membaca catatan Mas
+                        Klik untuk lihat catatan
                       </p>
                     </div>
                     <div className="w-8 h-8 rounded-full bg-sky-50 border border-sky-200 flex items-center justify-center text-[#0284c7] shrink-0">
@@ -97,15 +111,24 @@ export const MemoryLane: React.FC<MemoryLaneProps> = ({ onContinue }) => {
                 </div>
 
                 {/* Back Side: Note View */}
-                <div className="absolute inset-0 w-full h-full bg-[#f0f8ff] rounded-3xl p-6 sm:p-7 shadow-lg border-2 border-[#bae6fd] flex flex-col justify-between rotate-y-180 backface-hidden">
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                    transform: 'rotateY(180deg)',
+                  }}
+                  className="w-full h-full bg-[#f0f8ff] rounded-3xl p-6 sm:p-7 shadow-lg border-2 border-[#bae6fd] flex flex-col justify-between"
+                >
                   <div>
                     <div className="flex items-center justify-between pb-3 border-b-2 border-sky-200">
                       <span className="text-[11px] font-mono font-bold text-[#0284c7] uppercase tracking-wider">
-                        Catatan Mas untuk Lala
+                        {item.title}
                       </span>
-                      <Heart className="w-4 h-4 fill-[#0284c7] text-[#0284c7]" />
+                      <Camera className="w-4 h-4 text-[#0284c7]" />
                     </div>
-                    <div className="mt-4 overflow-y-auto max-h-48 pr-1">
+                    <div className="mt-4 overflow-y-auto max-h-52 pr-1">
                       <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
                         "{item.note}"
                       </p>
