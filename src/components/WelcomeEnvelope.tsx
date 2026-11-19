@@ -158,32 +158,31 @@ export const WelcomeEnvelope: React.FC<WelcomeEnvelopeProps> = ({ onOpen }) => {
           )}
         </AnimatePresence>
 
-        {/* REALISTIC ENVELOPE OBJECT */}
+        {/* GEOMETRICALLY SEAMLESS ENVELOPE OBJECT */}
         <div
           onClick={!isOpened ? handleOpenEnvelope : undefined}
-          className={`relative mx-auto w-full h-52 sm:h-64 rounded-2xl sm:rounded-3xl shadow-2xl overflow-visible select-none ${
+          className={`relative mx-auto w-full h-54 sm:h-66 rounded-2xl sm:rounded-3xl shadow-2xl overflow-visible select-none ${
             !isOpened ? 'cursor-pointer hover:scale-102 transition-transform' : ''
           }`}
           style={{ perspective: '1000px' }}
         >
           {/* 1. Envelope Back Wall & Interior (Depth) */}
           <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-[#bae6fd] shadow-inner overflow-hidden z-10">
-            {/* Interior Pattern / Shading */}
-            <div className="w-full h-full bg-[#93c5fd]/40 flex items-center justify-center">
-              <span className="font-handwriting text-3xl sm:text-4xl text-[#0369a1]/30 font-bold">
+            <div className="w-full h-full bg-[#93c5fd]/30 flex items-center justify-center">
+              <span className="font-handwriting text-3xl sm:text-4xl text-[#0369a1]/25 font-bold">
                 Lala
               </span>
             </div>
           </div>
 
-          {/* 2. Top Flap (Triangular flap that flips open 180deg) */}
+          {/* 2. Top Triangular Flap (Seamless fold, flips open 180deg) */}
           <motion.div
             style={{
               position: 'absolute',
               top: 0,
               left: 0,
               right: 0,
-              height: '52%',
+              height: '44%',
               transformOrigin: 'top center',
               zIndex: isOpened ? 15 : 35,
             }}
@@ -192,47 +191,47 @@ export const WelcomeEnvelope: React.FC<WelcomeEnvelopeProps> = ({ onOpen }) => {
             }}
             transition={{ duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
           >
-            {/* Flap SVG Polygon pointing DOWN when closed, flips UP when opened */}
+            {/* Flap SVG matching the exact meeting point (230, 114) */}
             <svg
-              viewBox="0 0 460 145"
-              className="w-full h-full drop-shadow-md"
+              viewBox="0 0 460 115"
+              className="w-full h-full"
               preserveAspectRatio="none"
             >
               <polygon
-                points="0,0 460,0 230,145"
+                points="0,0 460,0 230,114"
                 fill={isOpened ? '#bae6fd' : '#38bdf8'}
               />
               <line
                 x1="0"
                 y1="0"
                 x2="230"
-                y2="145"
+                y2="114"
                 stroke="#ffffff"
                 strokeWidth="2"
-                opacity="0.4"
+                opacity="0.45"
               />
               <line
                 x1="460"
                 y1="0"
                 x2="230"
-                y2="145"
+                y2="114"
                 stroke="#ffffff"
                 strokeWidth="2"
-                opacity="0.4"
+                opacity="0.45"
               />
             </svg>
 
-            {/* Wax Seal at the tip of the closed flap */}
+            {/* Wax Seal right at the tip of the flap (never covers the bottom text!) */}
             <AnimatePresence>
               {!isOpened && (
                 <motion.div
                   initial={{ scale: 1 }}
                   exit={{ scale: 1.4, opacity: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="absolute bottom-[-22px] sm:bottom-[-26px] left-1/2 transform -translate-x-1/2 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#0284c7] border-4 border-white shadow-xl flex items-center justify-center cursor-pointer hover:scale-110 active:scale-95 transition-transform"
+                  className="absolute bottom-[-18px] sm:bottom-[-22px] left-1/2 transform -translate-x-1/2 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#0284c7] border-3 sm:border-4 border-white shadow-xl flex items-center justify-center cursor-pointer hover:scale-110 active:scale-95 transition-transform"
                 >
-                  <Heart className="w-7 h-7 sm:w-8 sm:h-8 text-white fill-white" />
-                  <span className="absolute -bottom-6 text-[10px] sm:text-[11px] font-extrabold tracking-wider text-[#0369a1] whitespace-nowrap bg-white px-2.5 py-0.5 rounded-full shadow-md border border-sky-200">
+                  <Heart className="w-6 h-6 sm:w-7 sm:h-7 text-white fill-white" />
+                  <span className="absolute -bottom-5 text-[9px] sm:text-[10px] font-extrabold tracking-wider text-[#0369a1] whitespace-nowrap bg-white px-2 py-0.5 rounded-full shadow-md border border-sky-200">
                     Buka Amplop
                   </span>
                 </motion.div>
@@ -240,35 +239,35 @@ export const WelcomeEnvelope: React.FC<WelcomeEnvelopeProps> = ({ onOpen }) => {
             </AnimatePresence>
           </motion.div>
 
-          {/* 3. Envelope Front Pocket (Left, Right, and Bottom Triangular Folds) - Z-index 30 sits in front of emerging cards */}
+          {/* 3. Envelope Front Pocket (Left, Right, Bottom folds meeting at same center point) */}
           <div className="absolute inset-0 pointer-events-none z-30">
             <svg
               viewBox="0 0 460 260"
               className="w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden"
               preserveAspectRatio="none"
             >
-              {/* Left Triangular Fold */}
-              <polygon points="0,0 210,135 0,260" fill="#7dd3fc" />
-              <line x1="0" y1="0" x2="210" y2="135" stroke="#ffffff" strokeWidth="1.5" opacity="0.35" />
+              {/* Left Fold */}
+              <polygon points="0,0 230,114 0,260" fill="#7dd3fc" />
+              <line x1="0" y1="0" x2="230" y2="114" stroke="#ffffff" strokeWidth="1.5" opacity="0.35" />
 
-              {/* Right Triangular Fold */}
-              <polygon points="460,0 250,135 460,260" fill="#7dd3fc" />
-              <line x1="460" y1="0" x2="250" y2="135" stroke="#ffffff" strokeWidth="1.5" opacity="0.35" />
+              {/* Right Fold */}
+              <polygon points="460,0 230,114 460,260" fill="#7dd3fc" />
+              <line x1="460" y1="0" x2="230" y2="114" stroke="#ffffff" strokeWidth="1.5" opacity="0.35" />
 
-              {/* Bottom Triangular Fold */}
-              <polygon points="0,260 230,120 460,260" fill="#38bdf8" />
-              <line x1="0" y1="260" x2="230" y2="120" stroke="#ffffff" strokeWidth="1.5" opacity="0.5" />
-              <line x1="460" y1="260" x2="230" y2="120" stroke="#ffffff" strokeWidth="1.5" opacity="0.5" />
+              {/* Bottom Fold */}
+              <polygon points="0,260 230,114 460,260" fill="#38bdf8" />
+              <line x1="0" y1="260" x2="230" y2="114" stroke="#ffffff" strokeWidth="1.5" opacity="0.5" />
+              <line x1="460" y1="260" x2="230" y2="114" stroke="#ffffff" strokeWidth="1.5" opacity="0.5" />
             </svg>
 
-            {/* Recipient Script on Bottom Front Face */}
-            <div className="absolute bottom-4 sm:bottom-6 inset-x-0 text-center pointer-events-none">
-              <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-white/80 uppercase block">
+            {/* Recipient Badge on Bottom Front: Positioned with generous clearance below wax seal (NEVER COVERED!) */}
+            <div className="absolute bottom-3 sm:bottom-4 inset-x-0 text-center pointer-events-none">
+              <span className="inline-block px-3 py-0.5 rounded-full bg-white/95 text-[#0284c7] text-[10px] sm:text-[11px] font-mono font-extrabold tracking-wider shadow-xs mb-1">
                 SURAT SPESIAL UNTUK
               </span>
-              <span className="font-handwriting text-3xl sm:text-4xl text-white font-bold drop-shadow-md">
+              <div className="font-handwriting text-3xl sm:text-4xl text-white font-bold drop-shadow-md leading-none">
                 Lala
-              </span>
+              </div>
             </div>
           </div>
         </div>
