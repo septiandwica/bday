@@ -8,290 +8,286 @@ interface IllustrationProps {
 // Two birds SVG — philosophy: together chasing dreams in the open sky
 export const AnimeCharactersIllustration: React.FC<IllustrationProps> = ({ step }) => {
   return (
-    <div className="relative w-full max-w-sm h-48 sm:h-52 flex items-center justify-center select-none my-2">
+    <div className="relative w-full max-w-md mx-auto h-48 sm:h-56 flex items-center justify-center select-none my-1">
 
-      {/* Step 1: 2024 — Confess, suruh lupain. Birds apart, one looking back */}
+      {/* Step 1: 2024 — Confess, suruh lupain. Birds apart, perfectly centered */}
       {step === 1 && (
         <motion.svg
           key="birds-1"
-          viewBox="0 0 260 160"
-          className="w-64 h-44"
+          viewBox="0 0 280 160"
+          className="w-full max-w-[320px] sm:max-w-[380px] h-full"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
           {/* Sky line */}
-          <path d="M20,140 Q130,130 240,140" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M15,142 Q140,132 265,142" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeLinecap="round" />
 
-          {/* Bird left — hesitant, wings mid-flap, turned slightly toward right */}
+          {/* Bird left (cx=85) — hesitant, wings mid-flap, turned toward right */}
           <motion.g
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           >
-            {/* Body */}
-            <ellipse cx="72" cy="85" rx="14" ry="8" fill="#0284c7" />
-            {/* Head */}
-            <circle cx="84" cy="80" r="8" fill="#0284c7" />
-            {/* Eye */}
-            <circle cx="87" cy="79" r="1.8" fill="white" />
-            <circle cx="87.6" cy="79" r="0.9" fill="#0f172a" />
-            {/* Beak — pointing right, slightly open */}
-            <path d="M91,80 L96,82 L91,83" fill="#38bdf8" />
-            {/* Wing up */}
+            <ellipse cx="85" cy="85" rx="16" ry="9" fill="#0284c7" />
+            <circle cx="98" cy="79" r="9" fill="#0284c7" />
+            <circle cx="101.5" cy="78" r="2" fill="white" />
+            <circle cx="102" cy="78" r="1" fill="#0f172a" />
+            {/* Beak */}
+            <path d="M106,79 L112,81.5 L106,83" fill="#38bdf8" />
+            {/* Wing */}
             <motion.path
-              d="M72,77 Q62,65 50,70 Q62,75 72,82"
+              d="M85,76 Q73,63 59,69 Q73,74 85,82"
               fill="#38bdf8"
-              animate={{ d: ['M72,77 Q62,65 50,70 Q62,75 72,82', 'M72,80 Q62,72 50,78 Q62,80 72,86', 'M72,77 Q62,65 50,70 Q62,75 72,82'] }}
+              animate={{ d: ['M85,76 Q73,63 59,69 Q73,74 85,82', 'M85,79 Q73,70 59,77 Q73,79 85,86', 'M85,76 Q73,63 59,69 Q73,74 85,82'] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
             />
             {/* Tail */}
-            <path d="M58,85 Q48,82 44,90 Q52,86 60,90" fill="#0369a1" />
+            <path d="M69,85 Q57,81 52,90 Q62,86 71,90" fill="#0369a1" />
           </motion.g>
 
-          {/* Bird right — listening/curious, wings folded, slight distance */}
+          {/* Bird right (cx=195) — listening/curious, wings folded */}
           <motion.g
             animate={{ y: [0, -4, 0] }}
             transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
           >
-            <ellipse cx="185" cy="88" rx="13" ry="7.5" fill="#38bdf8" />
-            <circle cx="197" cy="83" r="7.5" fill="#38bdf8" />
-            <circle cx="200" cy="82" r="1.6" fill="white" />
-            <circle cx="200.6" cy="82" r="0.8" fill="#0f172a" />
-            {/* Beak pointing left toward other bird */}
-            <path d="M190,83 L185,85 L190,87" fill="#0284c7" />
-            {/* Wing folded — resting */}
-            <path d="M185,82 Q175,76 170,82 Q177,82 185,88" fill="#bae6fd" />
+            <ellipse cx="195" cy="88" rx="15" ry="8.5" fill="#38bdf8" />
+            <circle cx="182" cy="82" r="8.5" fill="#38bdf8" />
+            <circle cx="178.5" cy="81" r="1.8" fill="white" />
+            <circle cx="178" cy="81" r="0.9" fill="#0f172a" />
+            {/* Beak pointing left */}
+            <path d="M174,82 L168,84.5 L174,86" fill="#0284c7" />
+            {/* Wing folded */}
+            <path d="M195,82 Q207,75 213,82 Q205,82 195,88" fill="#bae6fd" />
             {/* Tail */}
-            <path d="M172,88 Q163,86 160,93 Q168,89 174,93" fill="#7dd3fc" />
+            <path d="M210,88 Q221,85 225,93 Q215,89 208,93" fill="#7dd3fc" />
           </motion.g>
 
-          {/* Soft dashed line between them — uncertain distance */}
-          <path d="M100,82 Q130,70 170,82" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeDasharray="5,5" strokeLinecap="round" />
+          {/* Soft dashed connection arc centered at 140 */}
+          <path d="M115,82 Q140,70 165,82" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeDasharray="5,5" strokeLinecap="round" />
         </motion.svg>
       )}
 
-      {/* Step 2: Awal 2025 — Mas sempat makan hati, Lala bikin ceria. One bird drooping, other chirping */}
+      {/* Step 2: Awal 2025 — Mas sempat lesu, Lala bikin ceria */}
       {step === 2 && (
         <motion.svg
           key="birds-2"
-          viewBox="0 0 260 160"
-          className="w-64 h-44"
+          viewBox="0 0 280 160"
+          className="w-full max-w-[320px] sm:max-w-[380px] h-full"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <path d="M20,140 Q130,130 240,140" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M15,142 Q140,132 265,142" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeLinecap="round" />
 
-          {/* Bird left — slightly drooping, wings low */}
+          {/* Bird left (cx=90) — drooping wings */}
           <motion.g
             animate={{ y: [0, 3, 0], rotate: [0, 2, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <ellipse cx="75" cy="95" rx="14" ry="8" fill="#0284c7" />
-            <circle cx="87" cy="90" r="8" fill="#0284c7" />
-            <circle cx="90" cy="89" r="1.8" fill="white" />
-            <circle cx="90.4" cy="89.4" r="0.9" fill="#0f172a" />
-            <path d="M94,91 L99,93 L94,94" fill="#38bdf8" />
-            {/* Wing drooping low */}
-            <path d="M75,89 Q63,88 55,96 Q66,91 75,97" fill="#38bdf8" opacity="0.7" />
-            <path d="M61,96 Q52,97 49,104 Q57,99 63,103" fill="#0369a1" />
+            <ellipse cx="90" cy="95" rx="16" ry="9" fill="#0284c7" />
+            <circle cx="103" cy="89" r="9" fill="#0284c7" />
+            <circle cx="106.5" cy="88" r="2" fill="white" />
+            <circle cx="107" cy="88" r="1" fill="#0f172a" />
+            <path d="M111,89 L117,91.5 L111,93" fill="#38bdf8" />
+            {/* Wing drooping */}
+            <path d="M90,89 Q77,88 67,97 Q79,91 90,98" fill="#38bdf8" opacity="0.75" />
+            <path d="M74,96 Q63,97 59,105 Q68,100 76,104" fill="#0369a1" />
           </motion.g>
 
-          {/* Bird right — chirping, wings spread cheerfully */}
+          {/* Bird right (cx=190) — cheerful, wings spread wide */}
           <motion.g
             animate={{ y: [0, -7, 0], rotate: [0, -2, 0] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
           >
-            <ellipse cx="178" cy="82" rx="13" ry="7.5" fill="#38bdf8" />
-            <circle cx="190" cy="77" r="7.5" fill="#38bdf8" />
-            <circle cx="193" cy="76" r="1.6" fill="white" />
-            <circle cx="193.4" cy="76" r="0.8" fill="#0f172a" />
-            <path d="M183,77 L178,79 L183,80" fill="#0284c7" />
-            {/* Wing spread wide — cheerful */}
+            <ellipse cx="190" cy="82" rx="15" ry="8.5" fill="#38bdf8" />
+            <circle cx="177" cy="76" r="8.5" fill="#38bdf8" />
+            <circle cx="173.5" cy="75" r="1.8" fill="white" />
+            <circle cx="173" cy="75" r="0.9" fill="#0f172a" />
+            <path d="M169,76 L163,78.5 L169,80" fill="#0284c7" />
+            {/* Wing spread wide */}
             <motion.path
-              d="M178,76 Q165,62 152,66 Q165,72 178,80"
+              d="M190,75 Q205,59 220,64 Q205,71 190,80"
               fill="#bae6fd"
-              animate={{ d: ['M178,76 Q165,62 152,66 Q165,72 178,80', 'M178,80 Q166,70 153,74 Q166,76 178,84', 'M178,76 Q165,62 152,66 Q165,72 178,80'] }}
+              animate={{ d: ['M190,75 Q205,59 220,64 Q205,71 190,80', 'M190,79 Q204,68 219,72 Q204,75 190,84', 'M190,75 Q205,59 220,64 Q205,71 190,80'] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
             {/* Small chirp wave circles */}
-            <circle cx="198" cy="66" r="2" fill="#0284c7" />
-            <circle cx="206" cy="58" r="1.5" fill="#38bdf8" />
-            <path d="M165,83 Q156,82 153,89 Q161,85 167,89" fill="#7dd3fc" />
+            <circle cx="156" cy="65" r="2.5" fill="#0284c7" />
+            <circle cx="147" cy="56" r="2" fill="#38bdf8" />
+            <path d="M205,83 Q216,82 220,89 Q210,85 203,89" fill="#7dd3fc" />
           </motion.g>
         </motion.svg>
       )}
 
-      {/* Step 3: Akhir 2025 — Usaha bareng. Two birds flying side by side, equal height */}
+      {/* Step 3: Akhir 2025 — Usaha bareng. Two birds flying side by side */}
       {step === 3 && (
         <motion.svg
           key="birds-3"
-          viewBox="0 0 260 160"
-          className="w-64 h-44"
+          viewBox="0 0 280 160"
+          className="w-full max-w-[320px] sm:max-w-[380px] h-full"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <path d="M20,140 Q130,130 240,140" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M15,142 Q140,132 265,142" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeLinecap="round" />
 
-          {/* Bird left — flying forward, strong */}
+          {/* Bird left (cx=95) — flying forward */}
           <motion.g
             animate={{ x: [0, 4, 0], y: [0, -6, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <ellipse cx="85" cy="78" rx="15" ry="8.5" fill="#0284c7" />
-            <circle cx="98" cy="72" r="8.5" fill="#0284c7" />
-            <circle cx="101" cy="71" r="1.9" fill="white" />
-            <circle cx="101.6" cy="71" r="0.9" fill="#0f172a" />
-            <path d="M105,72 L111,74 L105,76" fill="#38bdf8" />
+            <ellipse cx="95" cy="78" rx="16" ry="9.5" fill="#0284c7" />
+            <circle cx="109" cy="72" r="9.5" fill="#0284c7" />
+            <circle cx="112.5" cy="71" r="2" fill="white" />
+            <circle cx="113" cy="71" r="1" fill="#0f172a" />
+            <path d="M117,72 L123,74.5 L117,77" fill="#38bdf8" />
             <motion.path
-              d="M85,70 Q72,55 57,60 Q72,67 85,76"
+              d="M95,69 Q81,53 64,59 Q81,66 95,76"
               fill="#38bdf8"
-              animate={{ d: ['M85,70 Q72,55 57,60 Q72,67 85,76', 'M85,74 Q72,62 57,67 Q72,71 85,80', 'M85,70 Q72,55 57,60 Q72,67 85,76'] }}
+              animate={{ d: ['M95,69 Q81,53 64,59 Q81,66 95,76', 'M95,73 Q81,60 64,66 Q81,70 95,80', 'M95,69 Q81,53 64,59 Q81,66 95,76'] }}
               transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
             />
-            <path d="M70,78 Q60,76 56,84 Q65,80 71,84" fill="#0369a1" />
+            <path d="M79,78 Q68,76 63,84 Q73,80 80,84" fill="#0369a1" />
           </motion.g>
 
-          {/* Bird right — flying at the same level, wings in sync */}
+          {/* Bird right (cx=185) — flying at same level */}
           <motion.g
             animate={{ x: [0, 4, 0], y: [0, -6, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.15 }}
           >
-            <ellipse cx="168" cy="78" rx="14" ry="8" fill="#38bdf8" />
-            <circle cx="181" cy="72" r="8" fill="#38bdf8" />
-            <circle cx="184" cy="71" r="1.7" fill="white" />
-            <circle cx="184.6" cy="71" r="0.85" fill="#0f172a" />
-            <path d="M188,72 L194,74 L188,76" fill="#0284c7" />
+            <ellipse cx="185" cy="78" rx="15.5" ry="9" fill="#38bdf8" />
+            <circle cx="199" cy="72" r="9" fill="#38bdf8" />
+            <circle cx="202.5" cy="71" r="1.9" fill="white" />
+            <circle cx="203" cy="71" r="0.95" fill="#0f172a" />
+            <path d="M207,72 L213,74.5 L207,77" fill="#0284c7" />
             <motion.path
-              d="M168,70 Q155,55 140,60 Q155,67 168,76"
+              d="M185,69 Q171,53 154,59 Q171,66 185,76"
               fill="#bae6fd"
-              animate={{ d: ['M168,70 Q155,55 140,60 Q155,67 168,76', 'M168,74 Q155,62 140,67 Q155,71 168,80', 'M168,70 Q155,55 140,60 Q155,67 168,76'] }}
+              animate={{ d: ['M185,69 Q171,53 154,59 Q171,66 185,76', 'M185,73 Q171,60 154,66 Q171,70 185,80', 'M185,69 Q171,53 154,59 Q171,66 185,76'] }}
               transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut', delay: 0.15 }}
             />
-            <path d="M153,78 Q143,76 139,84 Q148,80 154,84" fill="#7dd3fc" />
+            <path d="M169,78 Q158,76 153,84 Q163,80 170,84" fill="#7dd3fc" />
           </motion.g>
 
-          {/* Connected line — flying together */}
-          <path d="M113,74 Q130,68 143,74" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeLinecap="round" />
+          {/* Flow line between them */}
+          <path d="M125,74 Q140,68 155,74" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeLinecap="round" />
         </motion.svg>
       )}
 
-      {/* Step 4: Awal 2026 — Keliling indo, selalu kontak. One bird far, one stays in place */}
+      {/* Step 4: Awal 2026 — Keliling Indo, tetap saling kontak */}
       {step === 4 && (
         <motion.svg
           key="birds-4"
-          viewBox="0 0 260 160"
-          className="w-64 h-44"
+          viewBox="0 0 280 160"
+          className="w-full max-w-[320px] sm:max-w-[380px] h-full"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <path d="M20,140 Q130,130 240,140" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M15,142 Q140,132 265,142" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeLinecap="round" />
 
-          {/* Bird left far away — small, high up */}
+          {/* Bird left (cx=75) — flying high & exploring */}
           <motion.g
             animate={{ x: [0, 8, 0], y: [0, -8, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <ellipse cx="55" cy="55" rx="10" ry="5.5" fill="#0284c7" opacity="0.75" />
-            <circle cx="63" cy="51" r="5.5" fill="#0284c7" opacity="0.75" />
-            <path d="M67,52 L71,53.5 L67,55" fill="#38bdf8" />
+            <ellipse cx="75" cy="54" rx="12" ry="7" fill="#0284c7" opacity="0.8" />
+            <circle cx="85" cy="49" r="7" fill="#0284c7" opacity="0.8" />
+            <path d="M90,50 L95,52 L90,54" fill="#38bdf8" />
             <motion.path
-              d="M55,51 Q46,43 37,46 Q46,50 55,55"
+              d="M75,49 Q65,40 54,43 Q65,48 75,54"
               fill="#38bdf8"
-              opacity="0.7"
-              animate={{ d: ['M55,51 Q46,43 37,46 Q46,50 55,55', 'M55,53 Q46,47 37,50 Q46,52 55,57', 'M55,51 Q46,43 37,46 Q46,50 55,55'] }}
+              opacity="0.75"
+              animate={{ d: ['M75,49 Q65,40 54,43 Q65,48 75,54', 'M75,52 Q65,44 54,48 Q65,51 75,57', 'M75,49 Q65,40 54,43 Q65,48 75,54'] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
           </motion.g>
 
-          {/* Bird right — waiting, perched on branch */}
+          {/* Bird right (cx=205) — waiting perched on branch */}
           <motion.g
             animate={{ y: [0, -3, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
           >
-            <ellipse cx="178" cy="90" rx="14" ry="8" fill="#38bdf8" />
-            <circle cx="190" cy="85" r="8" fill="#38bdf8" />
-            <circle cx="193" cy="84" r="1.7" fill="white" />
-            <circle cx="193.4" cy="84" r="0.85" fill="#0f172a" />
-            <path d="M183,85 L178,87 L183,89" fill="#0284c7" />
-            <path d="M176,92 Q166,90 162,97 Q170,93 176,97" fill="#7dd3fc" />
+            <ellipse cx="205" cy="90" rx="15" ry="8.5" fill="#38bdf8" />
+            <circle cx="192" cy="84" r="8.5" fill="#38bdf8" />
+            <circle cx="188.5" cy="83" r="1.8" fill="white" />
+            <circle cx="188" cy="83" r="0.9" fill="#0f172a" />
+            <path d="M184,84 L178,86.5 L184,88" fill="#0284c7" />
+            <path d="M220,92 Q231,89 235,97 Q225,93 218,97" fill="#7dd3fc" />
             {/* Branch */}
-            <path d="M155,100 Q175,96 200,100" fill="none" stroke="#93c5fd" strokeWidth="2.5" strokeLinecap="round" />
-            {/* Legs on branch */}
-            <line x1="175" y1="98" x2="173" y2="102" stroke="#0284c7" strokeWidth="1.5" />
-            <line x1="180" y1="98" x2="182" y2="102" stroke="#0284c7" strokeWidth="1.5" />
+            <path d="M175,100 Q205,96 235,100" fill="none" stroke="#93c5fd" strokeWidth="2.5" strokeLinecap="round" />
+            <line x1="202" y1="98" x2="200" y2="102" stroke="#0284c7" strokeWidth="1.5" />
+            <line x1="208" y1="98" x2="210" y2="102" stroke="#0284c7" strokeWidth="1.5" />
           </motion.g>
 
-          {/* Dotted arc between far and near bird */}
-          <path d="M75,55 Q130,30 165,82" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeDasharray="5,5" strokeLinecap="round" />
+          {/* Dotted arc connecting both birds centered at 140 */}
+          <path d="M95,54 Q140,25 185,84" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeDasharray="5,5" strokeLinecap="round" />
         </motion.svg>
       )}
 
-      {/* Step 5: Agustus–September 2026 — Jadian + Buku. Both birds close, touching wingtips */}
+      {/* Step 5: Agustus–September 2026 — Jadian & Bersatu */}
       {step === 5 && (
         <motion.svg
           key="birds-5"
-          viewBox="0 0 260 160"
-          className="w-64 h-44"
+          viewBox="0 0 280 160"
+          className="w-full max-w-[320px] sm:max-w-[380px] h-full"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <path d="M20,140 Q130,130 240,140" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M15,142 Q140,132 265,142" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeLinecap="round" />
 
-          {/* Heart above */}
+          {/* Heart centered at x=140 */}
           <motion.path
-            d="M128,42 C128,37 122,34 118,38 C114,42 118,46 128,54 C138,46 142,42 138,38 C134,34 128,37 128,42 Z"
+            d="M140,42 C140,37 134,34 130,38 C126,42 130,46 140,54 C150,46 154,42 150,38 C146,34 140,37 140,42 Z"
             fill="#38bdf8"
-            animate={{ scale: [1, 1.12, 1], y: [0, -3, 0] }}
+            animate={{ scale: [1, 1.15, 1], y: [0, -3, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           />
 
-          {/* Bird left — flying toward center */}
+          {/* Bird left (cx=98) */}
           <motion.g
             animate={{ y: [0, -7, 0] }}
             transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <ellipse cx="88" cy="80" rx="15" ry="8.5" fill="#0284c7" />
-            <circle cx="101" cy="74" r="8.5" fill="#0284c7" />
-            <circle cx="104" cy="73" r="1.9" fill="white" />
-            <circle cx="104.6" cy="73" r="0.95" fill="#0f172a" />
-            <path d="M108,74 L114,76 L108,78" fill="#38bdf8" />
+            <ellipse cx="98" cy="80" rx="16" ry="9" fill="#0284c7" />
+            <circle cx="112" cy="74" r="9" fill="#0284c7" />
+            <circle cx="115.5" cy="73" r="2" fill="white" />
+            <circle cx="116" cy="73" r="1" fill="#0f172a" />
+            <path d="M120,74 L126,76.5 L120,79" fill="#38bdf8" />
             <motion.path
-              d="M88,72 Q75,58 60,62 Q75,69 88,78"
+              d="M98,71 Q84,56 68,61 Q84,68 98,78"
               fill="#38bdf8"
-              animate={{ d: ['M88,72 Q75,58 60,62 Q75,69 88,78', 'M88,76 Q75,65 60,69 Q75,73 88,82', 'M88,72 Q75,58 60,62 Q75,69 88,78'] }}
+              animate={{ d: ['M98,71 Q84,56 68,61 Q84,68 98,78', 'M98,75 Q84,63 68,68 Q84,72 98,82', 'M98,71 Q84,56 68,61 Q84,68 98,78'] }}
               transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
             />
-            <path d="M73,80 Q63,78 59,86 Q68,82 74,86" fill="#0369a1" />
+            <path d="M82,80 Q71,78 66,86 Q76,82 83,86" fill="#0369a1" />
           </motion.g>
 
-          {/* Bird right — flying toward center, wingtip touching */}
+          {/* Bird right (cx=182) */}
           <motion.g
             animate={{ y: [0, -7, 0] }}
             transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut', delay: 0.1 }}
           >
-            <ellipse cx="172" cy="80" rx="14" ry="8" fill="#38bdf8" />
-            <circle cx="159" cy="74" r="8" fill="#38bdf8" />
-            <circle cx="156" cy="73" r="1.7" fill="white" />
-            <circle cx="155.4" cy="73" r="0.85" fill="#0f172a" />
-            <path d="M152,74 L146,76 L152,78" fill="#0284c7" />
+            <ellipse cx="182" cy="80" rx="15.5" ry="8.5" fill="#38bdf8" />
+            <circle cx="168" cy="74" r="8.5" fill="#38bdf8" />
+            <circle cx="164.5" cy="73" r="1.8" fill="white" />
+            <circle cx="164" cy="73" r="0.9" fill="#0f172a" />
+            <path d="M160,74 L154,76.5 L160,79" fill="#0284c7" />
             <motion.path
-              d="M172,72 Q185,58 200,62 Q185,69 172,78"
+              d="M182,71 Q196,56 212,61 Q196,68 182,78"
               fill="#bae6fd"
-              animate={{ d: ['M172,72 Q185,58 200,62 Q185,69 172,78', 'M172,76 Q185,65 200,69 Q185,73 172,82', 'M172,72 Q185,58 200,62 Q185,69 172,78'] }}
+              animate={{ d: ['M182,71 Q196,56 212,61 Q196,68 182,78', 'M182,75 Q196,63 212,68 Q196,72 182,82', 'M182,71 Q196,56 212,61 Q196,68 182,78'] }}
               transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut', delay: 0.1 }}
             />
-            <path d="M187,80 Q197,78 201,86 Q192,82 186,86" fill="#7dd3fc" />
+            <path d="M198,80 Q209,78 214,86 Q204,82 197,86" fill="#7dd3fc" />
           </motion.g>
 
-          {/* Wingtip glint between both birds */}
+          {/* Wingtip connection glint at center x=140 */}
           <motion.circle
-            cx="130"
+            cx="140"
             cy="77"
-            r="3"
+            r="3.5"
             fill="#bae6fd"
             animate={{ scale: [1, 1.5, 1], opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 1.5, repeat: Infinity }}
