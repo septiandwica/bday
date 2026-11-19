@@ -4,6 +4,7 @@ export interface MemoryItem {
   category: string;
   image: string;
   note: string;
+  objectPosition?: string;
 }
 
 export const MEMORIES_DATA: MemoryItem[] = [
@@ -19,6 +20,7 @@ export const MEMORIES_DATA: MemoryItem[] = [
     title: "Ga Pernah Meremehkan Goal Mas",
     category: "Dukungan Tulus",
     image: "/2.JPG",
+    objectPosition: "center 12%",
     note: "Salah satu hal yang paling Mas syukuri: Lala ga pernah menganggap remeh impian Mas, selalu percaya saat orang lain ragu.",
   },
   {
@@ -26,6 +28,7 @@ export const MEMORIES_DATA: MemoryItem[] = [
     title: "Ga Pernah Bahas Negatif",
     category: "Energi Positif",
     image: "/3.JPG",
+    objectPosition: "15% center",
     note: "Kamu ga melulu bilang hal-hal negatif. Ngobrol sama kamu selalu bikin hati Mas adem dan tenang.",
   },
   {

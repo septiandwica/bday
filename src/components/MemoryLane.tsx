@@ -87,6 +87,7 @@ export const MemoryLane: React.FC<MemoryLaneProps> = ({ onContinue }) => {
                       src={item.image}
                       alt={item.title}
                       className="w-full h-full object-cover"
+                      style={{ objectPosition: item.objectPosition || 'center center' }}
                       loading="lazy"
                     />
                     <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-lg bg-white/95 text-[11px] font-bold text-[#0284c7] shadow-xs backdrop-blur-xs">
