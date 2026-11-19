@@ -21,7 +21,7 @@ interface PageMeta {
 
 const PAGES: PageMeta[] = [
   { id: 0, shortTitle: "Amplop", badge: "SURAT DARI HATIKU", icon: Mail },
-  { id: 1, shortTitle: "Kisah Kita", badge: "I HAVE A CRUSH ON YOU", icon: BookOpen },
+  { id: 1, shortTitle: "Kisah Kita", badge: "PERJALANAN 2023 - 2026", icon: BookOpen },
   { id: 2, shortTitle: "Kenangan", badge: "LEMBARAN MEMOAR", icon: Camera },
   { id: 3, shortTitle: "Bintang", badge: "ALASAN ISTIMEWA", icon: Star },
   { id: 4, shortTitle: "Tiup Lilin", badge: "MAKE A WISH", icon: Cake },

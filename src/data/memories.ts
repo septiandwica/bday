@@ -85,8 +85,8 @@ export const STAR_REASONS: StarReason[] = [
   {
     id: 5,
     icon: "⭐",
-    title: "Buku 'I Have a Crush on You'",
-    message: "Buku manis yang kamu kasih ke aku itu selalu kusimpan rapi di hati. Dan jawabanku tetap sama: aku juga naksir & sayang banget sama kamu!",
+    title: "Buku 'I Have a Crush on You' (8 Sept 2026)",
+    message: "Buku manis yang kamu kasih pas hari ultahku 8 September 2026 saat kita udah jadian selalu kusimpan rapi di hati. Jawabanku selalu sama: aku juga naksir & sayang banget sama kamu!",
   },
   {
     id: 6,

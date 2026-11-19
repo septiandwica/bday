@@ -42,7 +42,7 @@ export const LoveMeterGame: React.FC = () => {
   };
 
   return (
-    <section className="py-20 px-4 max-w-xl mx-auto text-center relative z-10">
+    <section className="py-4 md:py-6 px-4 max-w-xl mx-auto text-center relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

@@ -24,18 +24,7 @@ export const WelcomeEnvelope: React.FC<WelcomeEnvelopeProps> = ({ onOpen }) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative z-10">
-      {/* Decorative Floating Emojis */}
-      <div className="absolute top-20 left-10 md:left-28 text-3xl animate-float">
-        🎈
-      </div>
-      <div className="absolute bottom-24 right-10 md:right-32 text-3xl animate-float-delayed">
-        💙
-      </div>
-      <div className="absolute top-36 right-16 md:right-40 text-2xl animate-float">
-        ☁️
-      </div>
-
+    <div className="w-full flex flex-col items-center justify-center py-6 relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.92 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}

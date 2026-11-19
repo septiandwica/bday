@@ -16,7 +16,7 @@ export const LoveLetter: React.FC = () => {
   };
 
   return (
-    <section className="py-20 px-4 max-w-3xl mx-auto relative z-10">
+    <section className="py-4 md:py-6 px-4 max-w-3xl mx-auto relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -47,7 +47,7 @@ export const LoveLetter: React.FC = () => {
             Hari ini adalah hari yang sangat spesial. Aku ingin berterima kasih banyak sekali ke kamu, Najla. Terima kasih sudah hadir dalam hidupku sejak pertemuan kita di 2023. Terima kasih sudah melengkapi sifatku yang awalnya pendiam dengan energimu yang aktif dan hangat.
           </p>
           <p>
-            Buku <span className="font-semibold text-[#0284c7]">"I Have a Crush on You"</span> yang pernah kamu kasih ke aku selalu jadi pengingat betapa berharganya kamu. Dari momen confess yang sempat digantung di ultahmu 2024, perjuangan merintis usaha bersama, begadang menyelesaikan satu kelompok Tugas Akhir S1, hingga kita resmi bersama setelah Capstone Defense di Agustus 2025—semuanya adalah bagian terindah dari hidupku.
+            Mulai dari momen confess yang sempat digantung di ultahmu November 2024, perjuangan merintis usaha bersama, begadang menyelesaikan satu kelompok Tugas Akhir S1, hingga kita resmi jadian setelah Capstone Defense di Agustus 2025. Terlebih saat kamu memberikanku kado buku <span className="font-semibold text-[#0284c7]">"I Have a Crush on You"</span> saat ulang tahunku 8 September 2026—di mana hatiku berbisik: <em>"aku juga (gw juga!) naksir dan sayang banget sama kamu"</em>.
           </p>
           <p>
             Harapanku banyak banget untuk kamu di usia yang baru ini. Tapi yang paling utama: <span className="font-bold text-[#0369a1]">aku pengen selalu men-support apa pun yang pengen kamu lakukan, mengejar semua impian dan cita-citamu</span>. Kamu tidak perlu khawatir melangkah, karena aku akan selalu ada di sampingmu untuk mendukung dan memegang tanganmu.
