@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Send, RotateCcw, MapPin, ArrowRight, Gift, Camera } from 'lucide-react';
+import { Heart, Send, RotateCcw, MapPin, ArrowRight, Gift, Camera, Download } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { triggerHeartRain, triggerGrandEnvelopeBurst, triggerStarBurst } from '../utils/confetti';
 
@@ -13,7 +13,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
   const [supportCount, setSupportCount] = useState(0);
   const [floatingHearts, setFloatingHearts] = useState<{ id: number; x: number }[]>([]);
   
-  // Gift drop state
+  // Gift drop states
   const [isGiftDropping, setIsGiftDropping] = useState(false);
   const [isGiftOpened, setIsGiftOpened] = useState(false);
 
@@ -35,7 +35,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
   };
 
   const handleTriggerGift = () => {
-    sounds.playChime(1.1);
+    sounds.playChime(1.15);
     setIsGiftDropping(true);
   };
 
@@ -47,9 +47,137 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
     triggerStarBurst();
   };
 
+  // Export & Download Letter as high-res PNG image
+  const downloadLetterAsImage = () => {
+    sounds.playChime(1.2);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const width = 900;
+    const height = 1200;
+    canvas.width = width;
+    canvas.height = height;
+
+    // Clean white paper background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, width, height);
+
+    // Soft outer blue border
+    ctx.strokeStyle = '#bae6fd';
+    ctx.lineWidth = 8;
+    ctx.strokeRect(12, 12, width - 24, height - 24);
+
+    // Inner subtle border
+    ctx.strokeStyle = '#e0f2fe';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(24, 24, width - 48, height - 48);
+
+    // Decorative LDR Stamp top right
+    ctx.fillStyle = '#f0f8ff';
+    ctx.fillRect(width - 240, 50, 180, 44);
+    ctx.strokeStyle = '#38bdf8';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4, 4]);
+    ctx.strokeRect(width - 240, 50, 180, 44);
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = '#0369a1';
+    ctx.font = 'bold 15px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('Cikarang • Jakarta', width - 150, 78);
+
+    // Top Header
+    ctx.fillStyle = '#0284c7';
+    ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('SURAT TULUS DARI MAS', 60, 75);
+
+    // Title
+    ctx.fillStyle = '#0369a1';
+    ctx.font = 'bold 36px "Playfair Display", Georgia, serif';
+    ctx.fillText('Untuk Lala Tersayang', 60, 125);
+
+    // Divider line
+    ctx.strokeStyle = '#bae6fd';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(60, 145);
+    ctx.lineTo(width - 60, 145);
+    ctx.stroke();
+
+    // Paragraphs
+    const paragraphs = [
+      "Selamat ulang tahun ya, Lala. Hari ini Mas pengen ngucapin terima kasih banyak sekali buat kamu.",
+      "Sampai sekarang, Mas seneng banget bisa kenal dan belajar banyak hal dari kamu—soal kehidupan, soal sudut pandang, dan banyak hal lainnya. Kamu selalu jadi orang yang ga pernah menganggap remeh goal dan impian Mas. Kamu juga ga melulu bilang hal-hal negatif, selalu ngasih energi baik yang bikin Mas tenang.",
+      "Mulai dari ragu di 2024, masa-masa makan hati di 2025 sampai kita rill bikin usaha bareng, keliling nyari jati diri di 2026, sampai jadian lewat chat dan kamu ngasih buku manis \"I Have a Crush on You\" pas ultah Mas 8 September lalu—semuanya bener-bener berharga buat Mas.",
+      "Walaupun sekarang kita lagi LDR Cikarang - Jakarta, jarak itu sama sekali ga mengurangi komitmen Mas. Banyak banget harapan Mas ke depan bareng kamu. Dan yang paling utama: Mas pengen selalu ada buat men-support apa pun yang Lala pengen lakuin.",
+      "Terima kasih banyak ya sudah ada untuk Mas. Mas sayang banget sama Lala."
+    ];
+
+    ctx.fillStyle = '#334155';
+    ctx.font = 'normal 19px "Plus Jakarta Sans", sans-serif';
+    let curY = 190;
+    const maxWidth = width - 120;
+    const lineHeight = 30;
+
+    paragraphs.forEach((p, idx) => {
+      if (idx === paragraphs.length - 1) {
+        ctx.fillStyle = '#0284c7';
+        ctx.font = 'bold 20px "Plus Jakarta Sans", sans-serif';
+      }
+      const words = p.split(' ');
+      let line = '';
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          ctx.fillText(line, 60, curY);
+          line = words[n] + ' ';
+          curY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, 60, curY);
+      curY += lineHeight + 20;
+    });
+
+    // Bottom Divider
+    ctx.strokeStyle = '#bae6fd';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(60, curY + 10);
+    ctx.lineTo(width - 60, curY + 10);
+    ctx.stroke();
+
+    // Signature
+    ctx.fillStyle = '#64748b';
+    ctx.font = '16px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('Dari yang selalu sayang kamu,', 60, curY + 50);
+
+    ctx.fillStyle = '#0369a1';
+    ctx.font = 'bold 50px "Dancing Script", cursive, serif';
+    ctx.fillText('Mas', 60, curY + 115);
+
+    // Bottom Date
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '14px monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText('Surat Spesial Ulang Tahun Lala • 2026', width - 60, curY + 110);
+
+    // Trigger Download
+    const link = document.createElement('a');
+    link.download = 'surat-tulus-untuk-lala.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    triggerStarBurst();
+  };
+
   return (
     <section className="py-2 sm:py-4 px-3 sm:px-4 max-w-2xl mx-auto relative z-10 select-none">
       <AnimatePresence mode="wait">
+        
         {/* VIEW 1: THE LETTER */}
         {!isGiftDropping ? (
           <motion.div
@@ -58,123 +186,159 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: -40 }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
-            className="bg-white/95 border-4 border-[#bae6fd] rounded-3xl p-4 sm:p-8 shadow-xl relative overflow-hidden"
+            className="relative"
           >
-            {/* Responsive Header Row: Title & LDR Stamp */}
-            <div className="flex flex-col-reverse sm:flex-row sm:items-start justify-between gap-3 mb-5">
-              <div>
-                <span className="text-xs uppercase tracking-widest text-[#0284c7] font-bold flex items-center gap-1.5">
-                  <Heart className="w-3.5 h-3.5 fill-[#0284c7]" />
-                  <span>Surat Tulus dari Mas</span>
-                </span>
-                <h2 className="text-xl sm:text-3xl font-extrabold text-[#0369a1] font-display mt-1">
-                  Untuk Lala Tersayang
-                </h2>
+            {/* The Main Letter Card */}
+            <div className="bg-white/95 border-4 border-[#bae6fd] rounded-3xl p-4 sm:p-8 shadow-xl relative overflow-hidden">
+              
+              {/* Header: Title & LDR Stamp */}
+              <div className="flex flex-col-reverse sm:flex-row sm:items-start justify-between gap-3 mb-5">
+                <div>
+                  <span className="text-xs uppercase tracking-widest text-[#0284c7] font-bold flex items-center gap-1.5">
+                    <Heart className="w-3.5 h-3.5 fill-[#0284c7]" />
+                    <span>Surat Tulus dari Mas</span>
+                  </span>
+                  <h2 className="text-xl sm:text-3xl font-extrabold text-[#0369a1] font-display mt-1">
+                    Untuk Lala Tersayang
+                  </h2>
+                </div>
+
+                {/* LDR Stamp */}
+                <div className="self-start shrink-0 px-2.5 py-1 rounded-xl border-2 border-dashed border-[#38bdf8] flex items-center gap-1.5 text-center bg-[#f0f8ff]">
+                  <MapPin className="w-3.5 h-3.5 text-[#0284c7]" />
+                  <span className="text-[10px] sm:text-[11px] font-mono font-bold text-[#0369a1]">
+                    Cikarang &bull; Jakarta
+                  </span>
+                </div>
               </div>
 
-              {/* LDR Stamp */}
-              <div className="self-start shrink-0 px-2.5 py-1 rounded-xl border-2 border-dashed border-[#38bdf8] flex items-center gap-1.5 text-center bg-[#f0f8ff]">
-                <MapPin className="w-3.5 h-3.5 text-[#0284c7]" />
-                <span className="text-[10px] sm:text-[11px] font-mono font-bold text-[#0369a1]">
-                  Cikarang &bull; Jakarta
-                </span>
-              </div>
-            </div>
-
-            {/* Letter Body */}
-            <div className="space-y-3.5 text-slate-700 text-xs sm:text-sm leading-relaxed font-normal">
-              <p>
-                Selamat ulang tahun ya, Lala. Hari ini Mas pengen ngucapin terima kasih banyak sekali buat kamu.
-              </p>
-              <p>
-                Sampai sekarang, Mas seneng banget bisa kenal dan belajar banyak hal dari kamu—soal kehidupan, soal sudut pandang, dan banyak hal lainnya. Kamu selalu jadi orang yang ga pernah menganggap remeh goal dan impian Mas. Kamu juga ga melulu bilang hal-hal negatif, selalu ngasih energi baik yang bikin Mas tenang.
-              </p>
-              <p>
-                Mulai dari ragu di 2024, masa-masa makan hati di 2025 sampai kita rill bikin usaha bareng, keliling nyari jati diri di 2026, sampai jadian lewat chat dan kamu ngasih buku manis <span className="font-semibold text-[#0284c7]">"I Have a Crush on You"</span> pas ultah Mas 8 September lalu—semuanya bener-bener berharga buat Mas.
-              </p>
-              <p>
-                Walaupun sekarang kita lagi LDR Cikarang - Jakarta, jarak itu sama sekali ga mengurangi komitmen Mas. Banyak banget harapan Mas ke depan bareng kamu. Dan yang paling utama: <span className="font-bold text-[#0369a1]">Mas pengen selalu ada buat men-support apa pun yang Lala pengen lakuin</span>.
-              </p>
-              <p className="pt-1 font-bold text-[#0284c7]">
-                Terima kasih banyak ya sudah ada untuk Mas. Mas sayang banget sama Lala.
-              </p>
-            </div>
-
-            {/* Signature & Interactive Support */}
-            <div className="mt-7 pt-5 border-t-2 border-[#bae6fd] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <p className="text-xs text-slate-400 font-medium">Dari yang selalu sayang kamu,</p>
-                <p className="font-handwriting text-2xl text-[#0369a1] font-bold mt-0.5">Mas</p>
+              {/* Letter Body Text */}
+              <div className="space-y-3.5 text-slate-700 text-xs sm:text-sm leading-relaxed font-normal">
+                <p>
+                  Selamat ulang tahun ya, Lala. Hari ini Mas pengen ngucapin terima kasih banyak sekali buat kamu.
+                </p>
+                <p>
+                  Sampai sekarang, Mas seneng banget bisa kenal dan belajar banyak hal dari kamu—soal kehidupan, soal sudut pandang, dan banyak hal lainnya. Kamu selalu jadi orang yang ga pernah menganggap remeh goal dan impian Mas. Kamu juga ga melulu bilang hal-hal negatif, selalu ngasih energi baik yang bikin Mas tenang.
+                </p>
+                <p>
+                  Mulai dari ragu di 2024, masa-masa makan hati di 2025 sampai kita rill bikin usaha bareng, keliling nyari jati diri di 2026, sampai jadian lewat chat dan kamu ngasih buku manis <span className="font-semibold text-[#0284c7]">"I Have a Crush on You"</span> pas ultah Mas 8 September lalu—semuanya bener-bener berharga buat Mas.
+                </p>
+                <p>
+                  Walaupun sekarang kita lagi LDR Cikarang - Jakarta, jarak itu sama sekali ga mengurangi komitmen Mas. Banyak banget harapan Mas ke depan bareng kamu. Dan yang paling utama: <span className="font-bold text-[#0369a1]">Mas pengen selalu ada buat men-support apa pun yang Lala pengen lakuin</span>.
+                </p>
+                <p className="pt-1 font-bold text-[#0284c7]">
+                  Terima kasih banyak ya sudah ada untuk Mas. Mas sayang banget sama Lala.
+                </p>
               </div>
 
-              <div className="relative w-full sm:w-auto flex justify-end">
-                <AnimatePresence>
-                  {floatingHearts.map((h) => (
-                    <motion.div
-                      key={h.id}
-                      initial={{ opacity: 1, y: 0, scale: 0.8 }}
-                      animate={{ opacity: 0, y: -70, scale: 1.3 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 1.2, ease: 'easeOut' }}
-                      className="absolute pointer-events-none text-[#0284c7]"
-                      style={{ left: h.x }}
+              {/* Signature, Download Letter, & Kirim Semangat */}
+              <div className="mt-7 pt-5 border-t-2 border-[#bae6fd] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs text-slate-400 font-medium">Dari yang selalu sayang kamu,</p>
+                  <p className="font-handwriting text-2xl text-[#0369a1] font-bold mt-0.5">Mas</p>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end">
+                  {/* Button: Save Letter as Image */}
+                  <button
+                    onClick={downloadLetterAsImage}
+                    className="px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-white border-2 border-sky-300 text-[#0284c7] hover:bg-sky-50 shadow-xs hover:scale-105 active:scale-95"
+                    title="Simpan surat ini sebagai gambar ke galeri"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Simpan Surat Ini</span>
+                  </button>
+
+                  {/* Button: Send Support */}
+                  <div className="relative">
+                    <AnimatePresence>
+                      {floatingHearts.map((h) => (
+                        <motion.div
+                          key={h.id}
+                          initial={{ opacity: 1, y: 0, scale: 0.8 }}
+                          animate={{ opacity: 0, y: -70, scale: 1.3 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 1.2, ease: 'easeOut' }}
+                          className="absolute pointer-events-none text-[#0284c7]"
+                          style={{ left: h.x }}
+                        >
+                          <Heart className="w-4 h-4 fill-[#0284c7]" />
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
+
+                    <button
+                      onClick={handleSendSupport}
+                      className="px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#0284c7] hover:bg-[#0369a1] text-white hover:scale-105 active:scale-95"
                     >
-                      <Heart className="w-4 h-4 fill-[#0284c7]" />
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
+                      <Send className="w-3.5 h-3.5" />
+                      <span>Kirim Semangat ({supportCount})</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
 
+              {/* Bottom Navigation */}
+              <div className="mt-6 pt-4 border-t border-sky-100 flex items-center justify-between">
                 <button
-                  onClick={handleSendSupport}
-                  className="w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs bg-[#0284c7] hover:bg-[#0369a1] text-white hover:scale-105 active:scale-95"
+                  onClick={onRestart}
+                  className="inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-400 hover:text-[#0284c7] transition-all cursor-pointer"
                 >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>Kirim Semangat ({supportCount})</span>
+                  <RotateCcw className="w-3 h-3" />
+                  <span>Mulai dari Awal</span>
                 </button>
               </div>
             </div>
 
-            {/* Bottom: Trigger Surprise Gift Drop from Sky */}
-            <div className="mt-6 pt-5 border-t border-sky-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-              <button
-                onClick={onRestart}
-                className="inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-400 hover:text-[#0284c7] transition-all cursor-pointer"
-              >
-                <RotateCcw className="w-3 h-3" />
-                <span>Mulai dari Awal</span>
-              </button>
-
+            {/* FLOATING INVITATION BUTTON DROPPING FROM SKY & HOVERING IN CENTER */}
+            <motion.div
+              initial={{ y: -350, opacity: 0, scale: 0.8 }}
+              animate={{
+                y: [0, -8, 0],
+                opacity: 1,
+                scale: 1,
+              }}
+              transition={{
+                y: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
+                opacity: { duration: 0.8, delay: 0.3 },
+                scale: { duration: 0.8, delay: 0.3 },
+              }}
+              className="mt-6 flex justify-center w-full"
+            >
               <button
                 onClick={handleTriggerGift}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs sm:text-sm shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer group"
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white font-bold text-xs sm:text-sm shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer border-2 border-white group"
               >
-                <Gift className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                  <Gift className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                </div>
                 <span>Buka Kado Kejutan dari Langit</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
-            </div>
+            </motion.div>
           </motion.div>
         ) : (
-          /* VIEW 2: GIFT FALLING FROM SKY & OPENING */
+          
+          /* VIEW 2: GIFT FALLING FROM SKY & POPPING OPEN */
           <motion.div
             key="gift-drop-view"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col items-center justify-center py-6 min-h-[460px] text-center"
+            className="flex flex-col items-center justify-center py-4 min-h-[460px] text-center"
           >
             {/* Header Hint */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="mb-6"
+              className="mb-4"
             >
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/95 border-2 border-sky-200 text-[#0284c7] text-xs font-bold mb-2 shadow-xs">
                 <Gift className="w-3.5 h-3.5" />
                 <span>Kado Kejutan Spesial</span>
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0369a1] font-display">
-                {!isGiftOpened ? "Sebuah Kado Jatuh untuk Lala!" : "Pilih Hadiah Spesialmu:"}
+                {!isGiftOpened ? "Kado Telah Turun dari Langit!" : "Pilih Hadiah Spesial Lala:"}
               </h2>
               <p className="text-slate-600 text-xs sm:text-sm mt-1 max-w-sm mx-auto">
                 {!isGiftOpened
@@ -183,8 +347,8 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
               </p>
             </motion.div>
 
-            {/* GIFT BOX OBJECT FALLING FROM THE SKY */}
-            <div className="relative flex flex-col items-center justify-center my-4 w-full max-w-[340px] sm:max-w-[420px]">
+            {/* GIFT BOX FALLING FROM THE SKY INTO THE CENTER */}
+            <div className="relative flex flex-col items-center justify-center my-3 w-full max-w-[340px] sm:max-w-[420px]">
               
               {/* Emerging 2 Options when Opened */}
               <AnimatePresence>
@@ -245,7 +409,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
                           Photo Studio Mini
                         </h4>
                         <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                          Foto polaroid ulang tahun dengan filter aesthetic & bisa disimpan.
+                          Foto polaroid ulang tahun dengan stiker estetik & filter.
                         </p>
                       </div>
 
@@ -286,7 +450,6 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
                   transition={{ duration: 0.5, ease: 'easeOut' }}
                   className="absolute top-2 w-44 sm:w-52 h-10 sm:h-12 bg-[#38bdf8] rounded-xl border-4 border-white shadow-md z-20 flex items-center justify-center"
                 >
-                  {/* Ribbon cross horizontal */}
                   <div className="w-7 h-full bg-white shadow-2xs" />
                   
                   {/* Ribbon Bow on top */}
@@ -298,9 +461,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
 
                 {/* Gift Body */}
                 <div className="w-38 sm:w-44 h-32 sm:h-36 bg-[#7dd3fc] rounded-2xl border-4 border-white shadow-xl relative overflow-hidden flex items-center justify-center mt-6">
-                  {/* Vertical white ribbon */}
                   <div className="w-7 h-full bg-white shadow-2xs" />
-                  {/* Horizontal white ribbon */}
                   <div className="h-7 w-full bg-white absolute inset-y-1/2 transform -translate-y-1/2 shadow-2xs" />
 
                   {/* Touch Me Pill before opened */}
@@ -317,8 +478,8 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
               </motion.div>
             </div>
 
-            {/* Back button */}
-            <div className="mt-6">
+            {/* Back to reading letter button */}
+            <div className="mt-5">
               <button
                 onClick={() => setIsGiftDropping(false)}
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-[#0284c7] transition-colors cursor-pointer"
