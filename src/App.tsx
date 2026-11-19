@@ -11,7 +11,6 @@ import { PhotoStudio } from './components/PhotoStudio';
 import { AudioPlayer } from './components/AudioPlayer';
 import { STORY_STEPS } from './data/story';
 import { sounds } from './utils/audio';
-import { ChevronLeft } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -24,11 +23,6 @@ export const App: React.FC = () => {
   const goToStage = (stage: number) => {
     sounds.playChime(1.05);
     setCurrentPage(stage);
-  };
-
-  const goToPrev = () => {
-    sounds.playChime(0.95);
-    setCurrentPage((prev) => Math.max(0, prev - 1));
   };
 
   const restartJourney = () => {
@@ -44,7 +38,7 @@ export const App: React.FC = () => {
       {/* Floating Audio Controller */}
       <AudioPlayer />
 
-      {/* Main Secret Flow Container (NO TOP NAVBAR, no flex justify-center clipping) */}
+      {/* Main Secret Flow Container (NO TOP NAVBAR, NO BOTTOM BAR, PURE IMMERSIVE FLOW) */}
       <main className="relative z-10 flex-1 w-full overflow-y-auto px-4 py-6 sm:py-8 flex flex-col items-center">
         <div className="w-full my-auto flex flex-col items-center">
           <AnimatePresence mode="wait">
@@ -102,19 +96,6 @@ export const App: React.FC = () => {
           </AnimatePresence>
         </div>
       </main>
-
-      {/* Discreet Bottom Navigation (Back Button Only, No Spoilers) */}
-      {currentPage > 0 && (
-        <div className="relative z-20 w-full px-6 py-3 flex items-center justify-start pointer-events-none">
-          <button
-            onClick={goToPrev}
-            className="pointer-events-auto flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-white/80 border border-sky-200 text-slate-600 hover:text-[#0284c7] hover:bg-white shadow-xs transition-all cursor-pointer"
-          >
-            <ChevronLeft className="w-3.5 h-3.5" />
-            <span>Kembali</span>
-          </button>
-        </div>
-      )}
     </div>
   );
 };
