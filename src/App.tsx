@@ -31,7 +31,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden flex flex-col justify-between text-slate-800 select-none">
+    <div className="fixed inset-0 w-full h-[100dvh] overflow-hidden flex flex-col justify-between text-slate-800 select-none">
       {/* Sky Background with cute small drifting clouds */}
       <SkyBackground />
 

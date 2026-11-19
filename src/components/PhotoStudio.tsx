@@ -18,6 +18,7 @@ interface CuratedTheme {
   badgeBg: string;
   badgeText: string;
   defaultFilter: string;
+  filterId: string;
   accentIcon: string;
   hexBg: string;
 }
@@ -32,6 +33,7 @@ const THEMES: CuratedTheme[] = [
     badgeBg: 'bg-sky-50 text-[#0284c7]',
     badgeText: '21st BDAY',
     defaultFilter: 'none',
+    filterId: 'original',
     accentIcon: '21',
     hexBg: '#ffffff',
   },
@@ -44,6 +46,7 @@ const THEMES: CuratedTheme[] = [
     badgeBg: 'bg-[#0284c7] text-white',
     badgeText: 'LALA 21',
     defaultFilter: 'brightness(1.08) contrast(0.96) saturate(1.15)',
+    filterId: 'sky',
     accentIcon: '☁️',
     hexBg: '#f0f9ff',
   },
@@ -56,6 +59,7 @@ const THEMES: CuratedTheme[] = [
     badgeBg: 'bg-amber-100 text-amber-800',
     badgeText: 'NOV 2005',
     defaultFilter: 'sepia(0.3) contrast(1.12) brightness(1.04)',
+    filterId: 'warm',
     accentIcon: '✨',
     hexBg: '#fffbeb',
   },
@@ -68,6 +72,7 @@ const THEMES: CuratedTheme[] = [
     badgeBg: 'bg-slate-800 text-white',
     badgeText: '21 YEARS',
     defaultFilter: 'grayscale(1) contrast(1.18)',
+    filterId: 'bw',
     accentIcon: '🎬',
     hexBg: '#ffffff',
   },
@@ -85,6 +90,7 @@ const FILTERS = [
 export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRestart }) => {
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [selectedTheme, setSelectedTheme] = useState<CuratedTheme>(THEMES[0]);
+  const [selectedFilterId, setSelectedFilterId] = useState<string>('original');
   const [customFilter, setCustomFilter] = useState<string>('none');
   const [activeTab, setActiveTab] = useState<'theme' | 'filter'>('theme');
   const [isCameraActive, setIsCameraActive] = useState(false);
@@ -180,8 +186,9 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
     }
   };
 
-  // Compute active CSS filter
+  // Compute active CSS filter & active Filter ID
   const activeCssFilter = customFilter !== 'none' ? customFilter : selectedTheme.defaultFilter;
+  const activeFilterId = selectedFilterId !== 'original' ? selectedFilterId : selectedTheme.filterId;
 
   // Download High-Resolution Birthday Polaroid
   const downloadPolaroid = () => {
@@ -216,18 +223,67 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
       ctx.fillStyle = '#f0f9ff';
       ctx.fillRect(margin, margin, photoSize, photoSize);
 
-      // Apply CSS Filter
-      ctx.save();
-      if (activeCssFilter !== 'none') {
-        ctx.filter = activeCssFilter;
-      }
-
       // Draw cropped square
       const minDim = Math.min(img.width, img.height);
       const sx = (img.width - minDim) / 2;
       const sy = (img.height - minDim) / 2;
       ctx.drawImage(img, sx, sy, minDim, minDim, margin, margin, photoSize, photoSize);
-      ctx.restore();
+
+      // Apply Filter Directly to Pixels (100% Cross-Browser Guaranteed including Safari / iOS)
+      if (activeFilterId && activeFilterId !== 'original') {
+        try {
+          const imgData = ctx.getImageData(margin, margin, photoSize, photoSize);
+          const d = imgData.data;
+          const len = d.length;
+
+          if (activeFilterId === 'bw') {
+            // Monochrome with classic film contrast
+            for (let i = 0; i < len; i += 4) {
+              const gray = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+              const val = Math.max(0, Math.min(255, (gray - 128) * 1.18 + 128));
+              d[i] = val;
+              d[i + 1] = val;
+              d[i + 2] = val;
+            }
+          } else if (activeFilterId === 'warm') {
+            // Warm Golden Glow
+            for (let i = 0; i < len; i += 4) {
+              d[i] = Math.min(255, d[i] * 1.1 + 14);
+              d[i + 1] = Math.min(255, d[i + 1] * 1.05 + 6);
+              d[i + 2] = Math.max(0, d[i + 2] * 0.9 - 10);
+            }
+          } else if (activeFilterId === 'vintage') {
+            // Vintage Nostalgia Sepia
+            for (let i = 0; i < len; i += 4) {
+              const r = d[i], g = d[i + 1], b = d[i + 2];
+              const tr = 0.393 * r + 0.769 * g + 0.189 * b;
+              const tg = 0.349 * r + 0.686 * g + 0.168 * b;
+              const tb = 0.272 * r + 0.534 * g + 0.131 * b;
+              d[i] = Math.min(255, r * 0.6 + tr * 0.4 + 8);
+              d[i + 1] = Math.min(255, g * 0.6 + tg * 0.4);
+              d[i + 2] = Math.max(0, Math.min(255, b * 0.6 + tb * 0.4 - 10));
+            }
+          } else if (activeFilterId === 'dreamy') {
+            // Dreamy Soft Glow
+            for (let i = 0; i < len; i += 4) {
+              d[i] = Math.min(255, d[i] * 1.1 + 10);
+              d[i + 1] = Math.min(255, d[i + 1] * 1.08 + 8);
+              d[i + 2] = Math.min(255, d[i + 2] * 1.08 + 14);
+            }
+          } else if (activeFilterId === 'sky') {
+            // Pastel Sky Tint
+            for (let i = 0; i < len; i += 4) {
+              d[i] = Math.max(0, d[i] * 0.95);
+              d[i + 1] = Math.min(255, d[i + 1] * 1.04 + 6);
+              d[i + 2] = Math.min(255, d[i + 2] * 1.15 + 18);
+            }
+          }
+
+          ctx.putImageData(imgData, margin, margin);
+        } catch (e) {
+          console.warn('Canvas pixel manipulation error:', e);
+        }
+      }
 
       // Photo inner border
       ctx.strokeStyle = '#e0f2fe';
@@ -425,6 +481,7 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
                     key={theme.id}
                     onClick={() => {
                       setSelectedTheme(theme);
+                      setSelectedFilterId(theme.filterId);
                       setCustomFilter('none');
                       sounds.playChime(1.05);
                     }}
@@ -449,11 +506,12 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
           {activeTab === 'filter' && (
             <div className="flex items-center justify-center flex-wrap gap-1.5 mb-4">
               {FILTERS.map((f) => {
-                const isSelected = customFilter === f.css;
+                const isSelected = activeFilterId === f.id;
                 return (
                   <button
                     key={f.id}
                     onClick={() => {
+                      setSelectedFilterId(f.id);
                       setCustomFilter(f.css);
                       sounds.playChime(1.05);
                     }}

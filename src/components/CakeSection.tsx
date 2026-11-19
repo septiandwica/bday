@@ -150,8 +150,21 @@ export const CakeSection: React.FC<CakeSectionProps> = ({ onContinue }) => {
     };
   }, []);
 
+  // Auto-scroll when wish card is revealed so the continue button is fully in view
+  useEffect(() => {
+    if (hasMadeWish) {
+      const timer = setTimeout(() => {
+        const main = document.querySelector('main');
+        if (main) {
+          main.scrollTo({ top: main.scrollHeight, behavior: 'smooth' });
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [hasMadeWish]);
+
   return (
-    <section className="py-2 sm:py-4 px-3 sm:px-4 max-w-xl mx-auto text-center relative z-10 select-none">
+    <section className="py-2 sm:py-4 px-3 sm:px-4 max-w-xl mx-auto text-center relative z-10 select-none pb-28 sm:pb-36">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
