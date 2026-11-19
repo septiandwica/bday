@@ -6,6 +6,7 @@ export interface StoryChapter {
   story: string;
   highlight: string;
   nextButtonText: string;
+  image: string;
 }
 
 export const STORY_STEPS: StoryChapter[] = [
@@ -17,6 +18,7 @@ export const STORY_STEPS: StoryChapter[] = [
     story: "Waktu kamu ulang tahun di 2024, Mas beraniin diri buat confess perasaan Mas ke kamu. Tapi setelah itu Mas malah suruh kamu lupain aja... Waktu itu Mas masih bingung banget sama diri sendiri, terus kepikiran: 'Emang Mas pantas ya buat Lala?'.",
     highlight: "Rasa ragu dan bingung yang bikin Mas sempat suruh kamu lupain.",
     nextButtonText: "Masuk ke Awal 2025",
+    image: "/1.JPG",
   },
   {
     id: 2,
@@ -26,6 +28,7 @@ export const STORY_STEPS: StoryChapter[] = [
     story: "Masuk awal 2025, Mas tiba-tiba ngikutin kata orang yang baru Mas kenal dan Mas iyain aja. Ternyata isinya malah makan hati banget. Tapi di tengah kacaunya hari-hari Mas waktu itu, kamu tetap stay dan selalu berhasil bikin Mas ceria lagi.",
     highlight: "Kamu yang selalu ada nemenin dan bikin Mas tersenyum lagi.",
     nextButtonText: "Lanjut ke Pertengahan 2025",
+    image: "/2.JPG",
   },
   {
     id: 3,
@@ -35,6 +38,7 @@ export const STORY_STEPS: StoryChapter[] = [
     story: "Pertengahan 2025 Mas mutusin buat bikin usaha. Awalnya Mas ga mau libatin kamu karena jujur masih ada rasa suka gitu dan takut canggung. Tapi Mas tau betul potensi luar biasa yang ada di diri kamu. Pas akhir 2025 lagi puncak-puncaknya stres Mas, kamu yang paling bisa ngertiin Mas. Akhirnya di situ Mas mantap mutusin buat rill usaha bareng kamu.",
     highlight: "Partner terbaik karena Mas tau potensi hebatmu dan kamu selalu ngertiin Mas.",
     nextButtonText: "Lanjut ke Perjalanan 2026",
+    image: "/3.JPG",
   },
   {
     id: 4,
@@ -44,6 +48,7 @@ export const STORY_STEPS: StoryChapter[] = [
     story: "Awal 2026 Mas bener-bener mencari jati diri sampai keliling Indonesia, tapi Mas tetep sering kontak kamu. Maaf ya kalau waktu itu Mas ganggu banget hehe. Sampai di Juli 2026 Mas ngerasa udah mulai nemu arah Mas, tapi Mas masih malu-malu dan takut ga sesuai ekspektasi kamu. Dan lagi-lagi kepikiran: emang Mas pantas buat kamu?",
     highlight: "Di setiap sudut kota yang Mas datangi, Mas selalu ingat kamu.",
     nextButtonText: "Lalu di Agustus 2026...",
+    image: "/4.JPG",
   },
   {
     id: 5,
@@ -53,5 +58,6 @@ export const STORY_STEPS: StoryChapter[] = [
     story: "Bulan Agustus 2026, kok kamu makin sering ngode ya. Yaudah di situ Mas beraniin diri buat maju dan akhirnya confess. Kata kamu ga seru sih karena confess-nya di chat doang wkwk. Tapi akhirnya kita resmi jadian! Terus pas Mas ulang tahun 8 September 2026, kamu ngasih buku manis 'I Have a Crush on You'. Buku itu bikin Mas tersentuh banget. Di hati Mas berbisik: Mas juga naksir dan sayang banget sama Lala.",
     highlight: "Resmi jadian dan kado buku terindah: Mas juga naksir kamu sejak lama.",
     nextButtonText: "Hal yang Mas Syukuri dari Lala",
+    image: "/5.JPG",
   },
 ];
