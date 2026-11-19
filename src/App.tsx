@@ -39,8 +39,8 @@ export const App: React.FC = () => {
       <AudioPlayer />
 
       {/* Main Secret Flow Container (NO TOP NAVBAR, NO BOTTOM BAR, PURE IMMERSIVE FLOW) */}
-      <main className="relative z-10 flex-1 w-full overflow-y-auto px-3 sm:px-4 py-4 sm:py-6">
-        <div className="w-full max-w-4xl mx-auto min-h-full flex flex-col items-center justify-start sm:justify-center py-2 sm:py-4">
+      <main className="relative z-10 flex-1 w-full overflow-y-auto px-3 sm:px-4 py-4 sm:py-6 flex flex-col">
+        <div className="w-full max-w-4xl mx-auto my-auto flex flex-col items-center justify-center py-2 sm:py-4">
           <AnimatePresence mode="wait">
             {/* Stage 0: Amplop Rahasia untuk Lala */}
             {currentPage === 0 && (
