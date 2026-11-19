@@ -35,25 +35,27 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onContinue, onRestart })
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/95 border-4 border-[#bae6fd] rounded-3xl p-5 sm:p-9 shadow-xl relative overflow-hidden"
+        className="bg-white/95 border-4 border-[#bae6fd] rounded-3xl p-4 sm:p-8 shadow-xl relative overflow-hidden"
       >
-        {/* Decorative LDR Stamp */}
-        <div className="absolute top-4 right-4 sm:top-5 sm:right-5 px-2.5 py-1.5 rounded-xl border-2 border-dashed border-[#38bdf8] flex items-center gap-1 text-center bg-[#f0f8ff]">
-          <MapPin className="w-3.5 h-3.5 text-[#0284c7]" />
-          <span className="text-[10px] font-mono font-bold text-[#0369a1]">
-            Cikarang &bull; Jakarta
-          </span>
-        </div>
+        {/* Responsive Header Row: Title & LDR Stamp in Natural Flex Flow */}
+        <div className="flex flex-col-reverse sm:flex-row sm:items-start justify-between gap-3 mb-5">
+          <div>
+            <span className="text-xs uppercase tracking-widest text-[#0284c7] font-bold flex items-center gap-1.5">
+              <Heart className="w-3.5 h-3.5 fill-[#0284c7]" />
+              <span>Surat Tulus dari Mas</span>
+            </span>
+            <h2 className="text-xl sm:text-3xl font-extrabold text-[#0369a1] font-display mt-1">
+              Untuk Lala Tersayang
+            </h2>
+          </div>
 
-        {/* Letter Header */}
-        <div className="mb-5 pr-20 sm:pr-32">
-          <span className="text-xs uppercase tracking-widest text-[#0284c7] font-bold flex items-center gap-1.5">
-            <Heart className="w-3.5 h-3.5 fill-[#0284c7]" />
-            <span>Surat Tulus dari Mas</span>
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0369a1] font-display mt-1">
-            Untuk Lala Tersayang
-          </h2>
+          {/* LDR Stamp: Sits cleanly, never overlaps or crunches title */}
+          <div className="self-start shrink-0 px-2.5 py-1 rounded-xl border-2 border-dashed border-[#38bdf8] flex items-center gap-1.5 text-center bg-[#f0f8ff]">
+            <MapPin className="w-3.5 h-3.5 text-[#0284c7]" />
+            <span className="text-[10px] sm:text-[11px] font-mono font-bold text-[#0369a1]">
+              Cikarang &bull; Jakarta
+            </span>
+          </div>
         </div>
 
         {/* Letter Body: Simple, Direct, Natural & Grounded */}
@@ -82,7 +84,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onContinue, onRestart })
             <p className="font-handwriting text-2xl text-[#0369a1] font-bold mt-0.5">Mas</p>
           </div>
 
-          <div className="relative">
+          <div className="relative w-full sm:w-auto flex justify-end">
             {/* Floating rising hearts */}
             <AnimatePresence>
               {floatingHearts.map((h) => (
@@ -102,7 +104,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onContinue, onRestart })
 
             <button
               onClick={handleSendSupport}
-              className="px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#0284c7] hover:bg-[#0369a1] text-white hover:scale-105 active:scale-95"
+              className="w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs bg-[#0284c7] hover:bg-[#0369a1] text-white hover:scale-105 active:scale-95"
             >
               <Send className="w-3.5 h-3.5" />
               <span>Kirim Semangat ({supportCount})</span>
@@ -122,7 +124,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onContinue, onRestart })
 
           <button
             onClick={onContinue}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
           >
             <span>Buka Love Meter Terakhir</span>
             <ArrowRight className="w-4 h-4" />
