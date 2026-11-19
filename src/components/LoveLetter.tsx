@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Send, RotateCcw } from 'lucide-react';
+import { Heart, Send, RotateCcw, MapPin } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { triggerHeartRain } from '../utils/confetti';
 
@@ -9,10 +9,10 @@ interface LoveLetterProps {
 }
 
 export const LoveLetter: React.FC<LoveLetterProps> = ({ onRestart }) => {
-  const [hugCount, setHugCount] = useState(0);
+  const [supportCount, setSupportCount] = useState(0);
   const [floatingHearts, setFloatingHearts] = useState<{ id: number; x: number }[]>([]);
 
-  const handleSendHug = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSendSupport = (e: React.MouseEvent<HTMLButtonElement>) => {
     sounds.playHeartPop();
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -21,9 +21,9 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onRestart }) => {
       ...prev.slice(-10),
       { id: Date.now() + Math.random(), x: x + (Math.random() * 40 - 20) },
     ]);
-    setHugCount((prev) => prev + 1);
+    setSupportCount((prev) => prev + 1);
 
-    if ((hugCount + 1) % 3 === 0) {
+    if ((supportCount + 1) % 3 === 0) {
       sounds.playFanfare();
       triggerHeartRain();
     }
@@ -36,11 +36,12 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onRestart }) => {
         animate={{ opacity: 1, y: 0 }}
         className="bg-white/95 border-4 border-[#bae6fd] rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden"
       >
-        {/* Subtle decorative stamp in corner */}
-        <div className="absolute top-5 right-5 w-14 h-16 rounded-xl border-2 border-dashed border-[#38bdf8] p-1 flex flex-col items-center justify-center text-center bg-[#f0f8ff]">
-          <Heart className="w-4 h-4 text-[#0284c7] fill-[#0284c7]" />
-          <span className="text-[9px] font-mono font-bold text-[#0369a1] mt-0.5">LALA</span>
-          <span className="text-[8px] font-mono text-slate-400">BDAY</span>
+        {/* Decorative LDR Stamp */}
+        <div className="absolute top-5 right-5 px-2.5 py-1.5 rounded-xl border-2 border-dashed border-[#38bdf8] flex items-center gap-1 text-center bg-[#f0f8ff]">
+          <MapPin className="w-3.5 h-3.5 text-[#0284c7]" />
+          <span className="text-[10px] font-mono font-bold text-[#0369a1]">
+            Cikarang &bull; Jakarta
+          </span>
         </div>
 
         {/* Letter Header */}
@@ -54,7 +55,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onRestart }) => {
           </h2>
         </div>
 
-        {/* Letter Body: Simple, Direct, Natural */}
+        {/* Letter Body: Simple, Direct, Natural & Grounded */}
         <div className="space-y-3.5 text-slate-700 text-xs sm:text-sm leading-relaxed font-normal">
           <p>
             Selamat ulang tahun ya, Lala. Hari ini Mas pengen ngucapin terima kasih banyak sekali buat kamu.
@@ -66,14 +67,14 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onRestart }) => {
             Mulai dari ragu di 2024, masa-masa makan hati di 2025 sampai kita rill bikin usaha bareng, keliling nyari jati diri di 2026, sampai jadian lewat chat dan kamu ngasih buku manis <span className="font-semibold text-[#0284c7]">"I Have a Crush on You"</span> pas ultah Mas 8 September lalu—semuanya bener-bener berharga buat Mas.
           </p>
           <p>
-            Banyak banget harapan Mas ke depan bareng kamu. Tapi yang paling utama: <span className="font-bold text-[#0369a1]">Mas pengen selalu ada di samping kamu buat men-support apa pun yang Lala pengen lakuin</span>.
+            Walaupun sekarang kita lagi LDR Cikarang - Jakarta, jarak itu sama sekali ga mengurangi komitmen Mas. Banyak banget harapan Mas ke depan bareng kamu. Dan yang paling utama: <span className="font-bold text-[#0369a1]">Mas pengen selalu ada buat men-support apa pun yang Lala pengen lakuin</span>.
           </p>
           <p className="pt-1 font-bold text-[#0284c7]">
             Terima kasih banyak ya sudah ada untuk Mas. Mas sayang banget sama Lala.
           </p>
         </div>
 
-        {/* Signature & Interactive Peluk */}
+        {/* Signature & Interactive Support */}
         <div className="mt-8 pt-5 border-t-2 border-[#bae6fd] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <p className="text-xs text-slate-400 font-medium">Dari yang selalu sayang kamu,</p>
@@ -99,11 +100,11 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onRestart }) => {
             </AnimatePresence>
 
             <button
-              onClick={handleSendHug}
+              onClick={handleSendSupport}
               className="px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm bg-[#0284c7] hover:bg-[#0369a1] text-white hover:scale-105 active:scale-95"
             >
               <Send className="w-3.5 h-3.5" />
-              <span>Kirim Peluk untuk Mas ({hugCount})</span>
+              <span>Kirim Semangat untuk Mas ({supportCount})</span>
             </button>
           </div>
         </div>
