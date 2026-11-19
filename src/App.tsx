@@ -37,38 +37,40 @@ export const App: React.FC = () => {
       {/* Floating Audio Controller */}
       <AudioPlayer />
 
-      {/* Main Secret Flow Container (NO TOP NAVBAR) */}
-      <main className="relative z-10 flex-1 w-full overflow-y-auto px-4 py-8 flex flex-col items-center justify-center">
-        <AnimatePresence mode="wait">
-          {/* Stage 0: Amplop Rahasia untuk Lala */}
-          {currentPage === 0 && (
-            <WelcomeEnvelope onOpen={goToNext} />
-          )}
+      {/* Main Secret Flow Container (NO TOP NAVBAR, no flex justify-center clipping) */}
+      <main className="relative z-10 flex-1 w-full overflow-y-auto px-4 py-6 sm:py-8 flex flex-col items-center">
+        <div className="w-full my-auto flex flex-col items-center">
+          <AnimatePresence mode="wait">
+            {/* Stage 0: Amplop Rahasia untuk Lala */}
+            {currentPage === 0 && (
+              <WelcomeEnvelope onOpen={goToNext} />
+            )}
 
-          {/* Stages 1 to 5: 2024 - 2026 Authentic Relationship Timeline */}
-          {currentPage >= 1 && currentPage <= 5 && (
-            <StoryStepCard
-              key={currentPage}
-              stepData={STORY_STEPS[currentPage - 1]}
-              onNext={goToNext}
-            />
-          )}
+            {/* Stages 1 to 5: 2024 - 2026 Authentic Relationship Timeline */}
+            {currentPage >= 1 && currentPage <= 5 && (
+              <StoryStepCard
+                key={currentPage}
+                stepData={STORY_STEPS[currentPage - 1]}
+                onNext={goToNext}
+              />
+            )}
 
-          {/* Stage 6: Hal yang Mas Syukuri & Pelajaran Hidup dari Lala */}
-          {currentPage === 6 && (
-            <MemoryLane onContinue={goToNext} />
-          )}
+            {/* Stage 6: Hal yang Mas Syukuri & Pelajaran Hidup dari Lala */}
+            {currentPage === 6 && (
+              <MemoryLane onContinue={goToNext} />
+            )}
 
-          {/* Stage 7: Momen Ulang Tahun: Make a Wish & Tiup Lilin */}
-          {currentPage === 7 && (
-            <CakeSection onContinue={goToNext} />
-          )}
+            {/* Stage 7: Momen Ulang Tahun: Make a Wish & Tiup Lilin */}
+            {currentPage === 7 && (
+              <CakeSection onContinue={goToNext} />
+            )}
 
-          {/* Stage 8: Surat Tulus dari Mas & Harapan ke Depan */}
-          {currentPage === 8 && (
-            <LoveLetter onRestart={restartJourney} />
-          )}
-        </AnimatePresence>
+            {/* Stage 8: Surat Tulus dari Mas & Harapan ke Depan */}
+            {currentPage === 8 && (
+              <LoveLetter onRestart={restartJourney} />
+            )}
+          </AnimatePresence>
+        </div>
       </main>
 
       {/* Discreet Bottom Navigation (Back Button Only, No Spoilers) */}

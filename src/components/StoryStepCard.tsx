@@ -70,3 +70,4 @@ export const StoryStepCard: React.FC<StoryStepCardProps> = ({ stepData, onNext }
     </motion.div>
   );
 };
+

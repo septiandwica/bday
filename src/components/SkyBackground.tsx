@@ -47,3 +47,4 @@ export const SkyBackground: React.FC = () => {
     </div>
   );
 };
+
