@@ -45,7 +45,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onRestart }) => {
         </div>
 
         {/* Letter Header */}
-        <div className="mb-6">
+        <div className="mb-6 pr-24 sm:pr-32">
           <span className="text-xs uppercase tracking-widest text-[#0284c7] font-bold flex items-center gap-1.5">
             <Heart className="w-3.5 h-3.5 fill-[#0284c7]" />
             <span>Surat Tulus dari Mas</span>

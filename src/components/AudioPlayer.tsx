@@ -63,7 +63,7 @@ export const AudioPlayer: React.FC = () => {
               <Music className="w-2.5 h-2.5" />
               {isPlaying ? 'Musik Nyala' : 'Musik Latar'}
             </span>
-            <span className="text-xs font-bold text-slate-800 max-w-[140px] truncate">
+            <span className="text-xs font-bold text-slate-800 max-w-[90px] sm:max-w-[140px] truncate">
               {songTitle}
             </span>
           </div>

@@ -57,10 +57,10 @@ export const StoryStepCard: React.FC<StoryStepCardProps> = ({ stepData, onNext }
         </div>
 
         {/* Forward Next Action */}
-        <div className="mt-6 pt-4 border-t border-sky-100 flex justify-end">
+        <div className="mt-6 pt-4 border-t border-sky-100 flex justify-end w-full">
           <button
             onClick={onNext}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs sm:text-sm shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs sm:text-sm shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
           >
             <span>{stepData.nextButtonText}</span>
             <ArrowRight className="w-4 h-4" />
