@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Infinity as InfinityIcon, RotateCcw } from 'lucide-react';
+import { Heart, Infinity as InfinityIcon, RotateCcw, Camera, ArrowRight } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { triggerStarBurst, triggerGrandEnvelopeBurst } from '../utils/confetti';
 
@@ -12,9 +12,10 @@ interface FloatingHeart {
 
 interface LoveMeterGameProps {
   onRestart: () => void;
+  onGoToPhotoStudio?: () => void;
 }
 
-export const LoveMeterGame: React.FC<LoveMeterGameProps> = ({ onRestart }) => {
+export const LoveMeterGame: React.FC<LoveMeterGameProps> = ({ onRestart, onGoToPhotoStudio }) => {
   const [loveCount, setLoveCount] = useState(100);
   const [floatingHearts, setFloatingHearts] = useState<FloatingHeart[]>([]);
 
@@ -120,15 +121,26 @@ export const LoveMeterGame: React.FC<LoveMeterGameProps> = ({ onRestart }) => {
           "Terima kasih sudah meluangkan waktu buat baca ini, Lala. Selamat ulang tahun sekali lagi, semoga hari ini dan hari-hari ke depan selalu penuh senyum buat kamu."
         </div>
 
-        {/* Restart Button */}
-        <div className="pt-3 border-t border-sky-100 flex justify-center">
+        {/* Footer Actions: Switch to Photo Studio or Restart */}
+        <div className="pt-4 border-t border-sky-100 flex flex-col sm:flex-row items-center justify-between gap-3">
           <button
             onClick={onRestart}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border-2 border-sky-300 text-[#0284c7] hover:bg-sky-50 font-bold text-xs transition-all shadow-xs cursor-pointer hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-slate-400 hover:text-[#0284c7] font-bold text-xs transition-colors cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span>Mulai Lagi dari Amplop Awal</span>
+            <span>Mulai dari Amplop Awal</span>
           </button>
+
+          {onGoToPhotoStudio && (
+            <button
+              onClick={onGoToPhotoStudio}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border-2 border-sky-300 text-[#0284c7] hover:bg-sky-50 font-bold text-xs transition-all shadow-xs cursor-pointer hover:scale-105 active:scale-95"
+            >
+              <Camera className="w-3.5 h-3.5" />
+              <span>Buka Studio Foto Polaroid</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
       </motion.div>
     </section>

@@ -7,6 +7,7 @@ import { MemoryLane } from './components/MemoryLane';
 import { CakeSection } from './components/CakeSection';
 import { LoveLetter } from './components/LoveLetter';
 import { LoveMeterGame } from './components/LoveMeterGame';
+import { PhotoStudio } from './components/PhotoStudio';
 import { AudioPlayer } from './components/AudioPlayer';
 import { STORY_STEPS } from './data/story';
 import { sounds } from './utils/audio';
@@ -65,7 +66,7 @@ export const App: React.FC = () => {
               />
             )}
 
-            {/* Stage 6: Hal yang Mas Syukuri & Pelajaran Hidup dari Lala */}
+            {/* Stage 6: Hal yang Mas Syukuri & Galeri Foto Kita */}
             {currentPage === 6 && (
               <MemoryLane onContinue={goToNext} />
             )}
@@ -75,14 +76,28 @@ export const App: React.FC = () => {
               <CakeSection onContinue={goToNext} />
             )}
 
-            {/* Stage 8: Surat Tulus dari Mas & Harapan ke Depan */}
+            {/* Stage 8: Surat Tulus dari Mas & Kado Jatuh dari Langit */}
             {currentPage === 8 && (
-              <LoveLetter onContinue={goToNext} onRestart={restartJourney} />
+              <LoveLetter
+                onSelectChoice={(choice) => goToStage(choice === 'lovemeter' ? 9 : 10)}
+                onRestart={restartJourney}
+              />
             )}
 
-            {/* Stage 9: Love Meter Game (Paling Akhir) */}
+            {/* Stage 9: Love Meter Game */}
             {currentPage === 9 && (
-              <LoveMeterGame onRestart={restartJourney} />
+              <LoveMeterGame
+                onRestart={restartJourney}
+                onGoToPhotoStudio={() => goToStage(10)}
+              />
+            )}
+
+            {/* Stage 10: Polaroid Photo Studio Mini */}
+            {currentPage === 10 && (
+              <PhotoStudio
+                onRestart={restartJourney}
+                onGoToLoveMeter={() => goToStage(9)}
+              />
             )}
           </AnimatePresence>
         </div>
