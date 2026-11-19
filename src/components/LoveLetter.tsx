@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Send, RotateCcw, MapPin, ArrowRight, Gift, Camera, Download } from 'lucide-react';
 import { sounds } from '../utils/audio';
@@ -13,9 +13,22 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
   const [supportCount, setSupportCount] = useState(0);
   const [floatingHearts, setFloatingHearts] = useState<{ id: number; x: number }[]>([]);
   
+  // Timer state: Button drops from sky after 3.5 seconds
+  const [showSkyGiftButton, setShowSkyGiftButton] = useState(false);
+
   // Gift drop states
   const [isGiftDropping, setIsGiftDropping] = useState(false);
   const [isGiftOpened, setIsGiftOpened] = useState(false);
+
+  useEffect(() => {
+    // Exactly 3.5 seconds after page opens, button descends from the sky
+    const timer = setTimeout(() => {
+      setShowSkyGiftButton(true);
+      sounds.playChime(1.1);
+    }, 3500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSendSupport = (e: React.MouseEvent<HTMLButtonElement>) => {
     sounds.playHeartPop();
@@ -290,32 +303,36 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
               </div>
             </div>
 
-            {/* FLOATING INVITATION BUTTON DROPPING FROM SKY & HOVERING IN CENTER */}
-            <motion.div
-              initial={{ y: -350, opacity: 0, scale: 0.8 }}
-              animate={{
-                y: [0, -8, 0],
-                opacity: 1,
-                scale: 1,
-              }}
-              transition={{
-                y: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
-                opacity: { duration: 0.8, delay: 0.3 },
-                scale: { duration: 0.8, delay: 0.3 },
-              }}
-              className="mt-6 flex justify-center w-full"
-            >
-              <button
-                onClick={handleTriggerGift}
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white font-bold text-xs sm:text-sm shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer border-2 border-white group"
-              >
-                <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-                  <Gift className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                </div>
-                <span>Buka Kado Kejutan dari Langit</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </motion.div>
+            {/* FLOATING BUTTON DESCENDING FROM SKY AFTER 3-5 SECONDS ("Buka Kado Lain") */}
+            <AnimatePresence>
+              {showSkyGiftButton && (
+                <motion.div
+                  initial={{ y: -500, opacity: 0, scale: 0.7 }}
+                  animate={{
+                    y: [0, -8, 0],
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  transition={{
+                    y: { duration: 2.8, repeat: Infinity, ease: 'easeInOut' },
+                    opacity: { duration: 0.7, ease: 'easeOut' },
+                    scale: { duration: 0.7, ease: 'easeOut' },
+                  }}
+                  className="mt-6 flex justify-center w-full"
+                >
+                  <button
+                    onClick={handleTriggerGift}
+                    className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#0284c7] via-[#0369a1] to-[#0284c7] text-white font-bold text-xs sm:text-sm shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer border-2 border-white group"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                      <Gift className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                    </div>
+                    <span className="tracking-wide">Buka Kado Lain</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         ) : (
           
