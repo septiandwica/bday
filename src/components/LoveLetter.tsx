@@ -188,38 +188,38 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
   };
 
   return (
-    <section className="py-2 sm:py-4 px-3 sm:px-4 max-w-2xl mx-auto relative z-10 select-none pb-16">
+    <section className="py-2 sm:py-4 px-2 sm:px-4 w-full max-w-2xl mx-auto relative z-10 select-none pb-24">
       <AnimatePresence mode="wait">
         
         {/* VIEW 1: THE LETTER */}
         {!isGiftDropping ? (
           <motion.div
             key="letter-card"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: -40 }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
-            className="relative"
+            className="relative w-full"
           >
             {/* The Main Letter Card */}
-            <div className="bg-white/95 border-4 border-[#bae6fd] rounded-3xl p-4 sm:p-8 shadow-xl relative overflow-hidden">
+            <div className="bg-white/95 border-3 sm:border-4 border-[#bae6fd] rounded-2xl sm:rounded-3xl p-4 sm:p-7 shadow-xl relative overflow-hidden">
               
-              {/* Header: Title & LDR Stamp */}
-              <div className="flex flex-col-reverse sm:flex-row sm:items-start justify-between gap-3 mb-5">
+              {/* Header: Title & LDR Stamp (Side-by-side, compact & never clipped) */}
+              <div className="flex items-start justify-between gap-2 mb-4 sm:mb-5">
                 <div>
-                  <span className="text-xs uppercase tracking-widest text-[#0284c7] font-bold flex items-center gap-1.5">
-                    <Heart className="w-3.5 h-3.5 fill-[#0284c7]" />
+                  <span className="text-[10px] sm:text-xs uppercase tracking-wider text-[#0284c7] font-bold flex items-center gap-1.5">
+                    <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-[#0284c7]" />
                     <span>Surat Tulus dari Mas</span>
                   </span>
-                  <h2 className="text-xl sm:text-3xl font-extrabold text-[#0369a1] font-display mt-1">
+                  <h2 className="text-xl sm:text-3xl font-extrabold text-[#0369a1] font-display mt-0.5 leading-tight">
                     Untuk Lala Tersayang
                   </h2>
                 </div>
 
                 {/* LDR Stamp */}
-                <div className="self-start shrink-0 px-2.5 py-1 rounded-xl border-2 border-dashed border-[#38bdf8] flex items-center gap-1.5 text-center bg-[#f0f8ff]">
-                  <MapPin className="w-3.5 h-3.5 text-[#0284c7]" />
-                  <span className="text-[10px] sm:text-[11px] font-mono font-bold text-[#0369a1]">
+                <div className="shrink-0 px-2 py-1 rounded-xl border border-dashed border-[#38bdf8] flex items-center gap-1 text-center bg-[#f0f8ff]">
+                  <MapPin className="w-3 h-3 text-[#0284c7]" />
+                  <span className="text-[10px] sm:text-[11px] font-mono font-bold text-[#0369a1] whitespace-nowrap">
                     Cikarang &bull; Jakarta
                   </span>
                 </div>
