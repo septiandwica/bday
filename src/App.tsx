@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { SkyBackground } from './components/SkyBackground';
+import { CountdownGate } from './components/CountdownGate';
 import { WelcomeEnvelope } from './components/WelcomeEnvelope';
 import { StoryStepCard } from './components/StoryStepCard';
 import { MemoryLane } from './components/MemoryLane';
@@ -13,7 +14,8 @@ import { STORY_STEPS } from './data/story';
 import { sounds } from './utils/audio';
 
 export const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState(0);
+  // Start at -1 (Countdown Gate before midnight)
+  const [currentPage, setCurrentPage] = useState(-1);
 
   const goToNext = () => {
     sounds.playChime(1.0 + (currentPage * 0.05));
@@ -42,6 +44,11 @@ export const App: React.FC = () => {
       <main className="relative z-10 flex-1 w-full overflow-y-auto px-3 sm:px-4 py-4 sm:py-6 flex flex-col">
         <div className="w-full max-w-4xl mx-auto my-auto flex flex-col items-center justify-center py-2 sm:py-4">
           <AnimatePresence mode="wait">
+            {/* Stage -1: Countdown Gate Menuju 20 November 2026 */}
+            {currentPage === -1 && (
+              <CountdownGate onComplete={() => goToStage(0)} />
+            )}
+
             {/* Stage 0: Amplop Rahasia untuk Lala */}
             {currentPage === 0 && (
               <WelcomeEnvelope
