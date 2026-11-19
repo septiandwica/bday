@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, ArrowRight, Bookmark, Image as ImageIcon, Sparkles } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Heart, ArrowRight, Bookmark } from 'lucide-react';
 import { AnimeCharactersIllustration } from './AnimeCharactersIllustration';
 import { StoryChapter } from '../data/story';
 
@@ -10,8 +10,6 @@ interface StoryStepCardProps {
 }
 
 export const StoryStepCard: React.FC<StoryStepCardProps> = ({ stepData, onNext }) => {
-  const [viewMode, setViewMode] = useState<'photo' | 'illustration'>('photo');
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -41,73 +39,13 @@ export const StoryStepCard: React.FC<StoryStepCardProps> = ({ stepData, onNext }
           </div>
         </div>
 
-        {/* Title & View Mode Switcher */}
-        <div className="flex items-start justify-between gap-2 mb-2">
-          <h2 className="text-lg sm:text-2xl font-bold font-display text-[#0369a1] leading-tight">
-            {stepData.title}
-          </h2>
+        {/* Title */}
+        <h2 className="text-lg sm:text-2xl font-bold font-display text-[#0369a1] mb-2 leading-tight">
+          {stepData.title}
+        </h2>
 
-          {/* Mode Switcher: Photo (Default) & Cartoon Illustration */}
-          <div className="shrink-0 flex items-center bg-sky-100/70 p-0.5 rounded-lg text-[10px] font-bold text-slate-600">
-            <button
-              onClick={() => setViewMode('photo')}
-              className={`px-2 py-1 rounded-md transition-all cursor-pointer flex items-center gap-1 ${
-                viewMode === 'photo'
-                  ? 'bg-white text-[#0284c7] shadow-xs'
-                  : 'text-slate-500 hover:text-slate-800'
-              }`}
-              title="Lihat Foto Kenangan"
-            >
-              <ImageIcon className="w-3 h-3" />
-              <span>Foto</span>
-            </button>
-            <button
-              onClick={() => setViewMode('illustration')}
-              className={`px-2 py-1 rounded-md transition-all cursor-pointer flex items-center gap-1 ${
-                viewMode === 'illustration'
-                  ? 'bg-white text-[#0284c7] shadow-xs'
-                  : 'text-slate-500 hover:text-slate-800'
-              }`}
-              title="Lihat Ilustrasi Karakter"
-            >
-              <Sparkles className="w-3 h-3" />
-              <span>Kartun</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Media Box: Real Photo (Default) or 2 Birds Illustration */}
-        <div className="my-2.5">
-          <AnimatePresence mode="wait">
-            {viewMode === 'photo' ? (
-              <motion.div
-                key="photo"
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.25 }}
-                className="w-full h-56 sm:h-64 rounded-2xl overflow-hidden bg-slate-900/5 border-2 border-sky-200/80 shadow-xs flex items-center justify-center p-1.5"
-              >
-                <img
-                  src={stepData.image}
-                  alt={stepData.title}
-                  className="w-full h-full object-contain rounded-xl"
-                  loading="eager"
-                />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="illustration"
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.25 }}
-              >
-                <AnimeCharactersIllustration step={stepData.id} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+        {/* Illustration Artwork (2 Birds Chasing Dreams) */}
+        <AnimeCharactersIllustration step={stepData.id} />
 
         {/* Story Text Box */}
         <div className="mt-2 bg-[#f0f8ff] p-3.5 sm:p-5 rounded-2xl border border-sky-200">
