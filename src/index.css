@@ -3,8 +3,8 @@
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: #030712;
-    color: #f8fafc;
+    background-color: #f0f7ff;
+    color: #1e293b;
     overflow-x: hidden;
   }
 }
@@ -17,32 +17,22 @@
   font-family: 'Dancing Script', cursive;
 }
 
-/* Custom Animation Utilities */
+/* Cute Bright Keyframe Animations */
 @keyframes flame-flicker {
   0%, 100% {
-    transform: scale(1) rotate(-1deg);
+    transform: scale(1) rotate(-1.5deg);
     opacity: 0.95;
-    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.9)) drop-shadow(0 0 20px rgba(14, 165, 233, 0.7));
-  }
-  25% {
-    transform: scale(1.08, 0.95) rotate(2deg);
-    opacity: 1;
-    filter: drop-shadow(0 0 14px rgba(56, 189, 248, 1)) drop-shadow(0 0 28px rgba(59, 130, 246, 0.8));
+    filter: drop-shadow(0 0 6px #facc15) drop-shadow(0 0 12px #fb923c);
   }
   50% {
-    transform: scale(0.96, 1.05) rotate(-2deg);
-    opacity: 0.9;
-    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8)) drop-shadow(0 0 18px rgba(14, 165, 233, 0.6));
-  }
-  75% {
-    transform: scale(1.04, 1.02) rotate(1deg);
-    opacity: 0.98;
-    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.95)) drop-shadow(0 0 24px rgba(59, 130, 246, 0.75));
+    transform: scale(1.08, 0.95) rotate(2deg);
+    opacity: 1;
+    filter: drop-shadow(0 0 10px #facc15) drop-shadow(0 0 16px #f97316);
   }
 }
 
 .animate-flame {
-  animation: flame-flicker 1.2s infinite ease-in-out;
+  animation: flame-flicker 1s infinite ease-in-out;
 }
 
 @keyframes float-slow {
@@ -50,7 +40,7 @@
     transform: translateY(0px) rotate(0deg);
   }
   50% {
-    transform: translateY(-12px) rotate(2deg);
+    transform: translateY(-14px) rotate(2deg);
   }
 }
 
@@ -63,7 +53,7 @@
     transform: translateY(0px) rotate(0deg);
   }
   50% {
-    transform: translateY(-16px) rotate(-2deg);
+    transform: translateY(-18px) rotate(-2deg);
   }
 }
 
@@ -71,65 +61,71 @@
   animation: float-delayed 5s ease-in-out 1.5s infinite;
 }
 
-@keyframes pulse-glow {
+@keyframes cloud-drift {
+  0% {
+    transform: translateX(-10%);
+  }
+  50% {
+    transform: translateX(10%);
+  }
+  100% {
+    transform: translateX(-10%);
+  }
+}
+
+.animate-cloud {
+  animation: cloud-drift 22s ease-in-out infinite;
+}
+
+@keyframes balloon-sway {
   0%, 100% {
-    opacity: 0.4;
+    transform: translateY(0px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-24px) rotate(4deg);
+  }
+}
+
+.animate-balloon {
+  animation: balloon-sway 6s ease-in-out infinite;
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
     transform: scale(1);
   }
   50% {
-    opacity: 0.8;
-    transform: scale(1.08);
+    transform: scale(1.06);
   }
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 3s ease-in-out infinite;
+.animate-pulse-soft {
+  animation: pulse-soft 2.5s ease-in-out infinite;
 }
 
-@keyframes shooting-star {
-  0% {
-    transform: translateX(0) translateY(0) rotate(-45deg) scale(0);
-    opacity: 1;
-  }
-  70% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-350px) translateY(350px) rotate(-45deg) scale(1);
-    opacity: 0;
-  }
+/* Bright Clean Card Helpers (NO GRADIENTS, NO DARK TONES) */
+.bright-card {
+  background-color: #ffffff;
+  border: 2px solid #bae6fd;
+  box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.08), 0 8px 10px -6px rgba(2, 132, 199, 0.05);
 }
 
-.animate-shooting-star {
-  animation: shooting-star 2.5s linear infinite;
+.bright-card-hover:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 15px 35px -5px rgba(2, 132, 199, 0.15);
 }
 
-/* Glassmorphism custom helpers */
-.glass-panel {
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(56, 189, 248, 0.15);
-  box-shadow: 0 10px 40px -10px rgba(2, 132, 199, 0.15);
-}
-
-.glass-panel-hover:hover {
-  border-color: rgba(56, 189, 248, 0.4);
-  box-shadow: 0 12px 48px -8px rgba(14, 165, 233, 0.25);
-}
-
-/* Custom scrollbar */
+/* Custom Scrollbar - Bright Sky */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #030712;
+  background: #f0f7ff;
 }
 ::-webkit-scrollbar-thumb {
-  background: #0284c7;
+  background: #38bdf8;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #38bdf8;
+  background: #0284c7;
 }
-

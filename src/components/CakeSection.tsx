@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Wind, Flame, RotateCcw } from 'lucide-react';
+import { Sparkles, Wind, RotateCcw } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { triggerCandleConfetti } from '../utils/confetti';
 
@@ -35,7 +35,7 @@ export const CakeSection: React.FC = () => {
     setTimeout(() => {
       sounds.playFanfare();
       triggerCandleConfetti();
-    }, 400);
+    }, 350);
   };
 
   const relightCandles = () => {
@@ -53,22 +53,22 @@ export const CakeSection: React.FC = () => {
         viewport={{ once: true }}
         className="mb-12"
       >
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-400/20 text-sky-300 text-xs font-semibold mb-3">
+        <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border-2 border-sky-200 text-[#0284c7] text-xs font-bold mb-3 shadow-xs">
           <Sparkles className="w-3.5 h-3.5" />
-          Momen Spesial Ulang Tahun
+          Tiup Lilin Ulang Tahun
         </span>
-        <h2 className="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-100 via-sky-300 to-blue-200 font-display">
-          Tiup Lilin &amp; Make a Wish
+        <h2 className="text-3xl md:text-5xl font-extrabold text-[#0369a1] font-display">
+          Make a Wish, Najla!
         </h2>
-        <p className="text-slate-300 text-sm md:text-base mt-2 max-w-md mx-auto">
-          Pejamkan matamu, buat satu permohonan tulus dari hatimu, lalu tiup lilin birunya ya!
+        <p className="text-slate-600 text-sm md:text-base mt-2 max-w-md mx-auto">
+          Pejamkan mata, buat harapan terbaikmu dalam hati, lalu tiup lilinnya ya! 🎂
         </p>
       </motion.div>
 
-      {/* Interactive Birthday Cake Container */}
+      {/* Interactive Birthday Cake Container (Bright Pastel Blue & White, NO Gradients) */}
       <div className="relative mx-auto w-72 md:w-88 h-80 flex flex-col items-center justify-end pb-8">
-        {/* Glow under cake */}
-        <div className="absolute bottom-6 w-64 h-16 bg-sky-500/25 rounded-full blur-2xl pointer-events-none" />
+        {/* Soft shadow under cake */}
+        <div className="absolute bottom-6 w-60 h-10 bg-sky-200/80 rounded-full blur-md pointer-events-none" />
 
         {/* 3 Candles */}
         <div className="flex justify-center gap-8 mb-[-4px] relative z-20">
@@ -84,46 +84,48 @@ export const CakeSection: React.FC = () => {
                     className="relative w-5 h-8 flex items-center justify-center"
                     title="Klik untuk tiup lilin ini"
                   >
-                    {/* Flame tear-drop in sky blue/yellow core */}
-                    <div className="w-4 h-7 rounded-full bg-gradient-to-t from-sky-500 via-cyan-300 to-white animate-flame" />
+                    {/* Flame in bright yellow/orange */}
+                    <div className="w-4 h-7 rounded-full bg-[#facc15] border border-amber-400 animate-flame" />
                   </motion.div>
                 ) : (
                   <motion.div
                     initial={{ opacity: 0.8, y: 0 }}
                     animate={{ opacity: 0, y: -20, scale: 1.5 }}
-                    transition={{ duration: 1 }}
-                    className="w-2 h-4 text-slate-400 text-[10px]"
+                    transition={{ duration: 0.9 }}
+                    className="w-2 h-4 text-slate-400 text-xs"
                   >
                     💨
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              {/* Candle Body (Striped Blue/Silver) */}
-              <div className="w-4 h-12 rounded-t-sm bg-gradient-to-b from-sky-200 via-blue-400 to-sky-600 shadow-md relative overflow-hidden">
-                <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(255,255,255,0.4)_4px,rgba(255,255,255,0.4)_8px)]" />
+              {/* Candle Body (Bright Solid Blue & White Stripes) */}
+              <div className="w-4 h-12 rounded-t-sm bg-[#38bdf8] border-2 border-white shadow-sm relative overflow-hidden">
+                <div className="w-full h-2 bg-white mt-1" />
+                <div className="w-full h-2 bg-white mt-2" />
               </div>
             </div>
           ))}
         </div>
 
-        {/* Top Cake Tier (Frosting & Sprinkles) */}
-        <div className="w-48 h-16 bg-gradient-to-r from-sky-400 via-sky-300 to-blue-400 rounded-2xl shadow-lg relative z-10 border-t-2 border-white/40 flex items-center justify-center overflow-hidden">
+        {/* Top Cake Tier (Solid Bright Sky Blue) */}
+        <div className="w-48 h-16 bg-[#7dd3fc] rounded-2xl shadow-md relative z-10 border-4 border-white flex items-center justify-center overflow-hidden">
           {/* Frosting Drips */}
           <div className="absolute -top-1 inset-x-0 flex justify-around">
-            <span className="w-5 h-4 bg-white/70 rounded-full" />
-            <span className="w-6 h-5 bg-white/70 rounded-full" />
-            <span className="w-5 h-4 bg-white/70 rounded-full" />
-            <span className="w-6 h-5 bg-white/70 rounded-full" />
+            <span className="w-5 h-4 bg-white rounded-full shadow-xs" />
+            <span className="w-6 h-5 bg-white rounded-full shadow-xs" />
+            <span className="w-5 h-4 bg-white rounded-full shadow-xs" />
+            <span className="w-6 h-5 bg-white rounded-full shadow-xs" />
           </div>
-          <span className="text-xs font-handwriting text-2xl text-sky-950 font-bold tracking-wider">Najla</span>
+          <span className="text-xs font-handwriting text-2xl text-[#0369a1] font-bold tracking-wider relative z-10">
+            Najla
+          </span>
         </div>
 
-        {/* Bottom Cake Tier */}
-        <div className="w-64 h-24 bg-gradient-to-r from-sky-600 via-blue-500 to-sky-700 rounded-2xl shadow-2xl relative border-t-2 border-sky-300/40 flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.25),transparent_60%)]" />
-          {/* Decorative frosting ribbon */}
-          <div className="w-full h-3 bg-white/30 backdrop-blur-xs flex items-center justify-around px-4">
+        {/* Bottom Cake Tier (Solid Bright Vibrant Blue) */}
+        <div className="w-64 h-24 bg-[#38bdf8] rounded-2xl shadow-lg relative border-4 border-white flex items-center justify-center overflow-hidden">
+          {/* Decorative white pearl line */}
+          <div className="w-full h-3 bg-white/70 flex items-center justify-around px-4">
             <span className="w-2 h-2 rounded-full bg-white shadow-xs" />
             <span className="w-2 h-2 rounded-full bg-white shadow-xs" />
             <span className="w-2 h-2 rounded-full bg-white shadow-xs" />
@@ -132,9 +134,9 @@ export const CakeSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Cake Stand Plate */}
-        <div className="w-72 h-4 bg-gradient-to-r from-slate-300 via-white to-slate-300 rounded-full shadow-xl border-t border-white" />
-        <div className="w-24 h-5 bg-gradient-to-b from-slate-400 to-slate-600 rounded-b-xl shadow-md" />
+        {/* Cake Stand Plate (Clean White) */}
+        <div className="w-72 h-4 bg-white rounded-full shadow-md border-2 border-sky-200" />
+        <div className="w-24 h-5 bg-[#bae6fd] rounded-b-xl shadow-xs border-2 border-white" />
       </div>
 
       {/* Interactive Controls */}
@@ -142,7 +144,7 @@ export const CakeSection: React.FC = () => {
         {!allCandlesOut ? (
           <button
             onClick={blowAllCandles}
-            className="px-6 py-3 rounded-2xl bg-gradient-to-r from-sky-500 via-blue-600 to-sky-600 text-white font-bold text-sm shadow-lg shadow-sky-500/30 hover:shadow-sky-500/50 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
+            className="px-6 py-3.5 rounded-2xl bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-sm shadow-md hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
           >
             <Wind className="w-4 h-4 animate-pulse" />
             <span>Tiup Semua Lilin Sekarang! 🎂</span>
@@ -150,7 +152,7 @@ export const CakeSection: React.FC = () => {
         ) : (
           <button
             onClick={relightCandles}
-            className="px-5 py-2.5 rounded-2xl glass-panel text-sky-300 hover:text-white font-semibold text-xs transition-all flex items-center gap-2 cursor-pointer hover:border-sky-400/50"
+            className="px-5 py-2.5 rounded-2xl bg-white text-[#0284c7] border-2 border-sky-300 hover:bg-sky-50 font-bold text-xs transition-all flex items-center gap-2 cursor-pointer shadow-sm"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Nyalakan Lilin Lagi</span>
@@ -158,26 +160,22 @@ export const CakeSection: React.FC = () => {
         )}
       </div>
 
-      {/* Birthday Wish Card Reveal */}
+      {/* Birthday Wish Card Reveal (Bright Clean White, Solid Sky Border) */}
       <AnimatePresence>
         {hasMadeWish && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="mt-10 p-6 md:p-8 rounded-3xl glass-panel border border-sky-400/40 max-w-xl mx-auto shadow-2xl relative overflow-hidden"
+            className="mt-10 p-6 md:p-8 rounded-3xl bg-white border-2 border-[#38bdf8] max-w-xl mx-auto shadow-xl relative overflow-hidden"
           >
-            <div className="absolute top-0 right-0 p-8 text-sky-400/10 pointer-events-none">
-              <Flame className="w-24 h-24" />
-            </div>
-
             <div className="relative z-10 text-center">
-              <span className="text-3xl mb-2 inline-block">🎉💙✨</span>
-              <h3 className="text-xl md:text-2xl font-bold font-display text-sky-200 mb-2">
-                Permohonanmu Telah Dikirim ke Bintang-Bintang!
+              <span className="text-4xl mb-2 inline-block">🎉💙✨</span>
+              <h3 className="text-2xl font-bold font-display text-[#0369a1] mb-2">
+                Harapanmu Telah Terkabul!
               </h3>
-              <p className="text-slate-200 text-sm md:text-base leading-relaxed font-light">
-                Selamat bertambah usia, <span className="font-semibold text-sky-300">Najla</span>. Semoga panjang umur, sehat selalu, dimudahkan segala langkah dan urusanmu, serta selalu dilingkupi kebahagiaan yang melimpah ruah.
+              <p className="text-slate-700 text-sm md:text-base leading-relaxed font-normal">
+                Selamat bertambah usia, <span className="font-bold text-[#0284c7]">Najla</span>! Semoga panjang umur, sehat dan ceria selalu, dimudahkan segala langkah dan urusanmu, serta selalu dilingkupi kebahagiaan yang melimpah ruah.
               </p>
             </div>
           </motion.div>
@@ -186,4 +184,3 @@ export const CakeSection: React.FC = () => {
     </section>
   );
 };
-

@@ -15,8 +15,8 @@ export const App: React.FC = () => {
   const [hasOpenedEnvelope, setHasOpenedEnvelope] = useState(false);
 
   return (
-    <div className="relative min-h-screen text-slate-100 selection:bg-sky-500 selection:text-white">
-      {/* Dynamic Starlight Cosmic Blue Background */}
+    <div className="relative min-h-screen text-slate-800 selection:bg-sky-400 selection:text-white">
+      {/* Bright Sky Blue Background with Floating Clouds & Balloons */}
       <CosmicBackground />
 
       {/* Floating Audio Player */}
@@ -29,39 +29,39 @@ export const App: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
           >
             <WelcomeEnvelope onOpen={() => setHasOpenedEnvelope(true)} />
           </motion.div>
         ) : (
           <motion.main
             key="celebration-view"
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: 'easeOut' }}
+            transition={{ duration: 0.9, ease: 'easeOut' }}
             className="relative z-10"
           >
-            {/* Grand Hero Section */}
+            {/* Grand Hero Section (Bright Sky Blue, Solid Colors, NO Dark Gradients) */}
             <header className="pt-24 pb-16 px-4 text-center max-w-4xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-950/80 border border-sky-400/30 text-sky-300 text-xs font-semibold mb-6 shadow-lg shadow-sky-950/50"
+                transition={{ delay: 0.15 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border-2 border-sky-200 text-[#0284c7] text-xs font-bold mb-6 shadow-sm"
               >
-                <Sparkles className="w-4 h-4 text-sky-400 animate-spin" style={{ animationDuration: '6s' }} />
+                <Sparkles className="w-4 h-4 text-[#0284c7]" />
                 <span>Happy Birthday Special Celebration</span>
-                <Heart className="w-3.5 h-3.5 fill-sky-400 text-sky-300" />
+                <Heart className="w-3.5 h-3.5 fill-[#0284c7] text-[#0284c7]" />
               </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-100 via-sky-300 to-blue-300 font-display tracking-tight leading-tight"
+                transition={{ delay: 0.3 }}
+                className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-[#0369a1] font-display tracking-tight leading-tight"
               >
                 Selamat Ulang Tahun, <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-300 to-blue-400 font-handwriting text-5xl sm:text-7xl md:text-8xl block mt-2">
+                <span className="text-[#0284c7] font-handwriting text-5xl sm:text-7xl md:text-8xl block mt-2">
                   Najla Cantik 💙
                 </span>
               </motion.h1>
@@ -69,10 +69,10 @@ export const App: React.FC = () => {
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="text-slate-200 text-base md:text-lg font-light mt-6 max-w-xl mx-auto leading-relaxed"
+                transition={{ delay: 0.45 }}
+                className="text-slate-600 text-base md:text-lg font-normal mt-6 max-w-xl mx-auto leading-relaxed"
               >
-                Hari ini adalah harimu! Semoga hari-harimu selalu seindah warna biru favoritmu, dipenuhi tawa, cinta, dan ketenangan yang tak pernah pudar.
+                Hari ini adalah hari istimewamu! Semoga hari-harimu selalu seindah dan secerah warna biru langit favoritmu, dipenuhi tawa ceria, cinta, dan kebahagiaan yang melimpah.
               </motion.p>
             </header>
 
@@ -101,4 +101,3 @@ export const App: React.FC = () => {
 };
 
 export default App;
-

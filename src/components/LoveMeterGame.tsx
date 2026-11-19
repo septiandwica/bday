@@ -22,7 +22,7 @@ export const LoveMeterGame: React.FC = () => {
     const newHeart: FloatingHeart = {
       id: Date.now() + Math.random(),
       x: x + (Math.random() * 40 - 20),
-      size: Math.random() * 16 + 18,
+      size: Math.random() * 16 + 20,
     };
 
     setFloatingHearts((prev) => [...prev.slice(-15), newHeart]);
@@ -47,16 +47,16 @@ export const LoveMeterGame: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="glass-panel border border-sky-400/30 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden"
+        className="bg-white border-4 border-[#bae6fd] rounded-3xl p-6 md:p-10 shadow-xl relative overflow-hidden"
       >
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-400/20 text-sky-300 text-xs font-semibold mb-3">
+        <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border-2 border-sky-200 text-[#0284c7] text-xs font-bold mb-3 shadow-xs">
           <Sparkles className="w-3.5 h-3.5" />
           Mini Game Interaktif
         </span>
-        <h2 className="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-100 via-sky-300 to-blue-200 font-display">
+        <h2 className="text-2xl md:text-3xl font-extrabold text-[#0369a1] font-display">
           Love Meter untuk Najla
         </h2>
-        <p className="text-slate-300 text-xs md:text-sm mt-1 max-w-sm mx-auto">
+        <p className="text-slate-600 text-xs md:text-sm mt-1 max-w-sm mx-auto">
           Klik tombol hati biru di bawah untuk mengisi energi cinta tanpa batas!
         </p>
 
@@ -71,7 +71,7 @@ export const LoveMeterGame: React.FC = () => {
                 animate={{ opacity: 0, y: -160, scale: 1.4 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1.2, ease: 'easeOut' }}
-                className="absolute pointer-events-none text-sky-400"
+                className="absolute pointer-events-none select-none"
                 style={{ fontSize: `${h.size}px` }}
               >
                 💙
@@ -79,17 +79,17 @@ export const LoveMeterGame: React.FC = () => {
             ))}
           </AnimatePresence>
 
-          {/* Interactive Heart Button */}
+          {/* Interactive Heart Button (Bright Blue & White) */}
           <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
             onClick={handleHeartClick}
-            className="w-32 h-32 rounded-full bg-gradient-to-tr from-blue-700 via-sky-500 to-cyan-400 p-1 shadow-2xl shadow-sky-500/40 flex items-center justify-center cursor-pointer group relative"
+            className="w-32 h-32 rounded-full bg-[#38bdf8] border-4 border-white shadow-xl flex items-center justify-center cursor-pointer group relative"
           >
-            <div className="w-full h-full rounded-full bg-slate-950/80 flex items-center justify-center group-hover:bg-slate-950/60 transition-colors">
-              <Heart className="w-16 h-16 text-sky-400 fill-sky-400 group-hover:scale-110 transition-transform drop-shadow-[0_0_15px_rgba(56,189,248,0.8)]" />
+            <div className="w-full h-full rounded-full bg-white flex items-center justify-center group-hover:bg-sky-50 transition-colors">
+              <Heart className="w-16 h-16 text-[#0284c7] fill-[#0284c7] group-hover:scale-110 transition-transform" />
             </div>
-            <span className="absolute -bottom-2 px-3 py-1 rounded-full bg-sky-950 text-[10px] font-bold text-sky-300 border border-sky-400/40 shadow-xs">
+            <span className="absolute -bottom-2 px-3 py-1 rounded-full bg-[#0284c7] text-[10px] font-bold text-white shadow-sm border-2 border-white">
               Klik Aku!
             </span>
           </motion.button>
@@ -97,11 +97,11 @@ export const LoveMeterGame: React.FC = () => {
 
         {/* Counter Display */}
         <div className="space-y-2">
-          <div className="text-3xl md:text-4xl font-black font-mono text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-blue-200 to-white flex items-center justify-center gap-1">
+          <div className="text-3xl md:text-4xl font-black font-mono text-[#0369a1] flex items-center justify-center gap-1">
             <span>{loveCount}%</span>
-            {loveCount >= 500 && <InfinityIcon className="w-7 h-7 text-sky-400 animate-pulse ml-1" />}
+            {loveCount >= 500 && <InfinityIcon className="w-8 h-8 text-[#0284c7] animate-pulse ml-1" />}
           </div>
-          <p className="text-xs text-sky-200 font-medium">
+          <p className="text-xs text-[#0284c7] font-bold">
             {getLoveStatusMessage()}
           </p>
         </div>
@@ -109,4 +109,3 @@ export const LoveMeterGame: React.FC = () => {
     </section>
   );
 };
-
