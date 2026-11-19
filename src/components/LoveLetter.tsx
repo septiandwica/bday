@@ -24,7 +24,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
     // Exactly 3.5 seconds after page opens, button descends from the sky
     const timer = setTimeout(() => {
       setShowSkyGiftButton(true);
-      sounds.playChime(1.1);
+      sounds.playChime(1.15);
     }, 3500);
 
     return () => clearTimeout(timer);
@@ -48,7 +48,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
   };
 
   const handleTriggerGift = () => {
-    sounds.playChime(1.15);
+    sounds.playChime(1.2);
     setIsGiftDropping(true);
   };
 
@@ -188,7 +188,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
   };
 
   return (
-    <section className="py-2 sm:py-4 px-3 sm:px-4 max-w-2xl mx-auto relative z-10 select-none">
+    <section className="py-2 sm:py-4 px-3 sm:px-4 max-w-2xl mx-auto relative z-10 select-none pb-16">
       <AnimatePresence mode="wait">
         
         {/* VIEW 1: THE LETTER */}
@@ -303,11 +303,11 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
               </div>
             </div>
 
-            {/* FLOATING BUTTON DESCENDING FROM SKY AFTER 3-5 SECONDS ("Buka Kado Lain") */}
+            {/* FLOATING BUTTON DESCENDING FROM SKY OVER THE LETTER ("Rayakan Lebih Meriah") */}
             <AnimatePresence>
               {showSkyGiftButton && (
                 <motion.div
-                  initial={{ y: -500, opacity: 0, scale: 0.7 }}
+                  initial={{ y: -800, opacity: 0, scale: 0.5 }}
                   animate={{
                     y: [0, -8, 0],
                     opacity: 1,
@@ -318,16 +318,16 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
                     opacity: { duration: 0.7, ease: 'easeOut' },
                     scale: { duration: 0.7, ease: 'easeOut' },
                   }}
-                  className="mt-6 flex justify-center w-full"
+                  className="fixed inset-x-0 bottom-6 sm:bottom-10 z-50 flex justify-center pointer-events-none px-4"
                 >
                   <button
                     onClick={handleTriggerGift}
-                    className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#0284c7] via-[#0369a1] to-[#0284c7] text-white font-bold text-xs sm:text-sm shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer border-2 border-white group"
+                    className="pointer-events-auto inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#0284c7] via-[#0369a1] to-[#0284c7] text-white font-bold text-xs sm:text-sm shadow-2xl hover:shadow-sky-400/50 hover:scale-108 active:scale-95 transition-all cursor-pointer border-2 border-white ring-4 ring-sky-300/40 group"
                   >
-                    <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                    <div className="w-6 h-6 rounded-full bg-white/25 flex items-center justify-center">
                       <Gift className="w-4 h-4 group-hover:rotate-12 transition-transform" />
                     </div>
-                    <span className="tracking-wide">Buka Kado Lain</span>
+                    <span className="tracking-wide">Rayakan Lebih Meriah</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
                   </button>
                 </motion.div>
@@ -426,7 +426,7 @@ export const LoveLetter: React.FC<LoveLetterProps> = ({ onSelectChoice, onRestar
                           Photo Studio Mini
                         </h4>
                         <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                          Foto polaroid ulang tahun dengan stiker estetik & filter.
+                          Foto polaroid ulang tahun dengan tema estetik ke-21.
                         </p>
                       </div>
 

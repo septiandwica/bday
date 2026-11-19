@@ -289,7 +289,7 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
   }, []);
 
   return (
-    <section className="py-2 sm:py-4 px-3 sm:px-4 max-w-xl mx-auto text-center relative z-10 select-none">
+    <section className="py-2 sm:py-4 px-3 sm:px-4 max-w-xl mx-auto text-center relative z-10 select-none pb-20">
       {/* Flash overlay */}
       {isFlashing && (
         <div className="fixed inset-0 bg-white z-50 pointer-events-none animate-pulse" />
@@ -299,28 +299,28 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-4"
+        className="mb-3 sm:mb-4"
       >
-        <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/95 border-2 border-sky-200 text-[#0284c7] text-xs font-bold mb-2 shadow-xs">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 border-2 border-sky-200 text-[#0284c7] text-[11px] font-bold mb-1.5 shadow-xs">
           <Camera className="w-3.5 h-3.5" />
           <span>Spesial Ulang Tahun ke-21</span>
         </span>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0369a1] font-display">
+        <h2 className="text-xl sm:text-3xl font-extrabold text-[#0369a1] font-display leading-tight">
           Polaroid Studio Lala
         </h2>
-        <p className="text-slate-600 text-xs sm:text-sm mt-0.5 max-w-md mx-auto">
+        <p className="text-slate-600 text-[11px] sm:text-xs mt-0.5 max-w-md mx-auto">
           20 November 2005 &bull; 21 Tahun Spesial
         </p>
       </motion.div>
 
-      {/* ELEGANT POLAROID FRAME (PROPER & COHESIVE) */}
+      {/* ELEGANT POLAROID FRAME (PROPER, COMPACT & FULLY RESPONSIVE) */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className={`relative mx-auto w-full max-w-[320px] sm:max-w-[350px] rounded-3xl p-4 sm:p-5 shadow-2xl border-4 transition-all duration-300 flex flex-col items-center ${selectedTheme.frameBg} ${selectedTheme.frameBorder}`}
+        className={`relative mx-auto w-full max-w-[280px] sm:max-w-[325px] rounded-3xl p-3.5 sm:p-4 shadow-xl border-3 sm:border-4 transition-all duration-300 flex flex-col items-center ${selectedTheme.frameBg} ${selectedTheme.frameBorder}`}
       >
         {/* Photo Container */}
-        <div className="w-full aspect-square bg-[#f0f9ff] rounded-2xl overflow-hidden relative border-2 border-sky-100 flex items-center justify-center">
+        <div className="w-full aspect-square max-h-[240px] sm:max-h-[280px] bg-[#f0f9ff] rounded-2xl overflow-hidden relative border-2 border-sky-100 flex items-center justify-center">
           
           {/* Active Camera Live View */}
           {isCameraActive && (
@@ -334,9 +334,9 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
               />
               <button
                 onClick={takeSnapshot}
-                className="absolute bottom-3 left-1/2 transform -translate-x-1/2 px-5 py-2 rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs shadow-lg flex items-center gap-2 cursor-pointer active:scale-95 transition-all z-20"
+                className="absolute bottom-2.5 left-1/2 transform -translate-x-1/2 px-4 py-1.5 rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs shadow-lg flex items-center gap-1.5 cursor-pointer active:scale-95 transition-all z-20"
               >
-                <Camera className="w-4 h-4" />
+                <Camera className="w-3.5 h-3.5" />
                 <span>Jepret Foto</span>
               </button>
             </div>
@@ -353,8 +353,8 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
               />
 
               {/* 21st Birthday Emblem Badge */}
-              <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/95 shadow-md border border-sky-200 flex items-center gap-1">
-                <span className="text-[10px] font-mono font-extrabold text-[#0284c7]">
+              <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-white/95 shadow-md border border-sky-200 flex items-center gap-1">
+                <span className="text-[9px] font-mono font-extrabold text-[#0284c7]">
                   {selectedTheme.badgeText}
                 </span>
               </div>
@@ -363,24 +363,24 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
 
           {/* Prompt when empty */}
           {!isCameraActive && !photoUrl && (
-            <div className="p-5 text-center flex flex-col items-center justify-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-sky-100 flex items-center justify-center text-[#0284c7]">
-                <Camera className="w-6 h-6" />
+            <div className="p-4 text-center flex flex-col items-center justify-center gap-2.5">
+              <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center text-[#0284c7]">
+                <Camera className="w-5 h-5" />
               </div>
-              <p className="text-xs text-slate-600 font-medium max-w-[200px]">
+              <p className="text-[11px] text-slate-600 font-medium max-w-[180px] leading-tight">
                 Buka kamera selfie atau pilih foto dari galeri
               </p>
-              <div className="flex flex-col gap-2 w-full max-w-[200px]">
+              <div className="flex flex-col gap-1.5 w-full max-w-[180px]">
                 <button
                   onClick={startCamera}
-                  className="w-full py-2 px-3 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="w-full py-1.5 px-2.5 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-[11px] shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <Camera className="w-3.5 h-3.5" />
-                  <span>Buka Kamera Selfie</span>
+                  <span>Buka Kamera</span>
                 </button>
-                <label className="w-full py-2 px-3 rounded-xl bg-white border-2 border-sky-300 text-[#0284c7] hover:bg-sky-50 font-bold text-xs shadow-xs flex items-center justify-center gap-1.5 cursor-pointer transition-colors">
+                <label className="w-full py-1.5 px-2.5 rounded-xl bg-white border-2 border-sky-300 text-[#0284c7] hover:bg-sky-50 font-bold text-[11px] shadow-xs flex items-center justify-center gap-1.5 cursor-pointer transition-colors">
                   <Upload className="w-3.5 h-3.5" />
-                  <span>Upload dari Galeri</span>
+                  <span>Upload Foto</span>
                   <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
                 </label>
               </div>
@@ -389,15 +389,15 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
         </div>
 
         {/* Polaroid Chin */}
-        <div className="w-full pt-4 pb-2 px-2 text-center">
+        <div className="w-full pt-3 pb-1 px-1 text-center">
           <input
             type="text"
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
-            className="w-full text-center font-handwriting text-2xl sm:text-3xl text-[#0284c7] font-bold bg-transparent border-b border-transparent hover:border-sky-200 focus:border-[#38bdf8] focus:outline-none transition-colors"
+            className="w-full text-center font-handwriting text-xl sm:text-2xl text-[#0284c7] font-bold bg-transparent border-b border-transparent hover:border-sky-200 focus:border-[#38bdf8] focus:outline-none transition-colors"
             placeholder="Happy 21st Birthday Lala"
           />
-          <p className="text-[10px] sm:text-[11px] font-mono text-slate-400 mt-1 uppercase tracking-wider">
+          <p className="text-[9px] sm:text-[10px] font-mono text-slate-400 mt-0.5 uppercase tracking-wider">
             20 November 2005 &bull; 21 Tahun Spesial
           </p>
         </div>
