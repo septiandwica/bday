@@ -213,13 +213,11 @@ export const CakeSection: React.FC<CakeSectionProps> = ({ onContinue }) => {
         )}
       </div>
 
-      {/* CLEAN & COHESIVE BIRTHDAY CAKE */}
+      {/* SEAMLESS UNIFIED BIRTHDAY CAKE (NO DIVIDING BORDERS) */}
       <div className="relative mx-auto w-full max-w-[280px] sm:max-w-[340px] flex flex-col items-center justify-end pb-2">
-        {/* Soft Base Shadow */}
-        <div className="absolute bottom-1 w-56 sm:w-68 h-5 bg-sky-200/50 rounded-full blur-xs pointer-events-none" />
-
-        {/* 3 CANDLES */}
-        <div className="flex justify-center gap-7 sm:gap-9 mb-[-3px] relative z-30">
+        
+        {/* 3 CANDLES ON TOP */}
+        <div className="flex justify-center gap-7 sm:gap-9 mb-[-8px] relative z-30">
           {[0, 1, 2].map((idx) => {
             const isLit = candlesLit[idx];
             return (
@@ -249,7 +247,7 @@ export const CakeSection: React.FC<CakeSectionProps> = ({ onContinue }) => {
                         className="relative w-4 h-6 sm:h-7 flex items-center justify-center"
                       >
                         <div className="absolute inset-0 rounded-full bg-amber-400 blur-[2px] opacity-75" />
-                        <div className="relative w-3 h-5 sm:h-6 rounded-full bg-gradient-to-t from-amber-500 via-amber-300 to-yellow-100 border border-amber-300" />
+                        <div className="relative w-3 h-5 sm:h-6 rounded-full bg-gradient-to-t from-amber-500 via-amber-300 to-yellow-100" />
                         <div className="absolute bottom-0.5 w-1 h-1.5 rounded-full bg-sky-400 opacity-60" />
                       </motion.div>
                     ) : (
@@ -269,8 +267,8 @@ export const CakeSection: React.FC<CakeSectionProps> = ({ onContinue }) => {
                 {/* Wick */}
                 <div className="w-0.5 h-1.5 bg-slate-700" />
 
-                {/* Candle Stick */}
-                <div className="w-3.5 sm:w-4 h-10 sm:h-12 rounded-t-sm bg-[#38bdf8] border border-white shadow-xs relative overflow-hidden">
+                {/* Candle Stick (Clean, borderless) */}
+                <div className="w-3.5 sm:w-4 h-10 sm:h-12 rounded-t-sm bg-[#38bdf8] shadow-xs relative overflow-hidden">
                   <div className="w-full h-1 bg-white transform -rotate-12 mt-1.5 scale-125" />
                   <div className="w-full h-1 bg-white transform -rotate-12 mt-2 scale-125" />
                 </div>
@@ -279,48 +277,103 @@ export const CakeSection: React.FC<CakeSectionProps> = ({ onContinue }) => {
           })}
         </div>
 
-        {/* COHESIVE TIERED CAKE BODY */}
-        <div className="relative flex flex-col items-center w-full z-20">
-          
-          {/* TOP TIER: Soft Cream with Lala script */}
-          <div className="w-36 sm:w-44 h-14 sm:h-16 bg-white rounded-t-2xl border-x-4 border-t-4 border-sky-100 shadow-sm flex items-center justify-center relative overflow-hidden z-20">
-            {/* Soft Drips on bottom edge */}
-            <div className="absolute -bottom-1 inset-x-0 flex justify-around">
-              <span className="w-3 h-2 bg-white rounded-b-full shadow-xs" />
-              <span className="w-4 h-3 bg-white rounded-b-full shadow-xs" />
-              <span className="w-3 h-2 bg-white rounded-b-full shadow-xs" />
-              <span className="w-4 h-3 bg-white rounded-b-full shadow-xs" />
-            </div>
+        {/* PURE SEAMLESS SVG CAKE (ZERO DIVIDING BORDERS) */}
+        <div className="w-full relative z-20">
+          <svg
+            viewBox="0 0 320 200"
+            className="w-full h-auto drop-shadow-md select-none"
+          >
+            {/* Soft Shadow under plate */}
+            <ellipse cx="160" cy="192" rx="125" ry="8" fill="#bae6fd" opacity="0.4" />
 
-            <span className="font-handwriting text-2xl sm:text-3xl text-[#0284c7] font-bold tracking-wider relative z-10">
+            {/* Seamless Porcelain Plate */}
+            <ellipse cx="160" cy="186" rx="130" ry="10" fill="#ffffff" />
+            <ellipse cx="160" cy="185" rx="122" ry="7" fill="#f0f9ff" />
+
+            {/* Cake Base Layer (Bottom Tier - Soft Pastel Sky Blue) */}
+            <path
+              d="M 55,116 
+                 L 265,116 
+                 C 265,116 265,176 265,176 
+                 C 265,182 258,184 250,184 
+                 L 70,184 
+                 C 62,184 55,182 55,176 
+                 Z"
+              fill="#7dd3fc"
+            />
+
+            {/* Bottom Tier Subtle Frosting Band (Flows organically) */}
+            <ellipse cx="160" cy="178" rx="90" ry="2" fill="#ffffff" opacity="0.4" />
+
+            {/* Center Happy Birthday script on bottom tier */}
+            <text
+              x="160"
+              y="155"
+              textAnchor="middle"
+              fill="#ffffff"
+              fontFamily="'Plus Jakarta Sans', sans-serif"
+              fontSize="12"
+              fontWeight="bold"
+              letterSpacing="3"
+              opacity="0.95"
+            >
+              HAPPY BIRTHDAY
+            </text>
+
+            {/* Top Tier (Pastel Soft Blue) */}
+            <path
+              d="M 92,54 
+                 L 228,54 
+                 C 228,54 228,118 228,118 
+                 L 92,118 
+                 Z"
+              fill="#bae6fd"
+            />
+
+            {/* Seamless Whipped Cream Melting between Top & Bottom Tier (Unifies the layers!) */}
+            <path
+              d="M 92,116 
+                 Q 106,128 120,116 
+                 Q 134,130 148,116 
+                 Q 160,132 172,116 
+                 Q 186,130 200,116 
+                 Q 214,128 228,116 
+                 L 228,114 
+                 L 92,114 
+                 Z"
+              fill="#ffffff"
+            />
+
+            {/* Lala Handwritten Script on Top Tier */}
+            <text
+              x="160"
+              y="94"
+              textAnchor="middle"
+              fill="#0284c7"
+              fontFamily="'Dancing Script', cursive"
+              fontSize="32"
+              fontWeight="bold"
+            >
               Lala
-            </span>
-          </div>
+            </text>
 
-          {/* CREAM CONNECTOR (Unifies top & bottom layer seamlessly) */}
-          <div className="w-40 sm:w-50 h-2 bg-white border-x-2 border-sky-100 z-15 shadow-2xs" />
-
-          {/* BOTTOM TIER: Harmonious Pastel Sky Blue */}
-          <div className="w-54 sm:w-66 h-18 sm:h-22 bg-[#7dd3fc] rounded-b-2xl border-4 border-white shadow-md flex items-center justify-center relative overflow-hidden z-10">
-            {/* Clean White Frosting Crest */}
-            <div className="absolute top-0 inset-x-0 h-2 bg-white/70" />
-            
-            {/* Center Gentle Accent */}
-            <div className="flex items-center gap-2 text-white/90">
-              <span className="w-1.5 h-1.5 rounded-full bg-white" />
-              <span className="font-mono text-[10px] sm:text-xs font-bold tracking-widest uppercase text-[#0369a1]">
-                Happy Birthday
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-white" />
-            </div>
-
-            {/* Bottom Frosting Line */}
-            <div className="absolute bottom-0 inset-x-0 h-1.5 bg-white/60" />
-          </div>
+            {/* Top Whipped Cream Frosting Crown (Organic Bezier Drips) */}
+            <path
+              d="M 92,56 
+                 Q 106,68 120,56 
+                 Q 134,70 148,56 
+                 Q 160,72 172,56 
+                 Q 186,70 200,56 
+                 Q 214,68 228,56 
+                 L 228,52 
+                 C 228,49 222,48 214,48 
+                 L 106,48 
+                 C 98,48 92,49 92,52 
+                 Z"
+              fill="#ffffff"
+            />
+          </svg>
         </div>
-
-        {/* CLEAN MINIMAL PLATE STAND */}
-        <div className="w-62 sm:w-76 h-3 bg-white rounded-full border border-sky-200 shadow-md relative z-10 mt-[-2px]" />
       </div>
 
       {/* Action Controls */}
