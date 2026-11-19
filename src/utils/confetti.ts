@@ -5,8 +5,8 @@ const BLUE_PALETTE = ['#0284c7', '#38bdf8', '#7dd3fc', '#bae6fd', '#3b82f6', '#9
 
 export function triggerStarBurst() {
   confetti({
-    particleCount: 80,
-    spread: 90,
+    particleCount: 90,
+    spread: 100,
     origin: { y: 0.6 },
     colors: BLUE_PALETTE,
     shapes: ['star', 'circle'],
@@ -14,6 +14,46 @@ export function triggerStarBurst() {
     gravity: 0.7,
     scalar: 1.2,
   });
+}
+
+export function triggerGrandEnvelopeBurst() {
+  // Center fountain
+  confetti({
+    particleCount: 70,
+    spread: 80,
+    origin: { y: 0.65 },
+    colors: BLUE_PALETTE,
+    shapes: ['star', 'circle'],
+    ticks: 220,
+    gravity: 0.65,
+    scalar: 1.3,
+  });
+
+  // Left side cannon
+  setTimeout(() => {
+    confetti({
+      particleCount: 50,
+      angle: 60,
+      spread: 60,
+      origin: { x: 0.15, y: 0.7 },
+      colors: BLUE_PALETTE,
+      ticks: 200,
+      scalar: 1.1,
+    });
+  }, 120);
+
+  // Right side cannon
+  setTimeout(() => {
+    confetti({
+      particleCount: 50,
+      angle: 120,
+      spread: 60,
+      origin: { x: 0.85, y: 0.7 },
+      colors: BLUE_PALETTE,
+      ticks: 200,
+      scalar: 1.1,
+    });
+  }, 180);
 }
 
 export function triggerCandleConfetti() {
@@ -60,4 +100,3 @@ export function triggerHeartRain() {
     colors: BLUE_PALETTE,
   });
 }
-

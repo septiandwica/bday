@@ -19,6 +19,11 @@ export const App: React.FC = () => {
     setCurrentPage((prev) => prev + 1);
   };
 
+  const goToStage = (stage: number) => {
+    sounds.playChime(1.05);
+    setCurrentPage(stage);
+  };
+
   const goToPrev = () => {
     sounds.playChime(0.95);
     setCurrentPage((prev) => Math.max(0, prev - 1));
@@ -43,7 +48,11 @@ export const App: React.FC = () => {
           <AnimatePresence mode="wait">
             {/* Stage 0: Amplop Rahasia untuk Lala */}
             {currentPage === 0 && (
-              <WelcomeEnvelope onOpen={goToNext} />
+              <WelcomeEnvelope
+                onOpen={(targetStage) =>
+                  typeof targetStage === 'number' ? goToStage(targetStage) : goToNext()
+                }
+              />
             )}
 
             {/* Stages 1 to 5: 2024 - 2026 Authentic Relationship Timeline */}
