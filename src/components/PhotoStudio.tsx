@@ -87,7 +87,6 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
   const [selectedTheme, setSelectedTheme] = useState<CuratedTheme>(THEMES[0]);
   const [customFilter, setCustomFilter] = useState<string>('none');
   const [activeTab, setActiveTab] = useState<'theme' | 'filter'>('theme');
-  const [caption, setCaption] = useState('Happy 21st Birthday Lala');
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
   const [isFlashing, setIsFlashing] = useState(false);
@@ -256,21 +255,12 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
       ctx.fillText(selectedTheme.badgeText, badgeX, badgeY);
       ctx.restore();
 
-      // Top Tag on Chin
+      // Only Happy 21st Birthday Lala in Latin cursive script
       ctx.fillStyle = '#0284c7';
-      ctx.font = 'bold 20px "Plus Jakarta Sans", sans-serif';
+      ctx.font = 'bold 52px "Dancing Script", cursive, serif';
       ctx.textAlign = 'center';
-      ctx.fillText("LALA'S 21ST BIRTHDAY", width / 2, margin + photoSize + 48);
-
-      // Handwritten cursive caption
-      ctx.fillStyle = '#0369a1';
-      ctx.font = 'bold 44px "Dancing Script", cursive, serif';
-      ctx.fillText(caption, width / 2, margin + photoSize + 115);
-
-      // Subtitle with Birthdate
-      ctx.fillStyle = '#64748b';
-      ctx.font = '500 19px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText('20 November 2005 • Menapaki 21 Tahun Penuh Cahaya', width / 2, margin + photoSize + 162);
+      ctx.textBaseline = 'middle';
+      ctx.fillText('Happy 21st Birthday Lala', width / 2, margin + photoSize + 140);
 
       // Trigger download
       const link = document.createElement('a');
@@ -388,17 +378,13 @@ export const PhotoStudio: React.FC<PhotoStudioProps> = ({ onGoToLoveMeter, onRes
           )}
         </div>
 
-        {/* Polaroid Chin */}
-        <div className="w-full pt-3 pb-1 px-1 text-center">
-          <input
-            type="text"
-            value={caption}
-            onChange={(e) => setCaption(e.target.value)}
-            className="w-full text-center font-handwriting text-xl sm:text-2xl text-[#0284c7] font-bold bg-transparent border-b border-transparent hover:border-sky-200 focus:border-[#38bdf8] focus:outline-none transition-colors"
-            placeholder="Happy 21st Birthday Lala"
-          />
-          <p className="text-[9px] sm:text-[10px] font-mono text-slate-400 mt-0.5 uppercase tracking-wider">
-            20 November 2005 &bull; 21 Tahun Spesial
+        {/* Polaroid Chin - Only Latin Cursive Text */}
+        <div className="w-full pt-3.5 pb-2 px-2 text-center flex items-center justify-center">
+          <p
+            className="w-full text-center font-handwriting text-2xl sm:text-3xl text-[#0284c7] font-bold select-none leading-relaxed"
+            style={{ fontFamily: "'Dancing Script', cursive" }}
+          >
+            Happy 21st Birthday Lala
           </p>
         </div>
       </motion.div>
