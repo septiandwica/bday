@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Music, Volume2, VolumeX, Sparkles, Upload } from 'lucide-react';
+import { Music, Volume2, VolumeX, Upload } from 'lucide-react';
 import { sounds } from '../utils/audio';
 
 export const AudioPlayer: React.FC = () => {
@@ -60,7 +60,7 @@ export const AudioPlayer: React.FC = () => {
           {/* Song Info & Controls */}
           <div className="flex flex-col text-left">
             <span className="text-[10px] uppercase font-bold tracking-wider text-[#0284c7] flex items-center gap-1">
-              <Sparkles className="w-2.5 h-2.5" />
+              <Music className="w-2.5 h-2.5" />
               {isPlaying ? 'Musik Nyala' : 'Musik Latar'}
             </span>
             <span className="text-xs font-bold text-slate-800 max-w-[140px] truncate">

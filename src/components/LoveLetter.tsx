@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Sparkles, Send } from 'lucide-react';
+import { Heart, Send } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { triggerHeartRain } from '../utils/confetti';
 
@@ -33,7 +33,7 @@ export const LoveLetter: React.FC = () => {
         {/* Letter Header */}
         <div className="mb-8">
           <span className="text-xs uppercase tracking-widest text-[#0284c7] font-bold flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5" />
+            <Heart className="w-3.5 h-3.5 fill-[#0284c7]" />
             Sebuah Surat Tulus
           </span>
           <h2 className="text-2xl md:text-4xl font-extrabold text-[#0369a1] font-display mt-1">
@@ -44,16 +44,16 @@ export const LoveLetter: React.FC = () => {
         {/* Letter Body (Dark Slate Text on Clean White Background) */}
         <div className="space-y-4 text-slate-700 text-sm md:text-base leading-relaxed font-normal">
           <p>
-            Hari ini adalah salah satu hari paling membahagiakan, bukan hanya untukmu, tapi juga untukku. Karena di hari inilah, seseorang yang begitu luar biasa, cantik, dan tulus dilahirkan ke dunia.
+            Hari ini adalah hari yang sangat spesial. Aku ingin berterima kasih banyak sekali ke kamu, Najla. Terima kasih sudah hadir dalam hidupku sejak pertemuan kita di 2023. Terima kasih sudah melengkapi sifatku yang awalnya pendiam dengan energimu yang aktif dan hangat.
           </p>
           <p>
-            Terima kasih ya sudah selalu menjadi pelangi di hari-hariku yang mendung. Terima kasih sudah mengajarkanku arti kenyamanan, kehangatan, dan ketulusan. Warna biru yang kamu sukai adalah cerminan dari hatimu sendiri: tenang, dalam, menyejukkan, dan seluas samudra.
+            Buku <span className="font-semibold text-[#0284c7]">"I Have a Crush on You"</span> yang pernah kamu kasih ke aku selalu jadi pengingat betapa berharganya kamu. Dari momen confess yang sempat digantung di ultahmu 2024, perjuangan merintis usaha bersama, begadang menyelesaikan satu kelompok Tugas Akhir S1, hingga kita resmi bersama setelah Capstone Defense di Agustus 2025—semuanya adalah bagian terindah dari hidupku.
           </p>
           <p>
-            Di usiamu yang baru ini, aku berdoa agar Najla selalu diberikan kesehatan, kelapangan hati, rezeki yang berkah, dan keberanian untuk mengejar setiap impian yang kamu dambakan. Apapun yang terjadi di masa depan, ingat ya, aku akan selalu ada di sampingmu untuk bangga, mendukung, dan memegang tanganmu.
+            Harapanku banyak banget untuk kamu di usia yang baru ini. Tapi yang paling utama: <span className="font-bold text-[#0369a1]">aku pengen selalu men-support apa pun yang pengen kamu lakukan, mengejar semua impian dan cita-citamu</span>. Kamu tidak perlu khawatir melangkah, karena aku akan selalu ada di sampingmu untuk mendukung dan memegang tanganmu.
           </p>
           <p className="pt-2 font-bold text-[#0284c7]">
-            Selamat ulang tahun, cintaku. Semoga hari ini dan selamanya kamu selalu bahagia! 💙
+            Selamat ulang tahun, Najla tersayang. Terima kasih banyak ya sudah ada untukku. Aku sayang banget sama kamu! 💙
           </p>
         </div>
 

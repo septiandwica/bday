@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles, Infinity as InfinityIcon } from 'lucide-react';
+import { Heart, Infinity as InfinityIcon } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { triggerStarBurst } from '../utils/confetti';
 
@@ -37,7 +37,7 @@ export const LoveMeterGame: React.FC = () => {
   const getLoveStatusMessage = () => {
     if (loveCount < 200) return 'Cinta yang tulus dan murni untuk Najla 💙';
     if (loveCount < 500) return 'Makin cinta, makin sayang tanpa batas! 🥰';
-    if (loveCount < 1000) return 'Kapasitas cinta meluber ke seluruh alam semesta! 🚀✨';
+    if (loveCount < 1000) return 'Kapasitas cinta meluber ke seluruh langit biru! 🚀💙';
     return 'Kadar cinta Infinity: Selamanya hanya untukmu! 💙♾️';
   };
 
@@ -50,7 +50,7 @@ export const LoveMeterGame: React.FC = () => {
         className="bg-white border-4 border-[#bae6fd] rounded-3xl p-6 md:p-10 shadow-xl relative overflow-hidden"
       >
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border-2 border-sky-200 text-[#0284c7] text-xs font-bold mb-3 shadow-xs">
-          <Sparkles className="w-3.5 h-3.5" />
+          <Heart className="w-3.5 h-3.5 fill-[#0284c7]" />
           Mini Game Interaktif
         </span>
         <h2 className="text-2xl md:text-3xl font-extrabold text-[#0369a1] font-display">

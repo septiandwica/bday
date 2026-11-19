@@ -1,22 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShinkaiSky } from './components/ShinkaiSky';
-import { AnimeCharactersIllustration } from './components/AnimeCharactersIllustration';
-import { AnimatedCake } from './components/AnimatedCake';
+import { WelcomeEnvelope } from './components/WelcomeEnvelope';
+import { StoryBook } from './components/StoryBook';
+import { MemoryLane } from './components/MemoryLane';
+import { StarWishesJar } from './components/StarWishesJar';
+import { CakeSection } from './components/CakeSection';
+import { LoveLetter } from './components/LoveLetter';
+import { LoveMeterGame } from './components/LoveMeterGame';
 import { AudioPlayer } from './components/AudioPlayer';
-import { STORY_CHAPTERS } from './data/story';
 import { sounds } from './utils/audio';
-import { ChevronLeft, ChevronRight, RotateCcw } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RotateCcw, Heart, BookOpen, Camera, Star, Cake, Mail } from 'lucide-react';
+
+interface PageMeta {
+  id: number;
+  shortTitle: string;
+  badge: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const PAGES: PageMeta[] = [
+  { id: 0, shortTitle: "Amplop", badge: "SURAT DARI HATIKU", icon: Mail },
+  { id: 1, shortTitle: "Kisah Kita", badge: "I HAVE A CRUSH ON YOU", icon: BookOpen },
+  { id: 2, shortTitle: "Kenangan", badge: "LEMBARAN MEMOAR", icon: Camera },
+  { id: 3, shortTitle: "Bintang", badge: "ALASAN ISTIMEWA", icon: Star },
+  { id: 4, shortTitle: "Tiup Lilin", badge: "MAKE A WISH", icon: Cake },
+  { id: 5, shortTitle: "Surat Tulus", badge: "PESAN & KOMITMEN", icon: Heart },
+  { id: 6, shortTitle: "Love Meter", badge: "PELUK TAK TERHINGGA", icon: Heart },
+];
 
 export const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const totalPages = STORY_CHAPTERS.length;
-  const currentChapter = STORY_CHAPTERS[currentPage];
 
   // Keyboard Navigation (Arrow Left / Arrow Right)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === ' ') {
+      if (e.key === 'ArrowRight') {
         goToNext();
       } else if (e.key === 'ArrowLeft') {
         goToPrev();
@@ -27,7 +46,7 @@ export const App: React.FC = () => {
   }, [currentPage]);
 
   const goToNext = () => {
-    if (currentPage < totalPages - 1) {
+    if (currentPage < PAGES.length - 1) {
       sounds.playChime(1.0 + (currentPage * 0.05));
       setCurrentPage((prev) => prev + 1);
     }
@@ -41,102 +60,137 @@ export const App: React.FC = () => {
   };
 
   const goToPage = (pageIndex: number) => {
-    sounds.playChime(1.0);
+    sounds.playChime(1.0 + (pageIndex * 0.04));
     setCurrentPage(pageIndex);
   };
 
+  const currentMeta = PAGES[currentPage];
+
   return (
     <div className="relative w-screen h-screen overflow-hidden flex flex-col justify-between text-slate-800 select-none">
-      {/* Makoto Shinkai Clear Sky Animation Background */}
+      {/* Makoto Shinkai Clear Daytime Sky Animation Background (Zero Dark Gradients) */}
       <ShinkaiSky
         timeOfDay={
-          currentPage === 2 ? 'golden' : currentPage === 4 ? 'twilight' : 'day'
+          currentPage === 4 ? 'twilight' : currentPage === 5 ? 'golden' : 'day'
         }
       />
 
       {/* Floating Audio Controller */}
       <AudioPlayer />
 
-      {/* Top Header Bar */}
-      <header className="relative z-20 w-full px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <span className="text-xs font-mono font-bold tracking-widest text-[#0284c7] bg-white/90 px-3 py-1 rounded-full border-2 border-sky-200 shadow-xs">
-            NAJLA'S STORY &bull; {currentChapter.year}
-          </span>
+      {/* Top Header Navigation Bar */}
+      <header className="relative z-20 w-full px-4 sm:px-8 py-3 flex items-center justify-between border-b-2 border-sky-100 bg-white/90 backdrop-blur-md shadow-xs">
+        {/* Left: Brand / Title */}
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-full bg-[#0284c7] flex items-center justify-center text-white shadow-xs">
+            <Heart className="w-4 h-4 fill-white" />
+          </div>
+          <div>
+            <span className="text-xs sm:text-sm font-extrabold text-[#0369a1] font-display tracking-tight block leading-tight">
+              Untuk Najla Tersayang
+            </span>
+            <span className="text-[10px] font-mono font-bold text-[#0284c7] uppercase tracking-wider block">
+              {currentMeta.badge}
+            </span>
+          </div>
         </div>
 
-        {/* Story Progress Dots */}
-        <div className="flex items-center gap-1.5 bg-white/80 px-3 py-1.5 rounded-full border border-sky-200 backdrop-blur-xs">
-          {STORY_CHAPTERS.map((ch, idx) => (
-            <button
-              key={ch.id}
-              onClick={() => goToPage(idx)}
-              className={`h-2 rounded-full transition-all cursor-pointer ${
-                currentPage === idx
-                  ? 'w-6 bg-[#0284c7]'
-                  : 'w-2 bg-sky-200 hover:bg-sky-400'
-              }`}
-              title={`Bab ${idx}: ${ch.title}`}
-            />
-          ))}
+        {/* Center: Story Progress Dots & Chapter Pills */}
+        <div className="hidden md:flex items-center gap-1.5 bg-sky-50 px-3 py-1.5 rounded-full border border-sky-200">
+          {PAGES.map((page, idx) => {
+            const Icon = page.icon;
+            const isActive = currentPage === idx;
+            return (
+              <button
+                key={page.id}
+                onClick={() => goToPage(idx)}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                  isActive
+                    ? 'bg-[#0284c7] text-white shadow-xs'
+                    : 'text-slate-600 hover:text-[#0284c7] hover:bg-sky-100'
+                }`}
+                title={`Bab ${idx + 1}: ${page.shortTitle}`}
+              >
+                <Icon className="w-3 h-3" />
+                <span className="text-[11px]">{page.shortTitle}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Mobile Page Indicator */}
+        <div className="flex md:hidden items-center gap-1 bg-sky-50 px-3 py-1 rounded-full border border-sky-200 text-xs font-bold text-[#0284c7] font-mono">
+          <span>{currentPage + 1}</span>
+          <span className="text-slate-400">/</span>
+          <span>{PAGES.length}</span>
         </div>
       </header>
 
-      {/* Main Page Slide View (No Scroll - Pure Cinematic Viewport) */}
-      <main className="relative z-10 flex-1 w-full max-w-4xl mx-auto px-6 flex flex-col items-center justify-center">
+      {/* Main Page Container (Scrollable per page if needed, centered content) */}
+      <main className="relative z-10 flex-1 w-full overflow-y-auto px-4 py-4 flex flex-col items-center justify-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentPage}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="w-full flex flex-col items-center text-center my-auto"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
+            className="w-full max-w-5xl mx-auto flex flex-col items-center my-auto py-4"
           >
-            {/* Chapter Badge */}
-            <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#0369a1] bg-[#e0f2fe] border-2 border-sky-200 px-3 py-0.5 rounded-md mb-2">
-              Chapter {currentChapter.chapterNumber}
-            </span>
+            {currentPage === 0 && (
+              <WelcomeEnvelope onOpen={() => goToNext()} />
+            )}
 
-            {/* Chapter Title */}
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#0369a1] font-display tracking-tight leading-tight mb-1">
-              {currentChapter.title}
-            </h1>
-            <p className="text-xs sm:text-sm font-medium text-slate-500 mb-4 font-mono">
-              {currentChapter.subtitle}
-            </p>
-
-            {/* Anime Illustration Artwork for this Chapter */}
-            {currentPage < 5 ? (
-              <AnimeCharactersIllustration chapter={currentPage} />
-            ) : (
-              <div className="my-2">
-                <AnimatedCake />
+            {currentPage === 1 && (
+              <div className="w-full">
+                <StoryBook />
               </div>
             )}
 
-            {/* Story Paragraphs Card (Clean White, Solid Sky Border, NO Dark Gradients) */}
-            <div className="mt-4 max-w-xl w-full bg-white/95 border-2 border-[#bae6fd] rounded-2xl p-5 shadow-sm text-left backdrop-blur-xs">
-              <div className="space-y-2 text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
-                {currentChapter.paragraphs.map((p, pIdx) => (
-                  <p key={pIdx}>{p}</p>
-                ))}
+            {currentPage === 2 && (
+              <div className="w-full">
+                <MemoryLane />
               </div>
+            )}
 
-              {currentChapter.quote && (
-                <div className="mt-3 pt-3 border-t-2 border-[#bae6fd]">
-                  <p className="text-xs sm:text-sm font-handwriting text-xl text-[#0284c7] font-bold italic">
-                    "{currentChapter.quote}"
-                  </p>
+            {currentPage === 3 && (
+              <div className="w-full">
+                <StarWishesJar />
+              </div>
+            )}
+
+            {currentPage === 4 && (
+              <div className="w-full">
+                <CakeSection />
+              </div>
+            )}
+
+            {currentPage === 5 && (
+              <div className="w-full">
+                <LoveLetter />
+              </div>
+            )}
+
+            {currentPage === 6 && (
+              <div className="w-full flex flex-col items-center">
+                <LoveMeterGame />
+                <div className="mt-6">
+                  <button
+                    onClick={() => goToPage(0)}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border-2 border-sky-300 text-[#0284c7] hover:bg-sky-50 font-bold text-xs transition-all shadow-sm cursor-pointer hover:scale-105 active:scale-95"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                    <span>Mulai Membaca Kembali dari Awal</span>
+                  </button>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
       </main>
 
       {/* Bottom Navigation Bar */}
-      <footer className="relative z-20 w-full px-6 py-4 flex items-center justify-between border-t-2 border-sky-200 bg-white/80 backdrop-blur-xs">
+      <footer className="relative z-20 w-full px-4 sm:px-8 py-3 flex items-center justify-between border-t-2 border-sky-100 bg-white/90 backdrop-blur-md shadow-xs">
         {/* Previous Button */}
         <button
           onClick={goToPrev}
@@ -148,30 +202,35 @@ export const App: React.FC = () => {
           }`}
         >
           <ChevronLeft className="w-4 h-4" />
-          <span>Sebelumnya</span>
+          <span className="hidden sm:inline">Sebelumnya</span>
         </button>
 
-        {/* Current Chapter Indicator */}
-        <span className="text-xs font-mono font-bold text-slate-500 hidden sm:inline-block">
-          Halaman {currentPage + 1} dari {totalPages}
-        </span>
+        {/* Center Progress Info */}
+        <div className="flex flex-col items-center">
+          <span className="text-[11px] font-mono font-bold text-[#0369a1]">
+            Bab {currentPage + 1} dari {PAGES.length}
+          </span>
+          <span className="text-[10px] text-slate-500 font-medium hidden sm:inline">
+            Gunakan tombol panah &larr; &rarr; di keyboard
+          </span>
+        </div>
 
-        {/* Next / Replay Button */}
-        {currentPage < totalPages - 1 ? (
+        {/* Next / Finish Button */}
+        {currentPage < PAGES.length - 1 ? (
           <button
             onClick={goToNext}
-            className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#0284c7] hover:bg-[#0369a1] shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-5 py-2 rounded-xl text-xs font-bold bg-[#0284c7] hover:bg-[#0369a1] text-white transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer"
           >
-            <span>Lanjutkan Cerita</span>
+            <span>Lanjut: {PAGES[currentPage + 1].shortTitle}</span>
             <ChevronRight className="w-4 h-4" />
           </button>
         ) : (
           <button
             onClick={() => goToPage(0)}
-            className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#0284c7] hover:bg-[#0369a1] shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-5 py-2 rounded-xl text-xs font-bold bg-[#0284c7] hover:bg-[#0369a1] text-white transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer"
           >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span>Baca Ulang Cerita</span>
+            <RotateCcw className="w-4 h-4" />
+            <span>Mulai dari Awal</span>
           </button>
         )}
       </footer>

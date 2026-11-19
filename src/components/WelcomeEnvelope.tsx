@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles, MailOpen } from 'lucide-react';
+import { Heart, MailOpen } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { triggerStarBurst } from '../utils/confetti';
 
@@ -33,7 +33,7 @@ export const WelcomeEnvelope: React.FC<WelcomeEnvelopeProps> = ({ onOpen }) => {
         💙
       </div>
       <div className="absolute top-36 right-16 md:right-40 text-2xl animate-float">
-        ✨
+        ☁️
       </div>
 
       <motion.div
@@ -49,7 +49,7 @@ export const WelcomeEnvelope: React.FC<WelcomeEnvelopeProps> = ({ onOpen }) => {
           transition={{ delay: 0.2 }}
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border-2 border-[#bae6fd] text-[#0284c7] text-xs font-bold mb-6 shadow-sm"
         >
-          <Sparkles className="w-3.5 h-3.5 text-[#0284c7]" />
+          <Heart className="w-3.5 h-3.5 fill-[#0284c7] text-[#0284c7]" />
           <span>Sebuah Kejutan Spesial Ulang Tahun</span>
         </motion.div>
 

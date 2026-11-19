@@ -137,3 +137,4 @@ export const AnimatedCake: React.FC<AnimatedCakeProps> = ({ onWishDone }) => {
     </div>
   );
 };
+

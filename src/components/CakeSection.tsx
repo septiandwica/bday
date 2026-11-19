@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Wind, RotateCcw } from 'lucide-react';
+import { Wind, RotateCcw, Heart } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { triggerCandleConfetti } from '../utils/confetti';
 
@@ -54,7 +54,7 @@ export const CakeSection: React.FC = () => {
         className="mb-12"
       >
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border-2 border-sky-200 text-[#0284c7] text-xs font-bold mb-3 shadow-xs">
-          <Sparkles className="w-3.5 h-3.5" />
+          <Heart className="w-3.5 h-3.5 fill-[#0284c7]" />
           Tiup Lilin Ulang Tahun
         </span>
         <h2 className="text-3xl md:text-5xl font-extrabold text-[#0369a1] font-display">
@@ -170,7 +170,7 @@ export const CakeSection: React.FC = () => {
             className="mt-10 p-6 md:p-8 rounded-3xl bg-white border-2 border-[#38bdf8] max-w-xl mx-auto shadow-xl relative overflow-hidden"
           >
             <div className="relative z-10 text-center">
-              <span className="text-4xl mb-2 inline-block">🎉💙✨</span>
+              <span className="text-4xl mb-2 inline-block">🎉💙🎂</span>
               <h3 className="text-2xl font-bold font-display text-[#0369a1] mb-2">
                 Harapanmu Telah Terkabul!
               </h3>

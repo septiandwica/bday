@@ -94,3 +94,4 @@ export const ShinkaiSky: React.FC<ShinkaiSkyProps> = ({ timeOfDay = 'day' }) => 
     </div>
   );
 };
+

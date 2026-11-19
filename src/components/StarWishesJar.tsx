@@ -83,7 +83,7 @@ export const StarWishesJar: React.FC = () => {
                 Bintang #{star.id}
               </span>
               <span className="text-[10px] text-slate-500 font-medium mt-1">
-                {isOpened ? 'Terbuka ✨' : 'Sentuh Buka'}
+                {isOpened ? 'Terbuka 💙' : 'Sentuh Buka'}
               </span>
             </motion.button>
           );

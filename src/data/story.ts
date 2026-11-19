@@ -87,3 +87,4 @@ export const STORY_CHAPTERS: StoryChapter[] = [
     quote: "Selamat bertambah usia, Najla tercinta. Tiup lilin ini dan mari melangkah bersama selamanya. 💙",
   },
 ];
+

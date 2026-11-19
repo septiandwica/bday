@@ -283,3 +283,4 @@ export const AnimeCharactersIllustration: React.FC<IllustrationProps> = ({ chapt
     </div>
   );
 };
+
